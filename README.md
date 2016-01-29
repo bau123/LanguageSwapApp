@@ -13,10 +13,10 @@ What needs to be done:
 -	Tbc
 
 
-Pair 1: Tautvilas & Alan 
-Pair 2: Juri & Bau 
-Pair 3: Adil & Ibhrahim 
-Pair 4: Ruben & Joss
+- Pair 1: Tautvilas & Alan 
+- Pair 2: Juri & Bau
+- Pair 3: Adil & Ibhrahim 
+- Pair 4: Ruben & Joss
 
 
 
