@@ -11,37 +11,36 @@ What needs to be done:
 -	Emails when should be sent a confirmation email 
 -	Reward system (badges/stars)
 
-
-- Pair 1: Tautvilas & Alan
-- Pair 2: Juri & Bau
-- Pair 3: Adil & Ibhrahim
-- Pair 4: Ruben & Joss
-
+#Pair 1: Tautvilas & Alan
+#Pair 2: Juri & Bau
+#Pair 3: Adil & Ibhrahim
+#Pair 4: Ruben & Joss
 
 
 
 
 
-Current Requirements
-Tandem App model for KCL students only – must be able to check KCL emails against database
-Location based – available on KCL campuses using geolocation (query)
-Native to one or more mobile platform(s) and a server
-Ability for student to set a profile – including badges/points, name, age, course, language known etc.
-Ability for student to schedule availability for language exchange.
-Allow students to set a location for meeting and exchange.
-Allow students to exchange via video conference as an alternative
-Allow students to chat via a messaging service (query), perhaps include ability to form groups
-In terms of protecting students from abuse – possibly have a chat filter, ability to block someone, ability to report someone, perhaps a button to alert king’s campus security (extra requirements only if necessary)
+
+#Current Requirements
+- Tandem App model for KCL students only – must be able to check KCL emails against database
+- Location based – available on KCL campuses using geolocation (query)
+- Native to one or more mobile platform(s) and a server
+- Ability for student to set a profile – including badges/points, name, age, course, language known etc.
+- Ability for student to schedule availability for language exchange.
+- Allow students to set a location for meeting and exchange.
+- Allow students to exchange via video conference as an alternative
+- Allow students to chat via a messaging service (query), perhaps include ability to form groups
+- In terms of protecting students from abuse – possibly have a chat filter, ability to block someone, ability to report someone, perhaps a button to alert king’s campus security (extra requirements only if necessary)
 
 
 
 
 
-Project 4: Tandem learning app 
+#Project 4: Tandem learning app 
 
 Client: Cecilia Trevino, Modern Language Centre, King's College London
 
-Project brief: The Modern Language Centre would like you to develop a location based and social discovery application for language exchange. The application will consist of a client app native to one or more mobile platform(s) and a server.  The system will allow students to find KCL native speakers for language exchange on KCL campuses using geolocation. 
+- Project brief: The Modern Language Centre would like you to develop a location based and social discovery application for language exchange. The application will consist of a client app native to one or more mobile platform(s) and a server.  The system will allow students to find KCL native speakers for language exchange on KCL campuses using geolocation. 
 
 The application can follow the model of Tandem app or Versify with the unique selling point of being exclusive for KCL students.
 
