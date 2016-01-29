@@ -14,7 +14,7 @@ What needs to be done:
 
 Pair 1: Tautvilas & Alan  
 Pair 2: Ruben & Joss  
-Pair 3: Adil & Ibhrahim 
+Pair 3: Adil & Ibhrahim
 Pair 4: Juri & Bau  
 
 
