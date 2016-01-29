@@ -10,6 +10,7 @@ What needs to be done:
 -	Possibly a forum board – to meet in groups
 -	Emails when should be sent a confirmation email 
 -	Reward system (badges/stars)
+-	Video chat system
 
 #Pair 1: Tautvilas & Alan
 #Pair 2: Juri & Bau
