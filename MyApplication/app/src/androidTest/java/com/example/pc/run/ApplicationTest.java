@@ -1,4 +1,4 @@
-package com.example.bau1.tandemapp;
+package com.example.pc.run;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

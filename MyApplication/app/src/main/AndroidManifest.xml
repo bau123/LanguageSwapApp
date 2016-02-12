@@ -1,20 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bau1.tandemapp" >
+    package="com.example.pc.run" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- START Added for GCM -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.example.pc.run.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
+
+    <!-- END Added for GCM -->
     <application
+        android:name=".SharedPref.ApplicationSingleton"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Gcm.RegistrationIntentService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Gcm.TokenListener"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Login_act" >
+        </activity>
+        <activity android:name=".Register_act" >
+        </activity>
+        <activity android:name=".App_act" >
+        </activity>
+        <activity android:name=".chat" >
+        </activity>
+        <activity android:name=".CreateProfile_Act" >
+        </activity>
+        <activity android:name=".Profile_act" >
         </activity>
     </application>
 
