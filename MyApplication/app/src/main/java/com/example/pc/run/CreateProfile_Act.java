@@ -30,6 +30,7 @@ public class CreateProfile_Act extends AppCompatActivity {
     EditText languagesLearning;
     String email;
     String url = "http://k1.esy.es/insert-profile-db.php";
+    Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class CreateProfile_Act extends AppCompatActivity {
         System.out.println("params made");
         Log.d("Email Passed:", email);
 
-        Profile profile = new Profile(name.getText().toString(), languagesKnown.getText().toString(),
+        profile = new Profile(name.getText().toString(), languagesKnown.getText().toString(),
                 languagesLearning.getText().toString(), interests.getText().toString());
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
@@ -86,7 +87,7 @@ public class CreateProfile_Act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
-            //  ApplicationSingleton.getInstance().getPrefManager().storeProfile(); //STORE PROFILE WITH THIS
+            ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile); //STORE PROFILE WITH THIS
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
         } else if (result.equals("failure")) {
