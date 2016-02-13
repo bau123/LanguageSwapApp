@@ -4,9 +4,9 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Network_Utils.AppController;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +50,7 @@ public class PullProfile {
                 Log.d("Response: ", response.toString());
             }
         });
-        AppController.getInstance().addToRequestQueue(jsObjRequest);
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
     private void processResult(JSONObject input) throws JSONException {

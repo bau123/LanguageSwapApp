@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Network_Utils.AppController;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -75,7 +74,7 @@ public class CreateProfile_Act extends AppCompatActivity {
                 Log.d("Response: ", response.toString());
             }
         });
-        AppController.getInstance().addToRequestQueue(jsObjRequest);
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
     //Determines whether input is valid.
