@@ -24,7 +24,7 @@ public class Register_act extends AppCompatActivity {
 
     private EditText pass, email;
     String url = "http://k1.esy.es/insert-db.php";
-    String passEmail = null;
+    String emailString = null;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,6 @@ public class Register_act extends AppCompatActivity {
         setContentView(R.layout.activity_register_act);
         pass = (EditText) findViewById(R.id.pass);
         email = (EditText) findViewById(R.id.email);
-
-
     }
 
     public void register(View view) {
@@ -42,6 +40,7 @@ public class Register_act extends AppCompatActivity {
         parameters.put("email", email.getText().toString());
         parameters.put("password", pass.getText().toString());
         System.out.println("params made");
+        emailString = email.getText().toString();
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
@@ -73,7 +72,7 @@ public class Register_act extends AppCompatActivity {
         if (result.equals("success")) {
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             Intent intent = new Intent(Register_act.this, CreateProfile_Act.class);
-            intent.putExtra("email", passEmail);
+            intent.putExtra("email", emailString);
             startActivity(intent);
             finish();
         } else if (result.equals("failure")) {
