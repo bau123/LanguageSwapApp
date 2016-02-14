@@ -1,0 +1,5 @@
+In the main activity do this:
+
+CoordinatesToString cts = new CoordinatesToString(this);
+
+Property 'address' holds the full address for the location.
