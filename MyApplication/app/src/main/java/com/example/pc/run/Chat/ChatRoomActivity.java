@@ -156,7 +156,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             return;
         }
 
-        String endPoint = EndPoints.CHAT_ROOM_MESSAGE.replace("_ID_", chatRoomId);
+        String endPoint = EndPoints.CHAT_ROOM_MESSAGE.replace("_ID_", chatRoomId);  // replace id with the chatroomID
 
         Log.e(TAG, "endpoint: " + endPoint);
 

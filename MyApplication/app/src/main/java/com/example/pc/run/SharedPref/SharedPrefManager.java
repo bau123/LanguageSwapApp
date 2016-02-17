@@ -19,7 +19,6 @@ public class SharedPrefManager {
     private static final String PREF_NAME = "Run";
 
     // All Shared Preferences Keys
-    private static final Profile KEY_PROFILE = new Profile();
     private static final String KEY_PROFILE_Name = "profile_name";
     private static final String KEY_PROFILE_languagesKnown = "profile_languagesKnown";
     private static final String KEY_PROFILE_languagesLearning = "profile_languagesLearning";

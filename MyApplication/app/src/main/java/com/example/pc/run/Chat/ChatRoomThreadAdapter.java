@@ -74,7 +74,6 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if (message.getUser().getEmail().equals(userId)) {
             return SELF;
         }
-
         return position;
     }
 
