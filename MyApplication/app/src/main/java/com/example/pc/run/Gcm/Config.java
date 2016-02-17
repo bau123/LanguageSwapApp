@@ -14,6 +14,7 @@ public class Config {
     public static final String PUSH_NOTIFICATION = "pushNotification";
 
     // type of push messages
+    public static final int PUSH_TYPE_CHATROOM = 1;
     public static final int PUSH_TYPE_USER = 2;
 
     // id to handle the notification in the notification try
