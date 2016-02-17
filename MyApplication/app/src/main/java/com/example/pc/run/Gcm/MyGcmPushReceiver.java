@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.pc.run.MainActivity;
 import com.example.pc.run.Objects.Message;
@@ -30,34 +31,77 @@ public class MyGcmPushReceiver extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle bundle) {
         String title = bundle.getString("title");
-        String message = bundle.getString("message");
-        String messageId = bundle.getString("message_id");
-        String timestamp = bundle.getString("created_at");
+        Boolean isBackground = Boolean.valueOf(bundle.getString("is_background"));
+        String flag = bundle.getString("flag");
+        String data = bundle.getString("data");
 
-        Log.e(TAG, "From: " + from);
-        Log.e(TAG, "Title: " + title);
-        Log.e(TAG, "message: " + message);
-        Log.e(TAG, "timestamp: " + timestamp);
+        Log.d(TAG, "From: " + from);
+        Log.d(TAG, "title: " + title);
+        Log.d(TAG, "isBackground: " + isBackground);
+        Log.d(TAG, "flag: " + flag);
+        Log.d(TAG, "data: " + data);
 
-        //Checks if the user is logged in
-        if (ApplicationSingleton.getInstance().getPrefManager().getProfile() != null) {
-            if (!Boolean.valueOf(bundle.getString("is_background"))) {
-                Message msg = new Message(from, message, messageId, timestamp);
-                //Checks if the app is in the background
-                if (NotificationUtils.isAppIsInBackground(getApplicationContext())) { //CHANGE THIS!!!!!!!!!
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    resultIntent.putExtra("message", message);
-                    notificationUtils = new NotificationUtils(getApplicationContext());
-                    resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    notificationUtils.showNotificationMessage(title, message, timestamp, resultIntent);
+        if(ApplicationSingleton.getInstance().getPrefManager().getProfile() == null){
+            // user is not logged in, skipping push notification
+            Log.e(TAG, "user is not logged in, skipping push notification");
+            return;
+        }
+        processUserMessage(title, isBackground, data);
+    }
 
-                } else {
+    private void processUserMessage(String title, boolean isBackground, String data) {
+        if (!isBackground) {
+
+            try {
+                JSONObject datObj = new JSONObject(data);
+
+                String imageUrl = datObj.getString("image");
+
+                JSONObject mObj = datObj.getJSONObject("message");
+                Message message = new Message();
+                message.setMessage(mObj.getString("message"));
+                message.setMessageId(mObj.getString("message_id"));
+                message.setDateCreated(mObj.getString("created_at"));
+
+                JSONObject uObj = datObj.getJSONObject("user");
+                Profile user = new Profile();
+                user.setEmail(uObj.getString("email"));
+                user.updateName(uObj.getString("name"));
+                message.setUser(user);
+
+                // verifying whether the app is in background or foreground
+                if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+
+                    // app is in foreground, broadcast the push message
                     Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+                    pushNotification.putExtra("type", Config.PUSH_TYPE_USER);
                     pushNotification.putExtra("message", message);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+
+                } else {
+                    // app is in background. show the message in notification try
+                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    showNotificationMessage(getApplicationContext(), title, user.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
+            } catch (JSONException e) {
+                Log.e(TAG, "json parsing error: " + e.getMessage());
+                Toast.makeText(getApplicationContext(), "Json parse error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
+
+        } else {
+            // the push notification is silent, may be other operations needed
+            // like inserting it in to SQLite
         }
+    }
+
+
+    /**
+     * Showing notification with text only
+     * */
+    private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent) {
+        notificationUtils = new NotificationUtils(context);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        notificationUtils.showNotificationMessage(title, message, timeStamp, intent);
     }
 
 
