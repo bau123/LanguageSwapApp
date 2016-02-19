@@ -65,8 +65,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 JSONObject mObj = datObj.getJSONObject("message");
                 Message message = new Message();
                 message.setMessage(mObj.getString("message"));
-                message.setId(mObj.getString("message_id"));
-                message.setCreatedAt(mObj.getString("created_at"));
+                message.setMessageId(mObj.getString("message_id"));
+                message.setDateCreated(mObj.getString("created_at"));
 
                 JSONObject uObj = datObj.getJSONObject("user");
 
@@ -80,8 +80,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 Profile user = new Profile();
                 user.setEmail(uObj.getString("user_id"));
-                user.setEmail(uObj.getString("email"));
-                user.setName(uObj.getString("name"));
+                user.updateName(uObj.getString("name"));
                 message.setUser(user);
 
                 // verifying whether the app is in background or foreground

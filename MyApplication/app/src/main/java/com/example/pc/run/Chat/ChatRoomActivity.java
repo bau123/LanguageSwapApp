@@ -156,7 +156,11 @@ public class ChatRoomActivity extends AppCompatActivity {
             return;
         }
 
-        String endPoint = EndPoints.CHAT_ROOM_MESSAGE.replace("_ID_", chatRoomId);  // replace id with the chatroomID
+        //String endPoint = EndPoints.CHAT_ROOM_MESSAGE.replace("_ID_", chatRoomId);  // replace id with the chatroomID
+        String endPoint = ""; //!!!!!!!!!!!!!!!!!
+
+
+
 
         Log.e(TAG, "endpoint: " + endPoint);
 
@@ -250,8 +254,8 @@ public class ChatRoomActivity extends AppCompatActivity {
      * Fetching all the messages of a single chat room
      * */
     private void fetchChatThread() {
-
-        String endPoint = EndPoints.CHAT_THREAD.replace("_ID_", chatRoomId);
+        // String endPoint = EndPoints.CHAT_THREAD.replace("_ID_", chatRoomId);
+        String endPoint = ""; //!!!!!!!!!!!!!!!!!!!!!!!!
         Log.e(TAG, "endPoint: " + endPoint);
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
