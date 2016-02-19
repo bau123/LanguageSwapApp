@@ -18,17 +18,27 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 public class App_act extends AppCompatActivity {
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ImageView;
 
+<<<<<<< HEAD
     Button chatBtn;
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
+=======
+import com.example.pc.run.Listeners.OnSwipeTouchListener;
+>>>>>>> origin/BasicFeatures
 
+public class App_act extends AppCompatActivity {
 
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_act);
 
+<<<<<<< HEAD
         chatBtn = (Button) findViewById(R.id.enterChat);
 
         regReceiver = new BroadcastReceiver() {
@@ -72,6 +82,28 @@ public class App_act extends AppCompatActivity {
             finish();
         }
         return false;
+=======
+        img = (ImageView)findViewById(R.id.imageView);
+
+        /*
+        Basic overriding for implementation - to be implemented for profile views
+         */
+        img.setOnTouchListener(new OnSwipeTouchListener(App_act.this){
+
+            public void onSwipeTop(){
+                img.setImageResource(R.drawable.fiveimg);
+            }
+            public void onSwipeRight(){
+                img.setImageResource(R.drawable.fourimg);
+            }
+            public void onSwipeLeft(){
+                img.setImageResource(R.drawable.twoimg);
+            }
+            public void onSwipeBottom(){
+                img.setImageResource(R.drawable.threeimg);
+            }
+        });
+>>>>>>> origin/BasicFeatures
     }
 
     protected void onResume() {
@@ -89,3 +121,4 @@ public class App_act extends AppCompatActivity {
 
 
 }
+
