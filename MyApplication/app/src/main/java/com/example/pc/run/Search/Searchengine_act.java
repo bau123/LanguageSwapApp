@@ -1,4 +1,4 @@
-package com.example.pc.run;
+package com.example.pc.run.Search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Network_Utils.Requests;
+import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;

@@ -31,60 +31,41 @@
         </receiver>
 
         <service
-<<<<<<< HEAD
             android:name=".Gcm.MyGcmPushReceiver"
             android:exported="false" >
-=======
             android:name=".Gcm.RegistrationIntentService"
             android:exported="false">
->>>>>>> origin/BasicFeatures
+
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-<<<<<<< HEAD
             android:name=".Gcm.RegistrationIntentService"
             android:exported="false" >
-=======
+
             android:name=".Gcm.TokenListener"
             android:exported="false">
->>>>>>> origin/BasicFeatures
+
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
 
         <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".Login_act"></activity>
-        <activity android:name=".Register_act"></activity>
-        <activity android:name=".App_act">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".Login_act" >
-        </activity>
-        <activity android:name=".Register_act" >
-        </activity>
-        <activity android:name=".App_act" >
-        </activity>
-        <activity android:name=".Chat.chat" >
-        </activity>
-        <activity android:name=".CreateProfile_Act" >
-        </activity>
-        <activity android:name=".Profile_act" >
-=======
-        <activity android:name=".chat"></activity>
-        <activity android:name=".CreateProfile_Act"></activity>
-        <activity android:name=".Profile_act"></activity>
-        <activity android:name=".Searchengine_act">
->>>>>>> origin/BasicFeatures
-        </activity>
+        <activity android:name=".Login_act"></activity>
+        <activity android:name=".Register_act"></activity>
+        <activity android:name=".App_act"></activity>
+        <activity android:name=".Chat.chat" ></activity>
+        <activity android:name=".CreateProfile_Act" ></activity>
+        <activity android:name=".Search.Profile_frag" ></activity>
+        <activity android:name=".Search.Searchengine_act"></activity>
+        <activity android:name="com.example.pc.run.Search.Swipe_frag"></activity>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"

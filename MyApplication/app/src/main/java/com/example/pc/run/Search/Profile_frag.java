@@ -1,11 +1,12 @@
-package com.example.pc.run;
+package com.example.pc.run.Search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.example.pc.run.Objects.Profile;
+import com.example.pc.run.R;
 
-public class Profile_act extends AppCompatActivity {
+public class Profile_frag extends AppCompatActivity {
 
     TextView name, languagesKnown, languagesLearning, interests;
     @Override
