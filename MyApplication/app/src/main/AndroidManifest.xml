@@ -63,9 +63,7 @@
         <activity android:name=".App_act"></activity>
         <activity android:name=".Chat.chat" ></activity>
         <activity android:name=".CreateProfile_Act" ></activity>
-        <activity android:name=".Search.Profile_frag" ></activity>
         <activity android:name=".Search.Searchengine_act"></activity>
-        <activity android:name="com.example.pc.run.Search.Swipe_frag"></activity>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"

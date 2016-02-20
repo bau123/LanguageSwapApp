@@ -10,12 +10,7 @@
     tools:context="com.example.pc.run.SearchEngine_act">
 
 
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+
 
     <TextView
         android:layout_width="wrap_content"
