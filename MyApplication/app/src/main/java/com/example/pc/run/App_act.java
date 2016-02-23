@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -45,6 +47,9 @@ public class App_act extends AppCompatActivity {
         setContentView(R.layout.activity_app_act);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        //Location
+        setLocation();
 
         //Set default fragment
         JSONObject tempJson = new JSONObject();
@@ -144,6 +149,42 @@ public class App_act extends AppCompatActivity {
 
         public int getCount() {
             return frags.size();
+        }
+    }
+
+    public void setLocation() {
+        String locationUrl = "http://k1.esy.es/updateLocation.php";
+        try {
+            CoordinatesToString cts = new CoordinatesToString(this);
+            System.out.println("Current location " + cts.latitude + " " + cts.longitude);
+            System.out.println("Current campus " + cts.campus);
+            //The string of the campus name
+            String campus = cts.campus;
+
+            Map<String, String> parameters = new HashMap<>();
+            parameters.put("campus", campus);
+            parameters.put("latitude", Double.toString(cts.latitude));
+            parameters.put("longitude", Double.toString(cts.longitude));
+            parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+
+            Requests jsObjRequest = new Requests(Request.Method.POST, locationUrl, parameters, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError response) {
+                    Log.d("Response: ", response.toString());
+                }
+            });
+            ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Sorry we cant get the location", Toast.LENGTH_LONG).show();
         }
     }
 
