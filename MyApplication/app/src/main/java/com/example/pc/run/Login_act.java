@@ -70,6 +70,7 @@ public class Login_act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
+            ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             PullProfile pulling = new PullProfile(mEmail);
             Thread.sleep(100);
             Intent intent = new Intent(this, App_act.class);
