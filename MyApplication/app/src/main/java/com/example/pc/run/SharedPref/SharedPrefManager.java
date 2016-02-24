@@ -23,6 +23,7 @@ public class SharedPrefManager {
     private static final String KEY_PROFILE_languagesKnown = "profile_languagesKnown";
     private static final String KEY_PROFILE_languagesLearning = "profile_languagesLearning";
     private static final String KEY_PROFILE_interests = "profile_interests";
+    private static final String KEY_token = "token";
     private static final String KEY_email = "email";
     private static final String KEY_password = "password";
     private static final String KEY_NOTIFICATIONS = "notifications";
@@ -55,6 +56,16 @@ public class SharedPrefManager {
     public void clear() {
         editor.clear();
         editor.commit();
+    }
+
+    //Store gcm registration id
+    public void storeToken(String token){
+        editor.putString(KEY_token, token);
+    }
+
+    //Get gcm registration id
+    public String getToken(){
+        return pref.getString(KEY_token, null);
     }
 
     //Returns profile from shared pref

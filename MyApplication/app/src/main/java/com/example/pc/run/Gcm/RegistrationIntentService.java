@@ -52,6 +52,8 @@ public class RegistrationIntentService extends IntentService {
             sendRegistrationToServer(token);
             //Boolean saved in shared pref indicating the token is generated
             sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, true).apply();
+            //Stores toke in shared pref
+            ApplicationSingleton.getInstance().getPrefManager().storeToken(token);
             Log.i(TAG, "GCM Registration Token: " + token);
         }catch (Exception e){
             Log.d(TAG, "Failed to complete token refresh", e);

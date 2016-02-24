@@ -74,13 +74,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (chatRoomId == null) {
-            Toast.makeText(getApplicationContext(), "Chat room not found!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
@@ -92,6 +86,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        //Gets the gcm registration of other user
+        getOtherGcm();
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -181,6 +178,46 @@ public class ChatRoomActivity extends AppCompatActivity {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    public void sendToDataBase(Map<String, String> params) {
+        String sendGcm = "http://192.168.0.4/run/chat/processMessage.php";
+        Map<String, String> result = new HashMap<String, String>();
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, sendGcm, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    if (response.getString("error") == "false") {
+
+                        Message message = new Message();
+                        message.setEmail(response.getString("message_id"));
+                        message.setMessage(response.getString("message"));
+                        message.setDateCreated(response.getString("created_at"));
+                        message.setUser(ApplicationSingleton.getInstance().getPrefManager().getProfile());
+
+                        //Add message to chat
+                        messageArrayList.add(message);
+                        mAdapter.notifyDataSetChanged();
+                        if (mAdapter.getItemCount() > 1) {
+                            // scrolling to bottom of the recycler view
+                            recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
+                        }
+                    } else {
+                        // !!!! put error Message!!!
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
+
     /**
      * Posting a new message in chat room
      * will make an http call to our server. Our server again sends the message
@@ -197,60 +234,16 @@ public class ChatRoomActivity extends AppCompatActivity {
             return;
         }
 
-        //Gets the gcm registration of other user
-        getOtherGcm();
-
         //Get push result
         Map<String, String> params = new HashMap<String, String>();
         params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
         params.put("chat_room_id", chatRoomId);
         params.put("message", message);
+        params.put("gcmTo", gcmOfOther);
+        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
 
-        //Saves message to database
-        String saveUrl = "http://192.168.0.4/run/chat/saveMessage.php";
-
-        Requests jsObjRequest = new Requests(Request.Method.POST, saveUrl, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    System.out.println(response.toString());
-                    if(response.getBoolean("error") == false){
-                    
-
-
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError response) {
-                Log.d("Response: ", response.toString());
-            }
-        });
-        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-
-
-        //Sends to gcm server to notify the other user
-        String sendGcm = "http://192.168.0.4/run/chat/sendMessage.php";
-
-
-        // disabling retry policy so that it won't make
-        // multiple http calls
-        int socketTimeout = 0;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        strReq.setRetryPolicy(policy);
-
-        //Adding request to request queue
-        ApplicationSingleton.getInstance().
-
-                addToRequestQueue(strReq);
-
+        //Send message to database and then notify the user
+        sendToDataBase(params);
     }
 
 
