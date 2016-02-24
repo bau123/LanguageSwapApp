@@ -9,11 +9,8 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
