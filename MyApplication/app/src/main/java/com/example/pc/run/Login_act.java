@@ -34,6 +34,8 @@ public class Login_act extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pass_log);
     }
 
+
+
     public void login(View view) {
         System.out.println("Making params");
         Map<String, String> parameters = new HashMap<String, String>();
@@ -74,9 +76,12 @@ public class Login_act extends AppCompatActivity {
             Thread.sleep(100);
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
+            finish();
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
         }
+
     }
+
 
 }
