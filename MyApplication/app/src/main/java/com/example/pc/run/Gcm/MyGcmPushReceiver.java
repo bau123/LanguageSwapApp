@@ -78,10 +78,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     return;
                 }
 
-                Profile user = new Profile();
-                user.setEmail(uObj.getString("user_id"));
-                user.updateName(uObj.getString("name"));
-                message.setUser(user);
+                String name = uObj.getString("name");
+                String email = uObj.getString("email"); // !!!!!!!!!
+                message.setEmail(email);
+                message.setName(uObj.getString(name));
 
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
@@ -100,7 +100,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     // app is in background. show the message in notification try
                     Intent resultIntent = new Intent(getApplicationContext(), ChatRoomActivity.class);
                     resultIntent.putExtra("chat_room_id", chatRoomId);
-                    showNotificationMessage(getApplicationContext(), title, user.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
+                    showNotificationMessage(getApplicationContext(), title, name + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
 
             } catch (JSONException e) {
@@ -122,8 +122,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
             try {
                 JSONObject datObj = new JSONObject(data);
 
-                String imageUrl = datObj.getString("image");
-
                 JSONObject mObj = datObj.getJSONObject("message");
                 Message message = new Message();
                 message.setMessage(mObj.getString("message"));
@@ -132,9 +130,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 JSONObject uObj = datObj.getJSONObject("user");
                 Profile user = new Profile();
-                user.setEmail(uObj.getString("email"));
-                user.updateName(uObj.getString("name"));
-                message.setUser(user);
+                String email = (uObj.getString("email"));
+                String name = (uObj.getString("name"));
+                message.setName(name);
+                message.setEmail(email);
 
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {

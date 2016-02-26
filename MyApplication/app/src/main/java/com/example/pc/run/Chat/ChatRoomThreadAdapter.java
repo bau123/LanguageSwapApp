@@ -37,7 +37,6 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-
     public ChatRoomThreadAdapter(Context mContext, ArrayList<Message> messageArrayList, String userId) {
         this.mContext = mContext;
         this.messageArrayList = messageArrayList;
@@ -71,7 +70,7 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
         Message message = messageArrayList.get(position);
-        if (message.getUser().getEmail().equals(userId)) {
+        if (message.getEmail().equals(userId)) {
             return SELF;
         }
         return position;
@@ -84,8 +83,8 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         String timestamp = getTimeStamp(message.getDateCreated());
 
-        if (message.getUser().getName() != null)
-            timestamp = message.getUser().getName() + ", " + timestamp;
+        if (message.getName() != null)
+            timestamp = message.getName() + ", " + timestamp;
 
         ((ViewHolder) holder).timestamp.setText(timestamp);
     }

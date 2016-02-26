@@ -180,7 +180,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     public void sendToDataBase(Map<String, String> params) {
         String sendGcm = "http://192.168.0.4/run/chat/processMessage.php";
-        Map<String, String> result = new HashMap<String, String>();
 
         Requests jsObjRequest = new Requests(Request.Method.POST, sendGcm, params, new Response.Listener<JSONObject>() {
             @Override
@@ -193,7 +192,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         message.setEmail(response.getString("message_id"));
                         message.setMessage(response.getString("message"));
                         message.setDateCreated(response.getString("created_at"));
-                        message.setUser(ApplicationSingleton.getInstance().getPrefManager().getProfile());
+                        message.setName(ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
 
                         //Add message to chat
                         messageArrayList.add(message);
@@ -234,7 +233,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             return;
         }
 
-        //Get push result
+        //Creating params needed to send to database and other user
         Map<String, String> params = new HashMap<String, String>();
         params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
         params.put("chat_room_id", chatRoomId);
@@ -251,21 +250,16 @@ public class ChatRoomActivity extends AppCompatActivity {
      * Fetching all the messages of a single chat room
      */
     private void fetchChatThread() {
-        // String endPoint = EndPoints.CHAT_THREAD.replace("_ID_", chatRoomId);
-        String endPoint = ""; //!!!!!!!!!!!!!!!!!!!!!!!!
-
-        Log.e(TAG, "endPoint: " + endPoint);
+        String endPoint = "http://192.168.0.4/run/chat/fetchMessages.php";
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 endPoint, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 Log.e(TAG, "response: " + response);
 
                 try {
                     JSONObject obj = new JSONObject(response);
-
                     // check for error
                     if (obj.getBoolean("error") == false) {
                         JSONArray commentsObj = obj.getJSONArray("messages");
@@ -276,17 +270,21 @@ public class ChatRoomActivity extends AppCompatActivity {
                             String commentId = commentObj.getString("message_id");
                             String commentText = commentObj.getString("message");
                             String createdAt = commentObj.getString("created_at");
+                            String name = commentObj.getString("name");
+                            String email = commentObj.getString("email");
 
+                            /*
                             JSONObject userObj = commentObj.getJSONObject("user");
                             String userId = userObj.getString("user_id");
                             String userName = userObj.getString("username");
                             Profile user = new Profile(userId, userName);
+                            */
 
-                            Message message = new Message();
+                            Message message = new Message(email, commentText, commentId, createdAt, name);
                             message.setEmail(commentId);
                             message.setMessage(commentText);
                             message.setDateCreated(createdAt);
-                            message.setUser(user);
+                            message.setName(name);
 
                             messageArrayList.add(message);
                         }
