@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.pc.run.App_act;
 import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.MainActivity;
 import com.example.pc.run.Objects.Message;
@@ -30,11 +31,16 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     //Class is used to trigger method whenever device receives push notification.
     @Override
+
+    // Class is triggered whenever a push notification is sent
     public void onMessageReceived(String from, Bundle bundle) {
         String title = bundle.getString("title");
         Boolean isBackground = Boolean.valueOf(bundle.getString("is_background"));
         String flag = bundle.getString("flag");
         String data = bundle.getString("data");
+
+        if (flag == null)
+            return;
 
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "title: " + title);
@@ -47,7 +53,17 @@ public class MyGcmPushReceiver extends GcmListenerService {
             Log.e(TAG, "user is not logged in, skipping push notification");
             return;
         }
-        processUserMessage(title, isBackground, data);
+
+        switch (Integer.parseInt(flag)) {
+            case Config.PUSH_TYPE_USER:
+                // push notification is specific to user
+                processUserMessage(title, isBackground, data);
+                break;
+        }
+
+        //ADD FRIEND REQUEST NOTIFICATION HERE (USE METHOD TO DISPLAY POP UP ASKING IF THEY WANT TO BE FRIENDS)
+
+
     }
 
     /**
@@ -146,7 +162,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 } else {
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);  // FIXXXXXXXXXXX
                     showNotificationMessage(getApplicationContext(), title, user.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
             } catch (JSONException e) {
