@@ -144,6 +144,34 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Posting a new message in chat room
+     * will make an http call to our server. Our server again sends the message
+     * to all the devices as push notification
+     */
+    private void sendMessage() {
+        final String message = this.inputMessage.getText().toString().trim();
+        //Clears the textView containing the message
+        this.inputMessage.setText("");
+
+        //Checks if user has entered anything in the chat
+        if (TextUtils.isEmpty(message)) {
+            Toast.makeText(getApplicationContext(), "Enter a message", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Creating params needed to send to database and other user
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        params.put("chat_room_id", chatRoomId);
+        params.put("message", message);
+        params.put("gcmTo", gcmOfOther);
+        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
+
+        //Send message to database and then notify the user
+        sendToDataBase(params);
+    }
+
     //Gets the GCM registration of the other user
     public void getOtherGcm() {
         String getGcm = "http://192.168.0.4/run/chat/getGcm.php";
@@ -216,35 +244,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
-
-    /**
-     * Posting a new message in chat room
-     * will make an http call to our server. Our server again sends the message
-     * to all the devices as push notification
-     */
-    private void sendMessage() {
-        final String message = this.inputMessage.getText().toString().trim();
-        //Clears the textView containing the message
-        this.inputMessage.setText("");
-
-        //Checks if user has entered anything in the chat
-        if (TextUtils.isEmpty(message)) {
-            Toast.makeText(getApplicationContext(), "Enter a message", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //Creating params needed to send to database and other user
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
-        params.put("chat_room_id", chatRoomId);
-        params.put("message", message);
-        params.put("gcmTo", gcmOfOther);
-        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
-
-        //Send message to database and then notify the user
-        sendToDataBase(params);
-    }
-
 
     /**
      * Fetching all the messages of a single chat room
