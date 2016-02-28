@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class Profile_frag extends Fragment {
 
     TextView name, languagesKnown, languagesLearning, interests;
+    ImageView profileImage;
     private Profile profile;
     private String data;
 
@@ -40,10 +42,15 @@ public class Profile_frag extends Fragment {
         languagesKnown = (TextView) v.findViewById(R.id.langKnownField);
         languagesLearning = (TextView) v.findViewById(R.id.langLearningField);
         interests = (TextView) v.findViewById(R.id.interestsField);
+        profileImage = (ImageView)v.findViewById(R.id.profileImageSwipe);
 
         try{
             JSONObject obj = new JSONObject(data);
             profile = new Profile(obj.getString("name"), obj.getString("languagesKnown"), obj.getString("languagesLearning"), obj.getString("interests"));
+            if(obj.getString("photo") != null){
+                profile.setProfilePicture(obj.getString("photo"));
+                //Thread.sleep(500);
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -52,6 +59,10 @@ public class Profile_frag extends Fragment {
         languagesKnown.setText("Languages Known: " + profile.getLanguagesKnown());
         languagesLearning.setText("Languages Learning: " + profile.getLanguagesLearning());
         interests.setText("Interests: " + profile.getInterests());
+
+        if(profile.getProfilePicture() != null){
+            profileImage.setImageBitmap(profile.getProfilePicture());
+        }
 
         System.out.println("new fragment made");
         return v;

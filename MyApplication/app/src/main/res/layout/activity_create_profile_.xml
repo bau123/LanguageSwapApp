@@ -9,43 +9,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pc.run.CreateProfile_Act">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name:"
-        android:id="@+id/nameField"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/profileImage"
+        android:onClick="uploadImage"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name:"
+        android:textSize="20dp"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/nameField"
+        android:layout_below="@id/profileImage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Interests: "
         android:id="@+id/interestView"
-        android:layout_below="@+id/nameField"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="79dp" />
+        android:textSize="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/nameField"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Known:"
         android:id="@+id/langKnownView"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/interestView"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Learning:"
         android:id="@+id/langLearningView"
-        android:layout_marginTop="89dp"
-        android:layout_below="@+id/langKnownView"
-        android:layout_alignParentStart="true" />
+        android:textSize="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/langKnownView"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -60,32 +66,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nameEdit"
-        android:layout_above="@+id/interestView"
-        android:layout_alignStart="@+id/addDataButton"
+        android:layout_toRightOf="@id/nameField"
+        android:layout_alignBottom="@id/nameField"
+        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/interestsEdit"
-        android:layout_alignBottom="@+id/interestView"
-        android:layout_alignStart="@+id/nameEdit"
-        android:layout_alignEnd="@+id/nameEdit" />
+        android:layout_toRightOf="@id/interestView"
+        android:layout_alignBottom="@id/interestView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/langKnownEdit"
-        android:layout_alignBottom="@+id/langKnownView"
-        android:layout_alignEnd="@+id/interestsEdit"
-        android:layout_toEndOf="@+id/addDataButton" />
+        android:layout_toRightOf="@id/langKnownView"
+        android:layout_alignBottom="@id/langKnownView"
+        android:layout_alignRight="@+id/interestsEdit"
+        android:layout_alignEnd="@+id/interestsEdit" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/langLearningEdit"
-        android:layout_alignBottom="@+id/langLearningView"
-        android:layout_alignEnd="@+id/langKnownEdit"
-        android:layout_alignStart="@+id/langKnownEdit" />
+        android:layout_toRightOf="@id/langLearningView"
+        android:layout_alignBottom="@id/langLearningView"
+        android:layout_alignRight="@+id/langKnownEdit"
+        android:layout_alignEnd="@+id/langKnownEdit" />
 
 </RelativeLayout>
