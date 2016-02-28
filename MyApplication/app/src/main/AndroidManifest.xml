@@ -64,8 +64,6 @@
         </activity>
         <activity android:name=".Chat.chat" />
         <activity android:name=".CreateProfile_Act"></activity>
-        <activity android:name=".Search.Searchengine_act">
-        </activity>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
