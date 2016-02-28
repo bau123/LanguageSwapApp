@@ -1,16 +1,11 @@
 package com.example.pc.run;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Global.GlobalBitmap;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
-import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;
@@ -60,13 +55,13 @@ public class PullProfile {
 
     private void processResult(JSONObject input) throws JSONException {
 
-            userInfo = input.getJSONArray("result");
-            JSONObject current = userInfo.getJSONObject(0);
+        userInfo = input.getJSONArray("result");
+        JSONObject current = userInfo.getJSONObject(0);
 
-        Log.d("BITMAP STRING:", current.getString("name"));
-        Log.d("BITMAP STRING:", current.getString("interests"));
-        Log.d("BITMAP STRING:", current.getString("languagesKnown"));
-        Log.d("BITMAP STRING:", current.getString("languagesLearning"));
+        Log.d("NAME:", current.getString("name"));
+        Log.d("Interests::", current.getString("interests"));
+        Log.d("Languages Known:", current.getString("languagesKnown"));
+        Log.d("Languages Learning:", current.getString("languagesLearning"));
         Log.d("BITMAP STRING:", current.getString("photo"));
 
         GlobalProfile.profileName= current.getString("name");

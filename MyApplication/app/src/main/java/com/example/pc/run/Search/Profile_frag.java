@@ -1,10 +1,7 @@
 package com.example.pc.run.Search;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.StringReader;
-import java.util.ArrayList;
 
 public class Profile_frag extends Fragment {
 
@@ -49,7 +40,6 @@ public class Profile_frag extends Fragment {
             profile = new Profile(obj.getString("name"), obj.getString("languagesKnown"), obj.getString("languagesLearning"), obj.getString("interests"));
             if(obj.getString("photo") != null){
                 profile.setProfilePicture(obj.getString("photo"));
-                //Thread.sleep(500);
             }
         }catch(Exception e) {
             e.printStackTrace();

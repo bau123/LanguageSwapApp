@@ -35,7 +35,6 @@ public class CreateProfile_Act extends AppCompatActivity {
     String email;
     String url = "http://k1.esy.es/insert-profile-db.php";
     Profile profile;
-    Bitmap bitmap;
     ImageView profileImage;
 
     @Override

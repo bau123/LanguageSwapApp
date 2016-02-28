@@ -35,8 +35,6 @@ public class App_act extends AppCompatActivity {
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
-    int profileCount;
-    int count = 0;
     SearchView searchEngine;
     String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();

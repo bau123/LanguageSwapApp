@@ -32,18 +32,18 @@ import java.util.Map;
 
 public class UploadImage_act extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonChoose;
-    private Button buttonUpload;
+    private Button chooseImage;
+    private Button uploadImage;
     private Button buttonReturn;
     private ImageView imageView;
     private Bitmap bitmap;
     String email;
 
-    private int PICK_IMAGE_REQUEST = 1;
+    private int request = 1;
     private String UPLOAD_URL = "http://k1.esy.es/insert-db-image.php";
 
-    private String KEY_IMAGE = "image";
-    private String KEY_EMAIL = "email";
+    private String IMAGE_KEY = "image";
+    private String EMAIL_KEY = "email";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +52,14 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
         email = getIntent().getStringExtra("email");
 
-        buttonChoose = (Button) findViewById(R.id.buttonChoose);
-        buttonUpload = (Button) findViewById(R.id.buttonUpload);
+        chooseImage = (Button) findViewById(R.id.buttonChoose);
+        uploadImage = (Button) findViewById(R.id.buttonUpload);
         buttonReturn = (Button) findViewById(R.id.buttonReturn);
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        buttonChoose.setOnClickListener(this);
-        buttonUpload.setOnClickListener(this);
+        chooseImage.setOnClickListener(this);
+        uploadImage.setOnClickListener(this);
         buttonReturn.setOnClickListener(this);
     }
 
@@ -81,8 +81,8 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
         Map<String, String> params = new HashMap<>();
 
-        params.put(KEY_IMAGE, image);
-        params.put(KEY_EMAIL, email);
+        params.put(IMAGE_KEY, image);
+        params.put(EMAIL_KEY, email);
 
         Requests jsObjRequest = new Requests(Request.Method.POST, UPLOAD_URL, params, new Response.Listener<JSONObject>() {
             @Override
@@ -126,20 +126,20 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), request);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
+        if (requestCode == request && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri file = data.getData();
             try {
 
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file);
                 imageView.setImageBitmap(bitmap);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -148,13 +148,13 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        
-        if(v==buttonChoose){
-            showFileChooser();
+
+        if(v==uploadImage){
+            uploadImage();
         }
 
-        if(v==buttonUpload){
-            uploadImage();
+        if(v==chooseImage){
+            showFileChooser();
         }
 
         if(v==buttonReturn){
