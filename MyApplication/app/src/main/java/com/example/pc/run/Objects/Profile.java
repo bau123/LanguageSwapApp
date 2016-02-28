@@ -1,6 +1,12 @@
 package com.example.pc.run.Objects;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.example.pc.run.Global.GlobalProfile;
+
 import java.io.Serializable;
 
 public class Profile implements Serializable{
@@ -10,6 +16,7 @@ public class Profile implements Serializable{
     private String languagesKnown;
     private String languagesLearning;
     private String interests;
+    private Bitmap profilePicture;
 
     public Profile(){
 
@@ -27,6 +34,14 @@ public class Profile implements Serializable{
         this.interests = interests;
     }
 
+    public Profile(String name, String languagesKnown, String languagesLearning, String interests, Bitmap bitmap){
+        this.name = name;
+        this.languagesKnown = languagesKnown;
+        this.languagesLearning = languagesLearning;
+        this.interests = interests;
+        this.profilePicture = bitmap;
+    }
+
     public void updateName(String name){
         this.name = name;
     }
@@ -40,6 +55,15 @@ public class Profile implements Serializable{
     }
 
     public void setEmail(String email) {this.email = email;}
+
+    public void setProfilePicture(Bitmap profilePicture){
+        this.profilePicture = profilePicture;
+    }
+
+    public void setProfilePicture(String bitmapString){
+        byte[] decodedByte = Base64.decode(bitmapString, 0);
+        profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
 
     public String getName() {
         return name;
@@ -58,6 +82,10 @@ public class Profile implements Serializable{
     }
 
     public String getEmail(){return email;}
+
+    public Bitmap getProfilePicture(){
+        return profilePicture;
+    }
 
 
 }

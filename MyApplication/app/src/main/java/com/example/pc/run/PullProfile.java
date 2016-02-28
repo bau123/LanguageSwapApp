@@ -1,9 +1,14 @@
 package com.example.pc.run;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Global.GlobalBitmap;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -58,14 +63,18 @@ public class PullProfile {
             userInfo = input.getJSONArray("result");
             JSONObject current = userInfo.getJSONObject(0);
 
-            Log.d("NAME", current.getString("name"));
-            Log.d("LANGKNOWN", current.getString("languagesKnown"));
-            Log.d("LANGLEARNING", current.getString("languagesLearning"));
-            Log.d("INTERESTS", current.getString("interests"));
+        Log.d("BITMAP STRING:", current.getString("name"));
+        Log.d("BITMAP STRING:", current.getString("interests"));
+        Log.d("BITMAP STRING:", current.getString("languagesKnown"));
+        Log.d("BITMAP STRING:", current.getString("languagesLearning"));
+        Log.d("BITMAP STRING:", current.getString("photo"));
 
-            Profile profile = new Profile(current.getString("name"), current.getString("languagesKnown"),
-                    current.getString("languagesLearning"), current.getString("interests"));
-        
+        GlobalProfile.profileName= current.getString("name");
+        GlobalProfile.profileInterests = current.getString("interests");
+        GlobalProfile.languagesKnown = current.getString("languagesKnown");
+        GlobalProfile.languagesLearning = current.getString("languagesLearning");
+        GlobalProfile.bitmapString = current.getString("photo");
+
         if(current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
         }else{

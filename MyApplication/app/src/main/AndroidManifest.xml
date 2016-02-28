@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
         android:name="com.example.pc.run.permission.C2D_MESSAGE"
@@ -33,21 +34,18 @@
 
         <service
             android:name=".Gcm.MyGcmPushReceiver"
-            android:exported="false" >
+            android:exported="false">
             android:name=".Gcm.RegistrationIntentService"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
             android:name=".Gcm.RegistrationIntentService"
-            android:exported="false" >
-
+            android:exported="false">
             android:name=".Gcm.TokenListener"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
@@ -56,20 +54,25 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login_act"></activity>
-        <activity android:name=".Register_act"></activity>
-        <activity android:name=".App_act"></activity>
-        <activity android:name=".Chat.chat" ></activity>
-        <activity android:name=".CreateProfile_Act" ></activity>
-        <activity android:name=".Search.Searchengine_act"></activity>
+        <activity android:name=".Login_act" />
+        <activity android:name=".Register_act" />
+        <activity android:name=".App_act" >
+        </activity>
+        <activity android:name=".Chat.chat" />
+        <activity android:name=".CreateProfile_Act"></activity>
+        <activity android:name=".Search.Searchengine_act">
+        </activity>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UploadImage_act" >
         </activity>
+        <activity android:name=".Profile_act"></activity>
     </application>
 
 </manifest>

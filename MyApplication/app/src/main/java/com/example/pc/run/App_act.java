@@ -1,7 +1,6 @@
 package com.example.pc.run;
 
 import android.content.BroadcastReceiver;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,15 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
@@ -28,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +35,8 @@ public class App_act extends AppCompatActivity {
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
+    int profileCount;
+    int count = 0;
     SearchView searchEngine;
     String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
@@ -74,7 +74,9 @@ public class App_act extends AppCompatActivity {
                 System.out.println("making params");
                 Map<String, String> parameters = new HashMap<>();
                 parameters.put("info", query);
+                parameters.put("email", GlobalProfile.profileEmail);
                 System.out.println("params made " + query);
+
 
                 Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
                     @Override
@@ -98,8 +100,10 @@ public class App_act extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 return false;
             }
+
         });
     }
 

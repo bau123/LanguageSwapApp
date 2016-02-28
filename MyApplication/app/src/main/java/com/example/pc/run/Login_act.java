@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
@@ -72,7 +73,11 @@ public class Login_act extends AppCompatActivity {
         if (result.equals("success")) {
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             PullProfile pulling = new PullProfile(mEmail);
-            Thread.sleep(100);
+            GlobalProfile.profileEmail = mEmail;
+            /*
+                TODO: Replace Thread.sleep with a loading panel
+             */
+            Thread.sleep(500);
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
         } else if (result.equals("failure")) {
