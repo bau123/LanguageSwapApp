@@ -96,8 +96,8 @@ public class Profile_frag extends Fragment {
         Map<String, String> params = new HashMap<String, String>();
         params.put("emailFrom", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
         params.put("emailTo", profile.getEmail());
-        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
         params.put("gcmTo", ApplicationSingleton.getInstance().getPrefManager().getToken());
+        params.put("nameFrom", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
 
         //Send message to database and then notify the user
         Requests jsObjRequest = new Requests(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {

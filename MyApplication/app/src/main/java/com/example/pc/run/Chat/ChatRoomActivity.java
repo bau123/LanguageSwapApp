@@ -1,5 +1,6 @@
 package com.example.pc.run.Chat;
 
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -163,6 +164,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         //Creating params needed to send to database and other user
         Map<String, String> params = new HashMap<String, String>();
         params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        params.put("user_name", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
         params.put("chat_room_id", chatRoomId);
         params.put("message", message);
         params.put("gcmTo", gcmOfOther);
