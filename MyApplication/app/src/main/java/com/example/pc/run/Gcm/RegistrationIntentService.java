@@ -70,12 +70,12 @@ public class RegistrationIntentService extends IntentService {
     private void sendRegistrationToServer(final String token) {
         // Send the registration token to our server
         // to keep it in MySQL
-        String url = "http://192.168.0.4/Run/updateGcm.php"; //REPLACE
+        String url = "http://192.168.0.11/Run/updateGcm.php"; //REPLACE
 
         System.out.println("Making params for reg to server");
         Map<String, String> parameters = new HashMap<>();
         parameters.put("gcm_registration_id", token);
-        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println("params made");
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
@@ -97,7 +97,7 @@ public class RegistrationIntentService extends IntentService {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    private void processResult(JSONObject input) {
+    private void processResult(JSONObject input) throws JSONException, InterruptedException {
         String result = "";
         try{
             result = input.getString("message");
@@ -108,7 +108,7 @@ public class RegistrationIntentService extends IntentService {
             Intent registrationComplete = new Intent(Config.SENT_TOKEN_TO_SERVER);
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
         } else if (result.equals("failure")) {
-            Toast.makeText(getApplicationContext(), "Unable to send gcm reg code to server", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Unable to send gcm reg code to server", Toast.LENGTH_SHORT).show();
         }
 
     }

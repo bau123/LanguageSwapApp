@@ -75,7 +75,7 @@ public class SharedPrefManager {
         languagesKnown = pref.getString(KEY_PROFILE_languagesKnown, null);
         languagesLearning = pref.getString(KEY_PROFILE_languagesLearning, null);
         interests = pref.getString(KEY_PROFILE_interests, null);
-        Profile temp = new Profile();
+        Profile temp = new Profile(name,languagesKnown,languagesLearning,interests);
         return temp;
     }
 

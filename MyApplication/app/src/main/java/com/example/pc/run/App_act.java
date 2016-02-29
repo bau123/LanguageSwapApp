@@ -1,10 +1,14 @@
 package com.example.pc.run;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,10 +22,16 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Gcm.Config;
+import com.example.pc.run.Gcm.MyGcmPushReceiver;
+import com.example.pc.run.Gcm.NotificationUtils;
+import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +48,7 @@ public class App_act extends AppCompatActivity {
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
     SearchView searchEngine;
-    String url = "http://k1.esy.es/search-db.php";
+    String url = "http://192.168.0.11/Run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
 
     @Override
@@ -54,6 +64,7 @@ public class App_act extends AppCompatActivity {
         //Set default fragment
         JSONObject tempJson = new JSONObject();
         try {
+            tempJson.put("email", "test");
             tempJson.put("name", "test");
             tempJson.put("languagesKnown", "test");
             tempJson.put("languagesLearning", "test");
@@ -80,7 +91,7 @@ public class App_act extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println(response.toString());
+                            Log.d(TAG, "Search results: " + response.toString());
                             processResult(response);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -101,6 +112,63 @@ public class App_act extends AppCompatActivity {
                 return false;
             }
         });
+
+        //Setting up broadcast receiver
+        regReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // checking for type intent filter
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) { //TAKE OUT !!!!!!!!!!!
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    String token = intent.getStringExtra("token");
+                    Toast.makeText(getApplicationContext(), "GCM registration token: " + token, Toast.LENGTH_LONG).show();
+
+                } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
+                    // gcm registration id is stored in our server's MySQL
+                    Toast.makeText(getApplicationContext(), "GCM registration token is stored in server!", Toast.LENGTH_LONG).show();
+
+                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    processPushNotification(intent);
+
+                }
+            }
+        };
+
+        //Checks if play service is available
+        if (checkPlayService()) {
+            //Register gcm
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            intent.putExtra("key", "register");
+            startService(intent);
+        }
+    }
+
+    public void processPushNotification(Intent intent){
+        int type = intent.getIntExtra("type", -1);
+        // If push is friend request
+        if(type == Config.PUSH_TYPE_FRIEND){
+            Toast.makeText(getApplicationContext(), "Someone has sent you a friend request", Toast.LENGTH_LONG).show();
+            ///NEED TO CHOOSE WHAT TO DO HERE
+        }
+        //else !!!!!!!!!!!!!!!!!!!!!!!!!!!ADDDD LATERRR
+        else{
+
+        }
+    }
+
+    public boolean checkPlayService() {
+        int queryResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if (queryResult == ConnectionResult.SUCCESS) {
+            return true;
+        }
+        else if (GoogleApiAvailability.getInstance().isUserResolvableError(queryResult)) {
+            String errorString = GoogleApiAvailability.getInstance().getErrorString(queryResult);
+            Log.d(TAG, "Problem with google play service : " + queryResult + " " + errorString);
+            Toast.makeText(getApplicationContext(), "Device is not supported. Please install google play service.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        return false;
     }
 
     private void processResult(JSONObject input) throws JSONException, InterruptedException {
@@ -115,7 +183,6 @@ public class App_act extends AppCompatActivity {
             JSONObject current = profileNames.getJSONObject(i);
             if (current.getString("passed").equals("true")) {
                 information.add(current);
-                System.out.println("Added profile searched");
             } else {
                 //Produce message !!!!!
             }
@@ -153,7 +220,7 @@ public class App_act extends AppCompatActivity {
     }
 
     public void setLocation() {
-        String locationUrl = "http://k1.esy.es/updateLocation.php";
+        String locationUrl = "http://192.168.0.11/Run/updateLocation.php";
         try {
             CoordinatesToString cts = new CoordinatesToString(this);
             System.out.println("Current location " + cts.latitude + " " + cts.longitude);
@@ -186,6 +253,30 @@ public class App_act extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Sorry we cant get the location", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(regReceiver,
+                new IntentFilter(Config.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(regReceiver,
+                new IntentFilter(Config.PUSH_NOTIFICATION));
+
+        // Clear notification tray
+        NotificationUtils.clearNotifications();
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(regReceiver);
+        super.onPause();
     }
 
 }

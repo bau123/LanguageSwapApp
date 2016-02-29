@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -46,6 +47,9 @@ public class NotificationUtils {
         if (TextUtils.isEmpty(message))
             return;
 
+        // notification icon
+        final int icon = R.mipmap.ic_launcher;
+
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -58,10 +62,10 @@ public class NotificationUtils {
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 mContext);
 
-        showSmallNotification(mBuilder, title, message, timeStamp, resultPendingIntent);
+        showSmallNotification(mBuilder,icon, title, message, timeStamp, resultPendingIntent);
     }
 
-    private void showSmallNotification(NotificationCompat.Builder mBuilder, String title, String message, String timeStamp, PendingIntent resultPendingIntent) {
+    private void showSmallNotification(NotificationCompat.Builder mBuilder,int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent) {
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
@@ -82,12 +86,14 @@ public class NotificationUtils {
         }
 
         Notification notification;
-        notification = mBuilder.setTicker(title).setWhen(0)
+        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
 

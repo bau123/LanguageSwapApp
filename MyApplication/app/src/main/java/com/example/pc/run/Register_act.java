@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,8 +24,8 @@ import java.util.Map;
 public class Register_act extends AppCompatActivity {
 
     private EditText pass, email;
-    String url = "http://k1.esy.es/insert-db.php";
-    String emailString = null;
+    String url = "http://192.168.0.11/Run/insert-db.php";
+    String emailString = "";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class Register_act extends AppCompatActivity {
         System.out.println("params made");
         emailString = email.getText().toString();
 
-        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+        Requests jsObjRequest = new Requests(Request.Method.POST, url,parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -57,7 +58,15 @@ public class Register_act extends AppCompatActivity {
             public void onErrorResponse(VolleyError response) {
                 Log.d("Response: ", response.toString());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                // params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 

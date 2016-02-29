@@ -22,7 +22,7 @@ import java.util.Map;
 public class Login_act extends AppCompatActivity {
 
     private EditText email, pass;
-    String url = "http://k1.esy.es/checkPass.php";
+    String url = "http://192.168.0.11/Run/checkPass.php";
     String mEmail;
 
     @Override

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +38,8 @@ public class Profile_frag extends Fragment {
     TextView name, languagesKnown, languagesLearning, interests;
     private Profile profile;
     private String data;
-    private final String url = "http://k1.esy.es/requestFriend.php";
-
+    private final String url = "http://192.168.0.11/Run/requestFriend.php";
+    private Button addFriend;
 
     public Profile_frag(){
         profile =  new Profile();
@@ -50,6 +51,14 @@ public class Profile_frag extends Fragment {
         data = getArguments().getString("data");
         View v = inflater.inflate(R.layout.activity_profile_frag, container, false);
 
+        addFriend = (Button) v.findViewById(R.id.addFavBtn);
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                addFriend();
+            }
+        });
 
         name = (TextView) v.findViewById(R.id.nameField);
         languagesKnown = (TextView) v.findViewById(R.id.langKnownField);
@@ -90,11 +99,11 @@ public class Profile_frag extends Fragment {
     }
 
     //Sends a friend request to the user using a notification
-    public void addFav(View view){
+    public void addFriend(){
         //new notification
         //Creating params needed to send to user friend request
         Map<String, String> params = new HashMap<String, String>();
-        params.put("emailFrom", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        params.put("emailFrom", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         params.put("emailTo", profile.getEmail());
         params.put("gcmTo", ApplicationSingleton.getInstance().getPrefManager().getToken());
         params.put("nameFrom", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
@@ -120,7 +129,7 @@ public class Profile_frag extends Fragment {
 
     }
 
-    private void processResult(JSONObject input) throws InterruptedException {
+    private void processResult(JSONObject input) throws JSONException, InterruptedException {
         String result ="";
         try{
             result = input.getString("message");
@@ -132,6 +141,9 @@ public class Profile_frag extends Fragment {
             Toast.makeText(getActivity().getBaseContext(), "Friend request is sent", Toast.LENGTH_LONG).show();
         } else if (result.equals("failure")) {
             Toast.makeText(getActivity().getBaseContext(), "Sorry request could not be sent", Toast.LENGTH_LONG).show();
+        }
+        else if(result.equals("Insert failed")){
+            System.out.println("Friend request: Insert failed");
         }
     }
 

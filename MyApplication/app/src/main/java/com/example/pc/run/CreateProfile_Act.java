@@ -28,7 +28,7 @@ public class CreateProfile_Act extends AppCompatActivity {
     EditText languagesKnown;
     EditText languagesLearning;
     String email;
-    String url = "http://k1.esy.es/insert-profile-db.php";
+    String url = "http://192.168.0.11/Run/insert-profile-db.php";
     Profile profile;
 
     @Override

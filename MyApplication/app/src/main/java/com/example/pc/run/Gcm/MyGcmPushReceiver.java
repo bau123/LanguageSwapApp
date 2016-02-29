@@ -19,6 +19,10 @@ import com.google.android.gms.gcm.GcmListenerService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MyGcmPushReceiver extends GcmListenerService {
 
 
@@ -28,10 +32,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
     private NotificationUtils notificationUtils;
 
-
-    //Class is used to trigger method whenever device receives push notification.
     @Override
-
     // Class is triggered whenever a push notification is sent
     public void onMessageReceived(String from, Bundle bundle) {
         String title = bundle.getString("title");
@@ -64,10 +65,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 processFriendRequest(title, isBackground, data);
                 break;
         }
-
-        //ADD FRIEND REQUEST NOTIFICATION HERE (USE METHOD TO DISPLAY POP UP ASKING IF THEY WANT TO BE FRIENDS)
-
-
     }
 
     /**
@@ -93,9 +90,14 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
                 } else {
+                    //Get current time to add with notification
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String currentDateandTime = sdf.format(new Date());
+
                     // app is in background. show the message in notification try
                     Intent resultIntent = new Intent(getApplicationContext(), App_act.class);
-                    showNotificationMessage(getApplicationContext(), title, message, "", resultIntent);
+                    System.out.println("Friend request: " + message);
+                    showNotificationMessage(getApplicationContext(), title, message, currentDateandTime, resultIntent);
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "json parsing error: " + e.getMessage());
@@ -108,7 +110,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         }
     }
 
-    
+
     private void processUserMessage(String title, boolean isBackground, String data) {
         if (!isBackground) {
 

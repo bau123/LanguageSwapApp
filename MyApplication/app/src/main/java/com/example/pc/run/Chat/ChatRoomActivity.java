@@ -176,7 +176,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     //Gets the GCM registration of the other user
     public void getOtherGcm() {
-        String getGcm = "http://192.168.0.4/run/chat/getGcm.php";
+        String getGcm = "http://192.168.0.11/Run/getGcm.php"; //change me!!!!!
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("email", emailOfOther);
         Requests jsObjRequest = new Requests(Request.Method.POST, getGcm, parameters, new Response.Listener<JSONObject>() {
@@ -209,7 +209,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     public void sendToDataBase(Map<String, String> params) {
-        String sendGcm = "http://192.168.0.4/run/chat/processMessage.php";
+        String sendGcm = "http://192.168.0.11/Run/processMessage.php"; //change me
 
         Requests jsObjRequest = new Requests(Request.Method.POST, sendGcm, params, new Response.Listener<JSONObject>() {
             @Override
@@ -251,7 +251,7 @@ public class ChatRoomActivity extends AppCompatActivity {
      * Fetching all the messages of a single chat room
      */
     private void fetchChatThread() {
-        String endPoint = "http://192.168.0.4/run/chat/fetchMessages.php";
+        String endPoint = "http://192.168.0.11/Run/fetchMessages.php"; // CHANGE ME
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 endPoint, new Response.Listener<String>() {

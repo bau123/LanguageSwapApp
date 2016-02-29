@@ -20,7 +20,7 @@ public class PullProfile {
 
     JSONArray userInfo;
     String email;
-    String url = "http://k1.esy.es/pullProfile.php";
+    String url = "http://192.168.0.11/Run/pullProfile.php";
 
     public PullProfile(String email){
         this.email = email;
