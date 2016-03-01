@@ -39,6 +39,7 @@ public class Profile_frag extends Fragment {
     private String data;
     private final String url = "http://t-simkus.com/run/requestFriend.php";
     private Button addFriend;
+    private String gcm;
 
     public Profile_frag(){
         profile =  new Profile();
@@ -69,6 +70,8 @@ public class Profile_frag extends Fragment {
         try{
             JSONObject obj = new JSONObject(data);
             profile = new Profile(obj.getString("name"), obj.getString("languagesKnown"), obj.getString("languagesLearning"), obj.getString("interests"));
+            profile.setEmail(obj.getString("email"));
+            gcm = obj.getString("gcm_registration_id");
             if(obj.getString("photo") != null){
                 profile.setProfilePicture(obj.getString("photo"));
             }
@@ -111,7 +114,7 @@ public class Profile_frag extends Fragment {
         Map<String, String> params = new HashMap<String, String>();
         params.put("emailFrom", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         params.put("emailTo", profile.getEmail());
-        params.put("gcmTo", ApplicationSingleton.getInstance().getPrefManager().getToken());
+        params.put("gcmTo", gcm);
         params.put("nameFrom", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
 
         //Send message to database and then notify the user
