@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.MyGcmPushReceiver;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
@@ -48,7 +50,8 @@ public class App_act extends AppCompatActivity {
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
     SearchView searchEngine;
-    String url = "http://192.168.0.11/Run/search-db.php";
+    ProgressDialog progress;
+    String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
 
     @Override
@@ -61,21 +64,10 @@ public class App_act extends AppCompatActivity {
         //Location
         setLocation();
 
-        //Set default fragment
-        JSONObject tempJson = new JSONObject();
-        try {
-            tempJson.put("email", "test");
-            tempJson.put("name", "test");
-            tempJson.put("languagesKnown", "test");
-            tempJson.put("languagesLearning", "test");
-            tempJson.put("interests", "test");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Profile_frag temp = new Profile_frag().newInstance(tempJson);
-        frags.add(temp);
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+        Map<String, String> tempParams = new HashMap<>();
+        tempParams.put("info", "");
+        tempParams.put("email", GlobalProfile.profileEmail);
+        processParameters(tempParams);
 
         searchEngine = (SearchView) findViewById(R.id.searchView);
         searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -85,25 +77,10 @@ public class App_act extends AppCompatActivity {
                 System.out.println("making params");
                 Map<String, String> parameters = new HashMap<>();
                 parameters.put("info", query);
+                parameters.put("email", GlobalProfile.profileEmail);
                 System.out.println("params made " + query);
 
-                Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Log.d(TAG, "Search results: " + response.toString());
-                            processResult(response);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError response) {
-                        Log.d("Response: ", response.toString());
-                    }
-                });
-                ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+                processParameters(parameters);
                 return false;
             }
 
@@ -112,6 +89,8 @@ public class App_act extends AppCompatActivity {
                 return false;
             }
         });
+
+
 
         //Setting up broadcast receiver
         regReceiver = new BroadcastReceiver() {
@@ -142,6 +121,28 @@ public class App_act extends AppCompatActivity {
             intent.putExtra("key", "register");
             startService(intent);
         }
+    }
+
+    private void processParameters(Map<String, String> parameters){
+        progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
+        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    progress.dismiss();
+                    processResult(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
     public void processPushNotification(Intent intent){

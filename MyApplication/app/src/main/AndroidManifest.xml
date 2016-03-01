@@ -60,7 +60,8 @@
         </activity>
         <activity android:name=".Login_act" />
         <activity android:name=".Register_act" />
-        <activity android:name=".App_act" />
+        <activity android:name=".App_act" >
+        </activity>
         <activity android:name=".Chat.chat" />
         <activity android:name=".CreateProfile_Act" />
         <activity

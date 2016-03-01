@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,18 +28,16 @@ import com.example.pc.run.SharedPref.ApplicationSingleton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Profile_frag extends Fragment {
 
     TextView name, languagesKnown, languagesLearning, interests;
+    ImageView profileImage;
     private Profile profile;
     private String data;
-    private final String url = "http://192.168.0.11/Run/requestFriend.php";
+    private final String url = "http://t-simkus.com/run/requestFriend.php";
     private Button addFriend;
 
     public Profile_frag(){
@@ -64,6 +63,7 @@ public class Profile_frag extends Fragment {
         languagesKnown = (TextView) v.findViewById(R.id.langKnownField);
         languagesLearning = (TextView) v.findViewById(R.id.langLearningField);
         interests = (TextView) v.findViewById(R.id.interestsField);
+        profileImage = (ImageView)v.findViewById(R.id.profileImageSwipe);
 
         //Create the profile using the data retrive from the server
         try{
@@ -79,6 +79,10 @@ public class Profile_frag extends Fragment {
         languagesKnown.setText("Languages Known: " + profile.getLanguagesKnown());
         languagesLearning.setText("Languages Learning: " + profile.getLanguagesLearning());
         interests.setText("Interests: " + profile.getInterests());
+
+        if(profile.getProfilePicture() != null){
+            profileImage.setImageBitmap(profile.getProfilePicture());
+        }
 
         System.out.println("new fragment made");
         return v;

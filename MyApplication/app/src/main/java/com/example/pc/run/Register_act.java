@@ -24,7 +24,7 @@ import java.util.Map;
 public class Register_act extends AppCompatActivity {
 
     private EditText pass, email;
-    String url = "http://192.168.0.11/Run/insert-db.php";
+    String url = "http://k1.esy.es/insert-db.php";
     String emailString = "";
 
 
