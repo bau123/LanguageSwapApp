@@ -223,7 +223,7 @@ public class App_act extends AppCompatActivity {
     }
 
     public void setLocation() {
-        String locationUrl = "http://192.168.0.11/Run/updateLocation.php";
+        String locationUrl = "http://t-simkus.com/run/updateLocation.php";
         try {
             CoordinatesToString cts = new CoordinatesToString(this);
             System.out.println("Current location " + cts.latitude + " " + cts.longitude);

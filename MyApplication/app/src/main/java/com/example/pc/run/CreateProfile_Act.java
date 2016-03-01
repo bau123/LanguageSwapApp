@@ -30,7 +30,7 @@ public class CreateProfile_Act extends AppCompatActivity {
     EditText languagesKnown;
     EditText languagesLearning;
     String email;
-    String url = "http://k1.esy.es/insert-profile-db.php";
+    String url = "http://t-simkus.com/run/insert-profile-db.php";
     Profile profile;
     ImageView profileImage;
 
