@@ -10,7 +10,6 @@
     tools:context="com.example.pc.run.Search.Profile_frag"
     android:orientation="vertical">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,8 +38,7 @@
         android:text="Name:"
         android:id="@+id/nameField"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +47,7 @@
         android:text="Languages Known:"
         android:id="@+id/langKnownField"
         android:layout_below="@+id/nameField"
-        android:layout_alignParentStart="true" />
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,8 +55,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Learning:"
         android:id="@+id/langLearningField"
-        android:layout_below="@+id/langKnownField"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/langKnownField" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,8 +63,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Interests:"
         android:id="@+id/interestsField"
-        android:layout_below="@+id/langLearningField"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/langLearningField"/>
 
     <Button
         android:layout_width="wrap_content"
