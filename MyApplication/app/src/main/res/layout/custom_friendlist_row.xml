@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:src="@android:drawable/sym_def_app_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/frProfileImage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="25dp"
+        android:id="@+id/frNameText"
+        android:layout_alignTop="@+id/frProfileImage"
+        android:layout_toRightOf="@id/frProfileImage"/>
+
+    <Button
+        android:textSize="10dp"
+        android:text="Chat"
+        android:id="@+id/frMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/frCallButton"
+        android:layout_toStartOf="@+id/frCallButton" />
+
+    <Button
+        android:textSize="10dp"
+        android:text="Call"
+        android:id="@+id/frCallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

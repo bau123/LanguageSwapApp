@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,13 +72,11 @@ public class Login_act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
+            ProgressDialog progress = ProgressDialog.show(this, "Please wait...", "Loading app...", true);
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             PullProfile pulling = new PullProfile(mEmail);
             GlobalProfile.profileEmail = mEmail;
-            /*
-                TODO: Replace Thread.sleep with a loading panel
-             */
-            Thread.sleep(500);
+            progress.dismiss();
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
         } else if (result.equals("failure")) {

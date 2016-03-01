@@ -60,17 +60,19 @@
         </activity>
         <activity android:name=".Login_act" />
         <activity android:name=".Register_act" />
-        <activity android:name=".App_act" >
-        </activity>
+        <activity android:name=".App_act" />
         <activity android:name=".Chat.chat" />
-        <activity android:name=".CreateProfile_Act"></activity>
+        <activity android:name=".CreateProfile_Act" />
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UploadImage_act" >
+        <activity android:name=".UploadImage_act" />
+        <activity android:name=".Profile_act" />
+        <activity android:name=".FriendsList_act">
         </activity>
-        <activity android:name=".Profile_act"></activity>
+        <activity android:name=".FriendRequests_act">
+        </activity>
     </application>
 
 </manifest>

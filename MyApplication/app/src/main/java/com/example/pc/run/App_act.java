@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,7 @@ public class App_act extends AppCompatActivity {
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
+    ProgressDialog progress;
     SearchView searchEngine;
     String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
@@ -49,20 +51,10 @@ public class App_act extends AppCompatActivity {
         //Location
         setLocation();
 
-        //Set default fragment
-        JSONObject tempJson = new JSONObject();
-        try {
-            tempJson.put("name", "test");
-            tempJson.put("languagesKnown", "test");
-            tempJson.put("languagesLearning", "test");
-            tempJson.put("interests", "test");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Profile_frag temp = new Profile_frag().newInstance(tempJson);
-        frags.add(temp);
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+        Map<String, String> tempParams = new HashMap<>();
+        tempParams.put("info", "");
+        tempParams.put("email", GlobalProfile.profileEmail);
+        processParameters(tempParams);
 
         searchEngine = (SearchView) findViewById(R.id.searchView);
         searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -75,24 +67,7 @@ public class App_act extends AppCompatActivity {
                 parameters.put("email", GlobalProfile.profileEmail);
                 System.out.println("params made " + query);
 
-
-                Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            System.out.println(response.toString());
-                            processResult(response);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError response) {
-                        Log.d("Response: ", response.toString());
-                    }
-                });
-                ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+                processParameters(parameters);
                 return false;
             }
 
@@ -103,6 +78,28 @@ public class App_act extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void processParameters(Map<String, String> parameters){
+        progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
+        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    progress.dismiss();
+                    processResult(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
     private void processResult(JSONObject input) throws JSONException, InterruptedException {
