@@ -50,7 +50,7 @@ public class App_act extends AppCompatActivity {
     private ViewPager viewPager;
     SearchView searchEngine;
     ProgressDialog progress;
-    String url = "http://k1.esy.es/search-db.php";
+    String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
 
     @Override
