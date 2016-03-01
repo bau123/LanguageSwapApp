@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +41,7 @@ public class App_act extends AppCompatActivity {
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
     private ViewPager viewPager;
+    ArrayList<UserLocation> userLocation = new ArrayList<UserLocation>();
     SearchView searchEngine;
     String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
@@ -51,6 +55,8 @@ public class App_act extends AppCompatActivity {
 
         //Location
         setLocation();
+        listLocatons();
+
 
         //Set default fragment
         JSONObject tempJson = new JSONObject();
@@ -81,7 +87,7 @@ public class App_act extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println("Here "+response.toString());
+                            System.out.println("Here " + response.toString());
                             processResult(response);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -103,6 +109,8 @@ public class App_act extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
@@ -189,6 +197,118 @@ public class App_act extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Sorry we cant get the location", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void listLocatons() {
+
+        String url2 = "http://k1.esy.es/getCampuses.php";
+        Map<String, String> parameters = new HashMap<>();
+
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, url2, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    processLocationResult(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+
+
+    }
+
+    class UserLocation {
+        public String email, campus;
+
+        public UserLocation(String email, String campus) {
+            this.email = email;
+            this.campus = campus;
+        }
+
+        public String toString() {
+            String r = email + " " + campus;
+            return r;
+        }
+    }
+
+
+    public void processLocationResult(JSONObject input) throws JSONException, InterruptedException {
+        JSONArray result = input.getJSONArray("result");
+
+        for (int i = 0; i < result.length(); i++) {
+
+            JSONObject current = result.getJSONObject(i);
+            if (current.getString("passed").equals("true")) {
+                String email = current.getString("email");
+                String campus = current.getString("campus");
+                this.userLocation.add(new UserLocation(email, campus));
+            }
+
+            else {
+                //Produce message !!!!!
+            }
+
+        }
+
+    }
+
+
+
+    public void showDropdown(View v) {
+        Spinner dropdown = (Spinner) findViewById(R.id.campusSpinner);
+        final String[] items = new String[]{"Strand", "Franklin-Wilkins building", "James Clerk Maxwell building","Maughan Library & Information Services Centre",
+        "Durry lane building","Virginia woolf building"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+        dropdown.setVisibility(View.VISIBLE);
+
+        //Add on click listener
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            String campusSelected = null;
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int tempId = (int) id;
+
+                campusSelected = items[tempId];
+                showMembers(campusSelected);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //Do nothing
+            }
+        });
+    }
+
+    /*
+    Displays a list of members at a certain campus
+     */
+
+    public void showMembers(String campusSelected) {
+        ArrayList<UserLocation> tempList = new ArrayList<>();
+
+        //Go over every user
+        for(UserLocation u : userLocation) {
+            //If his campus belongs to the selected category
+            if(u.campus.equals(campusSelected)) {
+                //Add user to the list
+                tempList.add(u);
+                System.out.println(u.toString());
+            }
+        }
+
+
+        //Add info to the view
+
     }
 
 }

@@ -14,11 +14,31 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchView" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:id="@+id/btnShowDropDown"
+            android:onClick="showDropdown" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/campusSpinner"
+            android:visibility="invisible" />
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="359dp"
-        android:layout_weight="1.06" />
+        android:layout_height="158dp"
+        android:orientation="vertical" />
 
 </LinearLayout>
 

@@ -35,25 +35,6 @@ public class GPSTracker extends Service implements LocationListener{
         getLocation();
     }
 
-    public void getRadius() {
-        float radius = 50;
-        Location campusLoc = location;
-        campusLoc.setLatitude(51.503264);
-        campusLoc.setLongitude(-0.090053);
-
-        Location currentLoc = location;
-        currentLoc.setLatitude(51.505167);
-        currentLoc.setLongitude(-0.089484);
-
-        float distance = currentLoc.distanceTo(campusLoc);
-        if (distance < radius) {
-            System.out.println("Within the radius of campus");
-            System.out.println("Distance is "+ distance);
-        }
-        else {
-            System.out.println("Distance is "+ distance);
-        }
-    }
 
     public Location getLocation() {
         try {

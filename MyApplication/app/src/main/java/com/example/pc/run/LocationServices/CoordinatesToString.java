@@ -15,7 +15,7 @@ public class CoordinatesToString  {
 
     Context context;
     public String[] address;
-    public String campus = "Not in any campus";
+    public String campus = "Not at any campus";
     public double latitude = 0,longitude = 0;
     public GPSTracker gps;
 
