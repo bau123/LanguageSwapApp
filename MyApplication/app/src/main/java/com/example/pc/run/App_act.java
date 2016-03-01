@@ -124,13 +124,13 @@ public class App_act extends AppCompatActivity {
     }
 
     private void processParameters(Map<String, String> parameters){
-        progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
+       // progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     System.out.println(response.toString());
-                    progress.dismiss();
+                    //progress.dismiss();
                     processResult(response);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -140,6 +140,7 @@ public class App_act extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError response) {
                 Log.d("Response: ", response.toString());
+                //progress.dismiss();
             }
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
@@ -173,6 +174,7 @@ public class App_act extends AppCompatActivity {
     }
 
     private void processResult(JSONObject input) throws JSONException, InterruptedException {
+
         JSONArray profileNames = input.getJSONArray("result");
         //Clear the array containing the profile fragments
         ArrayList<Fragment> tempFrags = new ArrayList<>();
@@ -200,6 +202,7 @@ public class App_act extends AppCompatActivity {
         viewPager.invalidate();
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         System.out.println("refreshed pageAdapter");
+        //progress.dismiss();
     }
 
     class PagerAdapter extends FragmentPagerAdapter {
