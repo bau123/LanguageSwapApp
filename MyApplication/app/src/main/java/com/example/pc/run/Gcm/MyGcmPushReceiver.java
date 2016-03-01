@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.pc.run.App_act;
 import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.MainActivity;
 import com.example.pc.run.Objects.Message;
@@ -18,6 +19,10 @@ import com.google.android.gms.gcm.GcmListenerService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MyGcmPushReceiver extends GcmListenerService {
 
 
@@ -27,14 +32,16 @@ public class MyGcmPushReceiver extends GcmListenerService {
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
     private NotificationUtils notificationUtils;
 
-
-    //Class is used to trigger method whenever device receives push notification.
     @Override
+    // Class is triggered whenever a push notification is sent
     public void onMessageReceived(String from, Bundle bundle) {
         String title = bundle.getString("title");
         Boolean isBackground = Boolean.valueOf(bundle.getString("is_background"));
         String flag = bundle.getString("flag");
         String data = bundle.getString("data");
+
+        if (flag == null)
+            return;
 
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "title: " + title);
@@ -47,62 +54,51 @@ public class MyGcmPushReceiver extends GcmListenerService {
             Log.e(TAG, "user is not logged in, skipping push notification");
             return;
         }
-        processUserMessage(title, isBackground, data);
+
+        switch (Integer.parseInt(flag)) {
+            case Config.PUSH_TYPE_USER:
+                // push notification is specific to message from user
+                processUserMessage(title, isBackground, data);
+                break;
+            case Config.PUSH_TYPE_FRIEND:
+                // push notification is specific to friend request
+                processFriendRequest(title, isBackground, data);
+                break;
+        }
     }
 
     /**
-     * Processing chat room push message
+     * Processing Friend request
      * this message will be broadcasts to all the activities registered
      * */
-    private void processChatRoomPush(String title, boolean isBackground, String data) {
+    private void processFriendRequest(String title, boolean isBackground, String data) {
         if (!isBackground) {
-
             try {
                 JSONObject datObj = new JSONObject(data);
+                String emailFrom = datObj.getString("emailFrom");
+                String nameFrom = datObj.getString("nameFrom");
 
-                String chatRoomId = datObj.getString("chat_room_id");
-
-                JSONObject mObj = datObj.getJSONObject("message");
-                Message message = new Message();
-                message.setMessage(mObj.getString("message"));
-                message.setMessageId(mObj.getString("message_id"));
-                message.setDateCreated(mObj.getString("created_at"));
-
-                JSONObject uObj = datObj.getJSONObject("user");
-
-                // skip the message if the message belongs to same user as
-                // the user would be having the same message when he was sending
-                // but it might differs in your scenario
-                if (uObj.getString("user_id").equals(ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail())) {
-                    Log.e(TAG, "Skipping the push message as it belongs to same user");
-                    return;
-                }
-
-                Profile user = new Profile();
-                user.setEmail(uObj.getString("user_id"));
-                user.updateName(uObj.getString("name"));
-                message.setUser(user);
+                //Creates the message
+                String message = "Friend request from " + nameFrom;  //CHANGE ME !!!!!!!
 
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-
                     // app is in foreground, broadcast the push message
                     Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
-                    pushNotification.putExtra("type", Config.PUSH_TYPE_CHATROOM);
+                    pushNotification.putExtra("type", Config.PUSH_TYPE_FRIEND);
                     pushNotification.putExtra("message", message);
-                    pushNotification.putExtra("chat_room_id", chatRoomId);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
-                    // play notification sound
-                    NotificationUtils notificationUtils = new NotificationUtils();
                 } else {
+                    //Get current time to add with notification
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String currentDateandTime = sdf.format(new Date());
 
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), ChatRoomActivity.class);
-                    resultIntent.putExtra("chat_room_id", chatRoomId);
-                    showNotificationMessage(getApplicationContext(), title, user.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
+                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);
+                    System.out.println("Friend request: " + message);
+                    showNotificationMessage(getApplicationContext(), title, message, currentDateandTime, resultIntent);
                 }
-
             } catch (JSONException e) {
                 Log.e(TAG, "json parsing error: " + e.getMessage());
                 Toast.makeText(getApplicationContext(), "Json parse error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -115,26 +111,17 @@ public class MyGcmPushReceiver extends GcmListenerService {
     }
 
 
-
     private void processUserMessage(String title, boolean isBackground, String data) {
         if (!isBackground) {
 
             try {
                 JSONObject datObj = new JSONObject(data);
 
-                String imageUrl = datObj.getString("image");
-
-                JSONObject mObj = datObj.getJSONObject("message");
                 Message message = new Message();
-                message.setMessage(mObj.getString("message"));
-                message.setMessageId(mObj.getString("message_id"));
-                message.setDateCreated(mObj.getString("created_at"));
-
-                JSONObject uObj = datObj.getJSONObject("user");
-                Profile user = new Profile();
-                user.setEmail(uObj.getString("email"));
-                user.updateName(uObj.getString("name"));
-                message.setUser(user);
+                message.setMessage(datObj.getString("message"));
+                message.setMessageId(datObj.getString("message_id"));
+                message.setDateCreated(datObj.getString("created_at"));
+                message.setName(datObj.getString("user_name"));
 
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
@@ -147,8 +134,8 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 } else {
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    showNotificationMessage(getApplicationContext(), title, user.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
+                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);  // FIXXXXXXXXXXX
+                    showNotificationMessage(getApplicationContext(), title, message.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "json parsing error: " + e.getMessage());

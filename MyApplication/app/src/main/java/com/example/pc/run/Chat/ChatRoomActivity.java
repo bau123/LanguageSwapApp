@@ -1,5 +1,6 @@
 package com.example.pc.run.Chat;
 
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
+import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Message;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
@@ -52,6 +54,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private EditText inputMessage;
     private Button btnSend;
+    private String emailOfOther;
+    private String gcmOfOther;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +75,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (chatRoomId == null) {
-            Toast.makeText(getApplicationContext(), "Chat room not found!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
@@ -88,6 +87,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        //Gets the gcm registration of other user
+        getOtherGcm();
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -129,7 +131,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     /**
      * Handling new push message, will add the message to
      * recycler view and scroll it to bottom
-     * */
+     */
     private void handlePushNotification(Intent intent) {
         Message message = (Message) intent.getSerializableExtra("message");
         String chatRoomId = intent.getStringExtra("chat_room_id");
@@ -147,127 +149,118 @@ public class ChatRoomActivity extends AppCompatActivity {
      * Posting a new message in chat room
      * will make an http call to our server. Our server again sends the message
      * to all the devices as push notification
-     * */
+     */
     private void sendMessage() {
         final String message = this.inputMessage.getText().toString().trim();
+        //Clears the textView containing the message
+        this.inputMessage.setText("");
 
+        //Checks if user has entered anything in the chat
         if (TextUtils.isEmpty(message)) {
             Toast.makeText(getApplicationContext(), "Enter a message", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //String endPoint = EndPoints.CHAT_ROOM_MESSAGE.replace("_ID_", chatRoomId);  // replace id with the chatroomID
-        String endPoint = ""; //!!!!!!!!!!!!!!!!!
+        //Creating params needed to send to database and other user
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        params.put("user_name", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
+        params.put("chat_room_id", chatRoomId);
+        params.put("message", message);
+        params.put("gcmTo", gcmOfOther);
+        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
 
+        //Send message to database and then notify the user
+        sendToDataBase(params);
+    }
 
-
-
-        Log.e(TAG, "endpoint: " + endPoint);
-
-        this.inputMessage.setText("");
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                endPoint, new Response.Listener<String>() {
-
+    //Gets the GCM registration of the other user
+    public void getOtherGcm() {
+        String getGcm = "http://192.168.0.11/Run/getGcm.php"; //change me!!!!!
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", emailOfOther);
+        Requests jsObjRequest = new Requests(Request.Method.POST, getGcm, parameters, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
+            public void onResponse(JSONObject response) {
                 try {
-                    JSONObject obj = new JSONObject(response);
+                    System.out.println(response.toString());
+                    try {
+                        String result = response.getString("message");
+                        if (result != "failure") {
+                            gcmOfOther = result;
+                        } else {
+                            System.out.println("Could not get the email of other user in chat");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                    // check for error
-                    if (obj.getBoolean("error") == false) {
-                        JSONObject commentObj = obj.getJSONObject("message");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
 
-                        String commentId = commentObj.getString("message_id");
-                        String commentText = commentObj.getString("message");
-                        String createdAt = commentObj.getString("created_at");
+    public void sendToDataBase(Map<String, String> params) {
+        String sendGcm = "http://192.168.0.11/Run/processMessage.php"; //change me
 
-                        JSONObject userObj = obj.getJSONObject("user");
-                        String userId = userObj.getString("user_id");
-                        String userName = userObj.getString("name");
-                        Profile user = new Profile(userId, userName);
+        Requests jsObjRequest = new Requests(Request.Method.POST, sendGcm, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    if (response.getString("error") == "false") {
 
                         Message message = new Message();
-                        message.setEmail(commentId);
-                        message.setMessage(commentText);
-                        message.setDateCreated(createdAt);
-                        message.setUser(user);
+                        message.setEmail(response.getString("message_id"));
+                        message.setMessage(response.getString("message"));
+                        message.setDateCreated(response.getString("created_at"));
+                        message.setName(ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
 
+                        //Add message to chat
                         messageArrayList.add(message);
-
                         mAdapter.notifyDataSetChanged();
                         if (mAdapter.getItemCount() > 1) {
                             // scrolling to bottom of the recycler view
                             recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
                         }
-
                     } else {
-                        Toast.makeText(getApplicationContext(), "" + obj.getString("message"), Toast.LENGTH_LONG).show();
+                        // !!!! put error Message!!!
                     }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                    Toast.makeText(getApplicationContext(), "json parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
-
             @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                inputMessage.setText(message);
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
             }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
-                params.put("message", message);
-
-                Log.e(TAG, "Params: " + params.toString());
-
-                return params;
-            };
-        };
-
-
-        // disabling retry policy so that it won't make
-        // multiple http calls
-        int socketTimeout = 0;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        strReq.setRetryPolicy(policy);
-
-        //Adding request to request queue
-        ApplicationSingleton.getInstance().addToRequestQueue(strReq);
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
-
 
     /**
      * Fetching all the messages of a single chat room
-     * */
+     */
     private void fetchChatThread() {
-        // String endPoint = EndPoints.CHAT_THREAD.replace("_ID_", chatRoomId);
-        String endPoint = ""; //!!!!!!!!!!!!!!!!!!!!!!!!
-        Log.e(TAG, "endPoint: " + endPoint);
+        String endPoint = "http://192.168.0.11/Run/fetchMessages.php"; // CHANGE ME
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 endPoint, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 Log.e(TAG, "response: " + response);
 
                 try {
                     JSONObject obj = new JSONObject(response);
-
                     // check for error
                     if (obj.getBoolean("error") == false) {
                         JSONArray commentsObj = obj.getJSONArray("messages");
@@ -278,17 +271,21 @@ public class ChatRoomActivity extends AppCompatActivity {
                             String commentId = commentObj.getString("message_id");
                             String commentText = commentObj.getString("message");
                             String createdAt = commentObj.getString("created_at");
+                            String name = commentObj.getString("name");
+                            String email = commentObj.getString("email");
 
+                            /*
                             JSONObject userObj = commentObj.getJSONObject("user");
                             String userId = userObj.getString("user_id");
                             String userName = userObj.getString("username");
                             Profile user = new Profile(userId, userName);
+                            */
 
-                            Message message = new Message();
+                            Message message = new Message(email, commentText, commentId, createdAt, name);
                             message.setEmail(commentId);
                             message.setMessage(commentText);
                             message.setDateCreated(createdAt);
-                            message.setUser(user);
+                            message.setName(name);
 
                             messageArrayList.add(message);
                         }

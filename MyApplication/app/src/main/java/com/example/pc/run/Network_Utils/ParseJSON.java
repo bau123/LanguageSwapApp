@@ -46,7 +46,6 @@ public class ParseJSON implements Callable<String[]> {
         return address;
     }
 
-
     /*
     @params: url - string to lookup location
     @return: json object with address details

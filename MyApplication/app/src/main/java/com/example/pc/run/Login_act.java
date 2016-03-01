@@ -1,6 +1,5 @@
 package com.example.pc.run;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
@@ -24,7 +22,7 @@ import java.util.Map;
 public class Login_act extends AppCompatActivity {
 
     private EditText email, pass;
-    String url = "http://k1.esy.es/checkPass.php";
+    String url = "http://192.168.0.11/Run/checkPass.php";
     String mEmail;
 
     @Override
@@ -72,11 +70,9 @@ public class Login_act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
-            ProgressDialog progress = ProgressDialog.show(this, "Please wait...", "Loading app...", true);
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             PullProfile pulling = new PullProfile(mEmail);
-            GlobalProfile.profileEmail = mEmail;
-            progress.dismiss();
+            Thread.sleep(100);
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
         } else if (result.equals("failure")) {

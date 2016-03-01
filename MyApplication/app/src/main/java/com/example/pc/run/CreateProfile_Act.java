@@ -1,21 +1,16 @@
 package com.example.pc.run;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Global.GlobalBitmap;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -33,22 +28,15 @@ public class CreateProfile_Act extends AppCompatActivity {
     EditText languagesKnown;
     EditText languagesLearning;
     String email;
-    String url = "http://k1.esy.es/insert-profile-db.php";
+    String url = "http://192.168.0.11/Run/insert-profile-db.php";
     Profile profile;
-    ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile_);
 
-        profileImage = (ImageView)findViewById(R.id.profileImage);
-
         email = getIntent().getStringExtra("email");
-
-        if(GlobalBitmap.bitmap != null) {
-            profileImage.setImageBitmap(GlobalBitmap.bitmap);
-        }
 
         name = (EditText)findViewById(R.id.nameEdit);
         interests = (EditText)findViewById(R.id.interestsEdit);
@@ -105,11 +93,5 @@ public class CreateProfile_Act extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Adding Profile info failed", Toast.LENGTH_LONG).show();
         }
 
-    }
-
-    public void uploadImage(View v){
-        Intent intent = new Intent(this, UploadImage_act.class);
-        intent.putExtra("email", email);
-        startActivity(intent);
     }
 }
