@@ -70,7 +70,7 @@ public class RegistrationIntentService extends IntentService {
     private void sendRegistrationToServer(final String token) {
         // Send the registration token to our server
         // to keep it in MySQL
-        String url = "http://192.168.0.11/Run/updateGcm.php"; //REPLACE
+        String url = "http://t-simkus.com/run/updateGcm.php"; //REPLACE
 
         System.out.println("Making params for reg to server");
         Map<String, String> parameters = new HashMap<>();

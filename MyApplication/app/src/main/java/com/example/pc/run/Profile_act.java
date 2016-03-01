@@ -32,7 +32,7 @@ public class Profile_act extends AppCompatActivity {
     TextView languagesLearning;
     ImageView profileImage;
     Bitmap bitmap;
-    String url = "http://k1.esy.es/pull-profile-image.php";
+    String url = "http://t-simkus.com/run/pull-profile-image.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

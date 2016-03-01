@@ -40,7 +40,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
     String email;
 
     private int request = 1;
-    private String UPLOAD_URL = "http://k1.esy.es/insert-db-image.php";
+    private String UPLOAD_URL = "http://t-simkus.com/run/insert-db-image.php";
 
     private String IMAGE_KEY = "image";
     private String EMAIL_KEY = "email";
