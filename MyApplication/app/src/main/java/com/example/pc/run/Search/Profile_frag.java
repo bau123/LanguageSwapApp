@@ -69,7 +69,9 @@ public class Profile_frag extends Fragment {
         try{
             JSONObject obj = new JSONObject(data);
             profile = new Profile(obj.getString("name"), obj.getString("languagesKnown"), obj.getString("languagesLearning"), obj.getString("interests"));
-            profile.setEmail(obj.getString("email"));
+            if(obj.getString("photo") != null){
+                profile.setProfilePicture(obj.getString("photo"));
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }
