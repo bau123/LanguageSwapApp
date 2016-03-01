@@ -23,6 +23,7 @@ public class CallAPIServices extends Service {
     private String callThisUser;
     private SinchClient userClient;
     private static final String TAG = CallAPIServices.class.getSimpleName();
+    public static final String CALL_ID = "CALL_ID";
 
     private SinchServiceInterface mSinchServiceInterface = new SinchServiceInterface();
     private StartFailedListener mListener;
@@ -74,7 +75,7 @@ public class CallAPIServices extends Service {
         public void onIncomingCall(CallClient callClient, Call call) {
             Log.d(TAG, "Incoming call");
             Intent intent = new Intent(CallAPIServices.this, IncomingCallScreenActivity.class);
-            intent.putExtra(callThisUser, call.getCallId());
+            intent.putExtra(CALL_ID, call.getCallId());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             CallAPIServices.this.startActivity(intent);
         }

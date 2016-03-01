@@ -76,13 +76,11 @@
             android:label="@string/title_activity_make_call"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Call.IncomingCallScreenActivity"
-            android:label="@string/title_activity_incoming_call_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Call.setUpCallActivity"
             android:label="@string/title_activity_set_up_call"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Call.VideoStreaming" />
+        <activity android:name=".Call.CallScreenActivity"></activity>
     </application>
 
 </manifest>
