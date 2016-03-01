@@ -51,7 +51,7 @@ public class App_act extends AppCompatActivity {
     private ViewPager viewPager;
     SearchView searchEngine;
     ProgressDialog progress;
-    String url = "http://t-simkus.com/run/search-db.php";
+    String url = "http://k1.esy.es/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
 
     @Override
@@ -224,7 +224,7 @@ public class App_act extends AppCompatActivity {
     }
 
     public void setLocation() {
-        String locationUrl = "http://t-simkus.com/run/updateLocation.php";
+        String locationUrl = "http://192.168.0.11/Run/updateLocation.php";
         try {
             CoordinatesToString cts = new CoordinatesToString(this);
             System.out.println("Current location " + cts.latitude + " " + cts.longitude);
