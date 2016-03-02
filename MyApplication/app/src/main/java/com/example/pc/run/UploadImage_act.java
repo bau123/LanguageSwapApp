@@ -33,17 +33,12 @@ import java.util.Map;
 public class UploadImage_act extends AppCompatActivity implements View.OnClickListener {
 
     private Button chooseImage;
-    private Button uploadImage;
     private Button buttonReturn;
     private ImageView imageView;
     private Bitmap bitmap;
     String email;
 
     private int request = 1;
-    private String UPLOAD_URL = "http://t-simkus.com/run/insert-db-image.php";
-
-    private String IMAGE_KEY = "image";
-    private String EMAIL_KEY = "email";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,74 +48,14 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
         email = getIntent().getStringExtra("email");
 
         chooseImage = (Button) findViewById(R.id.buttonChoose);
-        uploadImage = (Button) findViewById(R.id.buttonUpload);
         buttonReturn = (Button) findViewById(R.id.buttonReturn);
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
         chooseImage.setOnClickListener(this);
-        uploadImage.setOnClickListener(this);
         buttonReturn.setOnClickListener(this);
     }
 
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
-
-    private void uploadImage() {
-
-        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...",
-                "Please wait...", false, false);
-
-        String image = getStringImage(bitmap);
-        Log.d("IMAGE", image);
-
-        Map<String, String> params = new HashMap<>();
-
-        params.put(IMAGE_KEY, image);
-        params.put(EMAIL_KEY, email);
-
-        Requests jsObjRequest = new Requests(Request.Method.POST, UPLOAD_URL, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    loading.dismiss();
-                    System.out.println(response.toString());
-                    processResult(response);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError response) {
-                Log.d("Response: ", response.toString());
-                loading.dismiss();
-            }
-        });
-        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-    }
-
-    private void processResult(JSONObject input) throws InterruptedException {
-        String result = "";
-        try{
-            result = input.getString("message");
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        if (result.equals("success")) {
-
-            System.out.println("SUCCESS");
-        } else if (result.equals("failure")) {
-
-            System.out.println("FAILURE");
-        }
-
-    }
 
     private void showFileChooser(){
         Intent intent = new Intent();
@@ -148,10 +83,6 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
-        if(v==uploadImage){
-            uploadImage();
-        }
 
         if(v==chooseImage){
             showFileChooser();

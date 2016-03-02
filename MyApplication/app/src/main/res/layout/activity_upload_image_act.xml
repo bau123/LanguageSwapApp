@@ -26,16 +26,9 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Upload Image"
-            android:id="@+id/buttonUpload" />
-
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Return"
-            android:layout_toRightOf="@id/buttonUpload"
             android:id="@+id/buttonReturn" />
 
     </RelativeLayout>

@@ -5,18 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.pc.run.FriendsList_act;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
+import com.example.pc.run.RequestModification;
 
 import java.util.ArrayList;
 
 /**
  * Created by Joss on 29/02/2016.
  */
-public class FriendRequestAdapter extends BaseAdapter {
+public class FriendRequestAdapter extends BaseAdapter{
     private Activity context;
 
     private ArrayList<Profile> profiles = new ArrayList<>();
@@ -42,7 +47,7 @@ public class FriendRequestAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
 
         if(convertView == null){
@@ -51,6 +56,8 @@ public class FriendRequestAdapter extends BaseAdapter {
 
             viewHolder.profileImg = (ImageView)convertView.findViewById(R.id.fqProfileImage);
             viewHolder.name = (TextView)convertView.findViewById(R.id.fqNameView);
+            viewHolder.acceptButton = (Button)convertView.findViewById(R.id.acceptButton);
+            viewHolder.rejectButton = (Button)convertView.findViewById(R.id.rejectButton);
 
             convertView.setTag(viewHolder);
         }else{
@@ -61,12 +68,37 @@ public class FriendRequestAdapter extends BaseAdapter {
         if(profiles.get(position).getProfilePicture() != null){
             viewHolder.profileImg.setImageBitmap(profiles.get(position).getProfilePicture());
         }
+
+        viewHolder.acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "Friend Request Accepted!", Toast.LENGTH_LONG).show();
+                RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
+                        GlobalProfile.profileEmail, "true");
+            }
+        });
+
+        viewHolder.rejectButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "Friend Request Rejected!", Toast.LENGTH_LONG).show();
+                RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
+                        GlobalProfile.profileEmail, "false");
+            }
+        });
+
         return convertView;
     }
+
 
     public class ViewHolder{
         public ImageView profileImg;
         public TextView name;
+        public Button acceptButton;
+        public Button rejectButton;
     }
+
 }
 

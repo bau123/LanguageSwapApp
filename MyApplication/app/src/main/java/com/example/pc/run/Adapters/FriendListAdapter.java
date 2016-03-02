@@ -51,7 +51,7 @@ public class FriendListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.custom_friendlist_row, null);
             viewHolder = new ViewHolder();
 
-            //viewHolder.profileImg = (ImageView)convertView.findViewById(R.id.frProfileImage);
+            viewHolder.profileImg = (ImageView)convertView.findViewById(R.id.frProfileImage);
             viewHolder.name = (TextView)convertView.findViewById(R.id.frNameText);
 
             convertView.setTag(viewHolder);

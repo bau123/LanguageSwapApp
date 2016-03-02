@@ -33,6 +33,14 @@ public class Profile implements Serializable{
         this.languagesLearning = languagesLearning;
         this.interests = interests;
     }
+    public Profile(String email, String name, String languagesKnown, String languagesLearning, String interests){
+        this.email = email;
+        this.name = name;
+        this.languagesKnown = languagesKnown;
+        this.languagesLearning = languagesLearning;
+        this.interests = interests;
+    }
+
 
     public Profile(String name, String languagesKnown, String languagesLearning, String interests, Bitmap bitmap){
         this.name = name;

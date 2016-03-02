@@ -1,8 +1,10 @@
 package com.example.pc.run;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.example.pc.run.SharedPref.ApplicationSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +64,12 @@ public class CreateProfile_Act extends AppCompatActivity {
         parameters.put("languagesKnown", languagesKnown.getText().toString());
         parameters.put("languagesLearning", languagesLearning.getText().toString());
         parameters.put("interests", interests.getText().toString());
+
+        if(GlobalBitmap.bitmap != null){
+            String photo = getStringImage(GlobalBitmap.bitmap);
+            parameters.put("photo", photo);
+        }
+
         System.out.println("params made");
         Log.d("Email Passed:", email);
 
@@ -108,5 +117,13 @@ public class CreateProfile_Act extends AppCompatActivity {
         Intent intent = new Intent(this, UploadImage_act.class);
         intent.putExtra("email", email);
         startActivity(intent);
+    }
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
 }
