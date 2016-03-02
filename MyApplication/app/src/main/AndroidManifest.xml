@@ -72,8 +72,6 @@
         <activity android:name=".Profile_act" />
         <activity android:name=".FriendsList_act">
         </activity>
-        <activity android:name=".FriendRequests_act">
-        </activity>
     </application>
 
 </manifest>

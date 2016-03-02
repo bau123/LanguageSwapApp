@@ -27,8 +27,8 @@ public class FriendsList_act extends AppCompatActivity{
 
     public ListView friendsList;
     public ListView friendsReqList;
-    public static ArrayList<Profile> friendList;
-    public static ArrayList<Profile> friendReqList;
+    public ArrayList<Profile> friendList;
+    public ArrayList<Profile> friendReqList;
     FriendListAdapter friendListAdapter;
     FriendRequestAdapter friendReqAdapter;
     String url = "http://t-simkus.com/run/getFriendRequests.php";
@@ -107,9 +107,12 @@ public class FriendsList_act extends AppCompatActivity{
     }
 
     public void basicRefresh(){
-        getFriendRequests();
         friendListAdapter.notifyDataSetChanged();
         friendReqAdapter.notifyDataSetChanged();
+    }
+
+    public void fullRefresh(){
+        getFriendRequests();
     }
 
 }

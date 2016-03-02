@@ -69,13 +69,9 @@ public class RequestModification {
         }
         if (result.equals("success")) {
             System.out.println("SUCCESS");
-            FriendsList_act refreshing = new FriendsList_act();
-            refreshing.basicRefresh();
 
         } else if (result.equals("failure")) {
             System.out.println("FAILURE");
-            FriendsList_act refreshing = new FriendsList_act();
-            refreshing.basicRefresh();
 
         }
     }

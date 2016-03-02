@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,21 +54,31 @@ public class FriendListAdapter extends BaseAdapter {
 
             viewHolder.profileImg = (ImageView)convertView.findViewById(R.id.frProfileImage);
             viewHolder.name = (TextView)convertView.findViewById(R.id.frNameText);
+            viewHolder.chatButton = (Button)convertView.findViewById(R.id.frMessageButton);
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-
         viewHolder.name.setText(profiles.get(position).getName());
         if(profiles.get(position).getProfilePicture() != null){
             viewHolder.profileImg.setImageBitmap(profiles.get(position).getProfilePicture());
         }
+
+        viewHolder.chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //TODO: YOUR CODE GOES HERE
+            }
+        });
         return convertView;
     }
 
     public class ViewHolder{
         public ImageView profileImg;
         public TextView name;
+        public Button chatButton;
+        public Button callButton;
     }
 }
