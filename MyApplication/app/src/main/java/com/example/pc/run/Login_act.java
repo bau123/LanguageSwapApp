@@ -102,7 +102,7 @@ public class Login_act extends AppCompatActivity {
             PullProfile pulling = new PullProfile(mEmail);
             GlobalProfile.profileEmail = mEmail;
             Thread.sleep(100);
-            Intent intent = new Intent(this, FriendsList_act.class);
+            Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
