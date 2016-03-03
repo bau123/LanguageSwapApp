@@ -37,7 +37,6 @@ public class CallScreenActivity extends BaseActivity {
     private String mCallId;
     private long mCallStart = 0;
     private boolean mAddedListener = false;
-    private boolean mVideoViewsAdded = false;
 
     private TextView mCallDuration;
     private TextView mCallState;
@@ -157,27 +156,7 @@ public class CallScreenActivity extends BaseActivity {
         mTimer.schedule(mDurationTask, 0, 500);
         updateUI();
     }
-    private void addVideoViews() {
-        if (mVideoViewsAdded || getSinchServiceInterface() == null) {
-            return; //early
-        }
 
-        final VideoController vc = getSinchServiceInterface().getVideoController();
-        if (vc != null) {
-            RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
-            localView.addView(vc.getLocalView());
-            localView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    vc.toggleCaptureDevicePosition();
-                }
-            });
-
-            LinearLayout view = (LinearLayout) findViewById(R.id.remoteVideo);
-            view.addView(vc.getRemoteView());
-            mVideoViewsAdded = true;
-        }
-    }
     private void removeVideoViews() {
         if (getSinchServiceInterface() == null) {
             return; // early
@@ -190,7 +169,6 @@ public class CallScreenActivity extends BaseActivity {
 
             RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
             localView.removeView(vc.getLocalView());
-            mVideoViewsAdded = false;
         }
     }
 
@@ -235,7 +213,27 @@ public class CallScreenActivity extends BaseActivity {
         @Override
         public void onVideoTrackAdded(com.sinch.android.rtc.calling.Call call) {
             Log.d(TAG, "Video track added");
+            VideoController vc = getSinchServiceInterface().getVideoController();
             addVideoViews();
+        }
+    }
+
+    /*
+    creates the views wich will display the captured video from the caller and receiver
+     */
+    private void addVideoViews() {
+        final VideoController vc = getSinchServiceInterface().getVideoController();
+        if (vc != null) {
+            RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
+            localView.addView(vc.getLocalView());
+            localView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vc.toggleCaptureDevicePosition();
+                }
+            });
+            LinearLayout view = (LinearLayout) findViewById(R.id.remoteVideo);
+            view.addView(vc.getRemoteView());
         }
     }
 }

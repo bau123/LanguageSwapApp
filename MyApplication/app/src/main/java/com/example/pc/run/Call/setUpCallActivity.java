@@ -22,6 +22,9 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
     otherUserId will be the ID of the receiver of the call
      */
     private String otherUserID;
+    /*
+    checks if the other user is logged in to be able to call
+     */
     private Button startCall;
 
     @Override
@@ -40,9 +43,7 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
 
     @Override
     public void onStarted() {
-        /*
 
-         */
     }
 
     @Override
