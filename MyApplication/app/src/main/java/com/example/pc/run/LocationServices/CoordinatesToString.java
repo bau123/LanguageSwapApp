@@ -14,8 +14,9 @@ public class CoordinatesToString  {
 
     Context context;
     public String[] address;
-    public String campus = "Not in any campus";
+    public String campus = "Not at any campus";
     public double latitude = 0,longitude = 0;
+    public GPSTracker gps;
 
     public CoordinatesToString(Context context) {
         this.context = context;
@@ -23,24 +24,46 @@ public class CoordinatesToString  {
         setCampus();
     }
 
+
+
+
     private void setCampus() {
         for(String s : address) {
+            s = s.toString();
+            System.out.println("Address " +s);
             if(s.toLowerCase().contains("strand")) {
                 campus = "Strand";
             }
-            else {
-                campus = "Not at any campus";
+
+            else if(s.toLowerCase().contains("se1 9")) {
+                campus = "Franklin-Wilkins building";
             }
+            else if(s.toLowerCase().contains("se1 8")) {
+                campus = "James Clerk Maxwell building";
+            }
+
+            else if(s.toLowerCase().contains("wc2a")) {
+                campus = "Maughan Library & Information Services Centre";
+            }
+            else if(s.toLowerCase().contains("wc2b 5")) {
+                campus = "Durry lane building";
+            }
+            else if(s.toLowerCase().contains("wc2b 6")) {
+                campus = "Virginia woolf building";
+            }
+
         }
+
     }
 
     /*
     @Return: formatted address
      */
     public void convert() {
-        GPSTracker gps = new GPSTracker(context);
+        gps = new GPSTracker(context);
 
         if (gps.canGetLocation()) {
+
             this.latitude = gps.getLatitude();
             this.longitude = gps.getLongitude();
         }
@@ -53,7 +76,7 @@ public class CoordinatesToString  {
         Get JSON object
         */
         final String lookupLink = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "&key=AIzaSyD_bf5Bw26seqpx7IQRt3pr9zQd6j-tXLs";
-        System.out.println(lookupLink + "this is the lookup link");
+        System.out.println(lookupLink + " this is the lookup link");
 
         ExecutorService es = Executors.newSingleThreadExecutor();
         Future f = es.submit(new ParseJSON(lookupLink));

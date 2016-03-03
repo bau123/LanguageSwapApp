@@ -62,6 +62,33 @@ public class Login_act extends AppCompatActivity {
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
+    public void adminLogin(View view) {
+        System.out.println("Making params");
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", "tautvilas.simkus@kcl.ac.uk");
+        parameters.put("password", "magokas1");
+        System.out.println("params made");
+
+        mEmail = email.getText().toString();
+        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    processResult(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
 
     private void processResult(JSONObject input) throws InterruptedException {
         String result ="";
