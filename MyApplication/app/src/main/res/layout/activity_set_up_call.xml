@@ -15,4 +15,16 @@
         android:text="CallUser"
         android:id="@+id/callButton"
         android:layout_gravity="center_horizontal" />
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/callButton"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#044581"
+        android:textAllCaps="true"
+        android:text="Stop service" android:layout_centerHorizontal="true"/>
+
 </LinearLayout>
