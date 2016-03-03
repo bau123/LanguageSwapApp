@@ -67,8 +67,10 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
             getSinchServiceInterface().startClient(userName);
            // showSpinner();
         }
+
         Call call = getSinchServiceInterface().callUserVideo(userName);
         String callID = call.getCallId();
+
         Intent callScreen = new Intent(this, CallScreenActivity.class);
         callScreen.putExtra(CallAPIServices.CALL_ID, callID);
         startActivity(callScreen);

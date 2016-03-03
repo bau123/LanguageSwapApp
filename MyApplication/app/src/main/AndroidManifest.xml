@@ -80,7 +80,8 @@
             android:label="@string/title_activity_set_up_call"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Call.VideoStreaming" />
-        <activity android:name=".Call.CallScreenActivity"></activity>
+        <activity android:name=".Call.CallScreenActivity" />
+        <activity android:name=".Call.IncomingCallScreenActivity"></activity>
     </application>
 
 </manifest>
