@@ -70,7 +70,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         chatRoomId = intent.getStringExtra("chat_room_id");
-        String title = intent.getStringExtra("name");
+        emailOfOther = intent.getStringExtra("email");
+        String title = "Chat";
 
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,7 +109,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
         });
 
-        fetchChatThread();
+        fetchChatThread(chatRoomId);
     }
 
     @Override
@@ -155,6 +156,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         //Clears the textView containing the message
         this.inputMessage.setText("");
 
+        System.out.println("message from input " + message);
+
         //Checks if user has entered anything in the chat
         if (TextUtils.isEmpty(message)) {
             Toast.makeText(getApplicationContext(), "Enter a message", Toast.LENGTH_SHORT).show();
@@ -163,20 +166,31 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         //Creating params needed to send to database and other user
         Map<String, String> params = new HashMap<String, String>();
-        params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail());
+        params.put("user_id", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         params.put("user_name", ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
         params.put("chat_room_id", chatRoomId);
         params.put("message", message);
         params.put("gcmTo", gcmOfOther);
-        params.put("gcmFrom", ApplicationSingleton.getInstance().getPrefManager().getToken());
 
+        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
+        for (String key : params.keySet()) {
+            System.out.println(key + " " + params.get(key));
+        }
+        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue();
+            System.out.println("key, " + key + " value " + value);
+        }
+        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
+        System.out.println("made params for message, sending to method now");
         //Send message to database and then notify the user
         sendToDataBase(params);
     }
 
     //Gets the GCM registration of the other user
     public void getOtherGcm() {
-        String getGcm = "http://t-simkus.com/run/getGcm.php"; //change me!!!!!
+        String getGcm = "http://t-simkus.com/run/getGcm.php";
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("email", emailOfOther);
         Requests jsObjRequest = new Requests(Request.Method.POST, getGcm, parameters, new Response.Listener<JSONObject>() {
@@ -209,14 +223,14 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     public void sendToDataBase(Map<String, String> params) {
-        String sendGcm = "http://t-simkus.com/run/processMessage.php"; //change me
+        String sendGcm = "http://t-simkus.com/run/processMessage.php";
 
         Requests jsObjRequest = new Requests(Request.Method.POST, sendGcm, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    System.out.println(response.toString());
-                    if (response.getString("error") == "false") {
+                    System.out.println(response.toString() + "this is the message");
+                    if (response.getBoolean("error") == false) {
 
                         Message message = new Message();
                         message.setEmail(response.getString("message_id"));
@@ -250,37 +264,30 @@ public class ChatRoomActivity extends AppCompatActivity {
     /**
      * Fetching all the messages of a single chat room
      */
-    private void fetchChatThread() {
-        String endPoint = "http://t-simkus.com/run/fetchMessages.php"; // CHANGE ME
+    private void fetchChatThread(String id) {
+        String fetchUrl = "http://t-simkus.com/run/fetchMessages.php";
 
-        StringRequest strReq = new StringRequest(Request.Method.GET,
-                endPoint, new Response.Listener<String>() {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("roomId", id);
+
+        System.out.println("FETCHING MESSAGES!!!");
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, fetchUrl, parameters, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
+            public void onResponse(JSONObject response) {
                 try {
-                    JSONObject obj = new JSONObject(response);
-                    // check for error
-                    if (obj.getBoolean("error") == false) {
-                        JSONArray commentsObj = obj.getJSONArray("messages");
+                    JSONArray messages = response.getJSONArray("result");
+                    for (int i = 0; i < messages.length(); i++) {
+                        JSONObject current = messages.getJSONObject(i);
 
-                        for (int i = 0; i < commentsObj.length(); i++) {
-                            JSONObject commentObj = (JSONObject) commentsObj.get(i);
+                        String commentId = current.getString("message_id");
+                        String commentText = current.getString("message");
+                        String createdAt = current.getString("created_at");
+                        String name = current.getString("name");
+                        String email = current.getString("email");
 
-                            String commentId = commentObj.getString("message_id");
-                            String commentText = commentObj.getString("message");
-                            String createdAt = commentObj.getString("created_at");
-                            String name = commentObj.getString("name");
-                            String email = commentObj.getString("email");
-
-                            /*
-                            JSONObject userObj = commentObj.getJSONObject("user");
-                            String userId = userObj.getString("user_id");
-                            String userName = userObj.getString("username");
-                            Profile user = new Profile(userId, userName);
-                            */
-
+                        if (current.getBoolean("passed")) {
+                            System.out.println("MESSAGE PASSED");
                             Message message = new Message(email, commentText, commentId, createdAt, name);
                             message.setEmail(commentId);
                             message.setMessage(commentText);
@@ -295,27 +302,19 @@ public class ChatRoomActivity extends AppCompatActivity {
                             recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
                         }
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "" + obj.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
                     }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                    Toast.makeText(getApplicationContext(), "json parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
-
             @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+                //progress.dismiss();
             }
         });
-
-        //Adding request to request queue
-        ApplicationSingleton.getInstance().addToRequestQueue(strReq);
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
 }
