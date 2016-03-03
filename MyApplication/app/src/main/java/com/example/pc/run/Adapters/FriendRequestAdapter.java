@@ -76,6 +76,8 @@ public class FriendRequestAdapter extends BaseAdapter{
                 Toast.makeText(context, "Friend Request Accepted!", Toast.LENGTH_LONG).show();
                 RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
                         GlobalProfile.profileEmail, "true");
+                context.finish();
+                context.startActivity(context.getIntent());
             }
         });
 
@@ -86,6 +88,8 @@ public class FriendRequestAdapter extends BaseAdapter{
                 Toast.makeText(context, "Friend Request Rejected!", Toast.LENGTH_LONG).show();
                 RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
                         GlobalProfile.profileEmail, "false");
+                context.finish();
+                context.startActivity(context.getIntent());
             }
         });
 

@@ -106,11 +106,6 @@ public class FriendsList_act extends AppCompatActivity{
 
     }
 
-    public void basicRefresh(){
-        friendListAdapter.notifyDataSetChanged();
-        friendReqAdapter.notifyDataSetChanged();
-    }
-
     public void fullRefresh(){
         getFriendRequests();
     }
