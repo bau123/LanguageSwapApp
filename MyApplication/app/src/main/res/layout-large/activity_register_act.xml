@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:layout_gravity="center_horizontal"
-                android:textSize="50dp"
+                android:textSize="80dp"
                 android:textColor="#ffffff"
                 android:gravity="center"
                 android:paddingTop="20dp"
@@ -30,14 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome to Helpr!
-                         Learn new languages today by becoming a Helpr!"
-                android:textSize="25dp"
+                android:text="Welcome to Helpr!                                                Learn new languages today by becoming a Helpr!"
+                android:textSize="40dp"
                 android:textColor="#ffffff"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
@@ -51,35 +51,42 @@
                 android:hint="Enter your KCL Email"
                 android:textStyle="italic"
                 android:gravity="center_horizontal"
-                android:textSize="25dp"
+                android:textSize="40dp"
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="60dp"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <EditText
                 android:id="@+id/pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="false"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:hint="Password"
                 android:layout_gravity="top|center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="25dp"
+                android:textSize="40dp"
                 android:textStyle="italic"
-                android:paddingTop="20dp" />
+                android:paddingTop="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="478dp"
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:background="@drawable/mybutton"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#ffffff"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="70dp"
                 android:onClick="register"
 
-                />
+                android:textSize="30dp"
+                android:layout_weight="0.06" />
 
         </LinearLayout>
 
