@@ -40,6 +40,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
         String flag = bundle.getString("flag");
         String data = bundle.getString("data");
 
+        System.out.println(data);
+        System.out.println(title);
+
         if (flag == null)
             return;
 
@@ -122,8 +125,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 message.setMessageId(datObj.getString("message_id"));
                 message.setDateCreated(datObj.getString("created_at"));
                 message.setName(datObj.getString("user_name"));
+                message.setEmail(datObj.getString("email"));
 
-                System.out.println("collected and created user message");
+                System.out.println("collected and created user message " + datObj.getString("created_at"));
+
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                     System.out.println("User message is sent to chat ");
@@ -135,7 +140,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 } else {
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);  // FIXXXXXXXXXXX
+                    Intent resultIntent = new Intent(getApplicationContext(), ChatRoomActivity.class);  // FIXXXXXXXXXXX
                     showNotificationMessage(getApplicationContext(), title, message.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
             } catch (JSONException e) {

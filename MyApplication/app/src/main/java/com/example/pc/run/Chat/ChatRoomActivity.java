@@ -96,6 +96,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    System.out.println("chat room: got new message");
                     // new push message is received
                     handlePushNotification(intent);
                 }
@@ -119,7 +120,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         // registering the receiver for new notification
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Config.PUSH_NOTIFICATION));
-
+        // Clear notification tray
         NotificationUtils.clearNotifications();
     }
 
@@ -135,9 +136,10 @@ public class ChatRoomActivity extends AppCompatActivity {
      */
     private void handlePushNotification(Intent intent) {
         Message message = (Message) intent.getSerializableExtra("message");
-        String chatRoomId = intent.getStringExtra("chat_room_id");
+        System.out.println("created user message and chat id");
 
-        if (message != null && chatRoomId != null) {
+        if (message != null ) {
+            System.out.println("Both are not null");
             messageArrayList.add(message);
             mAdapter.notifyDataSetChanged();
             if (mAdapter.getItemCount() > 1) {
