@@ -31,6 +31,8 @@ import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.LocationServices.CoordinatesToString;
+import com.example.pc.run.LocationServices.SelectedCampus;
+import com.example.pc.run.LocationServices.UserLocation;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -50,7 +52,9 @@ public class App_act extends AppCompatActivity {
 
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
-    private ArrayList<String> selectedCampus = new ArrayList<String>();
+    private ArrayList<UserLocation> arrayUsers = new ArrayList<>();
+    private ArrayList<String> campuses = new ArrayList<>();
+    private ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
     private ViewPager viewPager;
     SearchView searchEngine;
     ProgressDialog progress;
@@ -290,6 +294,50 @@ public class App_act extends AppCompatActivity {
         super.onPause();
     }
 
+    public void setParams() {
+        String url2 = "http://t-simkus.com/run/getLocations.php";
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("campus", "Not at any campus");
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, url2, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    processResultCampus(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
+
+
+    /*
+    Process json result
+     */
+    private void processResultCampus(JSONObject input) throws InterruptedException {
+        try {
+            JSONArray r = input.getJSONArray("result");
+            for(int i = 0; i < r.length();i++) {
+                JSONObject j = (JSONObject) r.get(i);
+                String e = j.get("email").toString();
+                String c = j.get("campus").toString();
+                this.arrayUsers.add(new UserLocation(e,c));
+            }
+        }
+        catch(JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void setCheckHandlers() {
         GridLayout grid = (GridLayout) findViewById(R.id.grid0);
         for(int i = 0; i < grid.getChildCount();i++) {
@@ -300,12 +348,13 @@ public class App_act extends AppCompatActivity {
                     String IdAsString = v.getResources().getResourceName(v.getId());
                     IdAsString = IdAsString.substring(IdAsString.length()-1);
                     if(checkBox.isChecked()) {
-                        selectedCampus.add(IdAsString);
+                        selectedCampus.add(new SelectedCampus(Integer.valueOf(IdAsString),true));
                     }
                     else {
                         for(int i = 0 ; i < selectedCampus.size();i++) {
-                            if(selectedCampus.get(i).equals(IdAsString)) {
-                                selectedCampus.remove(i);
+                            if(selectedCampus.get(i).campus==Integer.parseInt(IdAsString)) {
+                                System.out.println("made invalid");
+                                selectedCampus.get(i).valid = false;
                             }
                         }
                     }
@@ -319,13 +368,57 @@ public class App_act extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show selected campuses
-                for (String i : selectedCampus) {
-                    System.out.println(i);
-                }
+                campuses.clear();
+                translateCampus(selectedCampus);
+                getCampusPeople();
             }
         });
     }
+
+
+    public void translateCampus(ArrayList<SelectedCampus> c) {
+        //Translate numbers to string for campuses
+        if(c.size() == 0) {
+            campuses.add("Not at any campus");
+        }
+        else {
+            for (int i = 0; i < c.size(); i++) {
+
+                if (c.get(i).campus == 0 && c.get(i).valid) {
+                    campuses.add("Strand");
+                } else if (c.get(i).campus == 1 && c.get(i).valid) {
+                    campuses.add("Franklin-Wilkins");
+                } else if (c.get(i).campus == 2 && c.get(i).valid) {
+                    campuses.add("James Clerk Maxwell");
+                } else if (c.get(i).campus == 3 && c.get(i).valid) {
+                    campuses.add("Maughan Library");
+                } else if (c.get(i).campus == 4 && c.get(i).valid) {
+                    campuses.add("Durry Lane");
+                } else if (c.get(i).campus == 5 && c.get(i).valid) {
+                    campuses.add("Virginia Woolf");
+                }
+
+            }
+
+
+        }
+    }
+
+    /*
+    Get people from selected campuses
+     */
+    public void getCampusPeople() {
+        System.out.println("People at selected campus:");
+        for(String campus : campuses) {
+            for(UserLocation user : arrayUsers) {
+                if(user.campus.equals(campus)) {
+                    System.out.println(user.email + " " + user.campus);
+                }
+            }
+        }
+    }
+
+
 
 
 }
