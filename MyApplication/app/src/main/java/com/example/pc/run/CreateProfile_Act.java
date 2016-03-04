@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,6 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +37,18 @@ public class CreateProfile_Act extends AppCompatActivity {
 
     EditText name;
     EditText interests;
-    EditText languagesKnown;
-    EditText languagesLearning;
+   // EditText languagesKnown;
+    //EditText languagesLearning;
     String email;
     String url = "http://t-simkus.com/run/insert-profile-db.php";
     Profile profile;
     ImageView profileImage;
+    private Spinner spin1;
+    private Spinner spin2;
+    private Spinner spin3;
+    private Spinner spin4;
+    ArrayAdapter<CharSequence> adapter;
+
 
 
     @Override
@@ -52,17 +65,91 @@ public class CreateProfile_Act extends AppCompatActivity {
         }
         name = (EditText)findViewById(R.id.nameEdit);
         interests = (EditText)findViewById(R.id.interestsEdit);
-        languagesKnown = (EditText)findViewById(R.id.langKnownEdit);
-        languagesLearning = (EditText)findViewById(R.id.langLearningEdit);
+
+        //limit the size of the editText
+        EditText myEditText = (EditText) findViewById(R.id.nameEdit);
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter.LengthFilter(20); //Filter to 10 characters
+        myEditText .setFilters(filters);
+        // languagesKnown = (EditText)findViewById(R.id.langKnownEdit);
+       // languagesLearning = (EditText)findViewById(R.id.langLearningEdit);
+        spin1 = (Spinner) findViewById(R.id.spinner);
+        spin2 = (Spinner) findViewById(R.id.spinner2);
+        spin3 = (Spinner) findViewById(R.id.spinner3);
+        spin4 = (Spinner) findViewById(R.id.spinner4);
+
+        adapter = ArrayAdapter.createFromResource(this, R.array.countriesArr, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spin1.setAdapter(adapter);
+        spin2.setAdapter(adapter);
+        spin3.setAdapter(adapter);
+        spin4.setAdapter(adapter);
+
+        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
+
 
     public void addProfileInfo(View view) {
         System.out.println("making params");
         Map<String, String> parameters = new HashMap<>();
         parameters.put("email", email);
         parameters.put("name", name.getText().toString());
-        parameters.put("languagesKnown", languagesKnown.getText().toString());
-        parameters.put("languagesLearning", languagesLearning.getText().toString());
+      //  parameters.put("languagesKnown", languagesKnown.getText().toString());
+        //parameters.put("languagesLearning", languagesLearning.getText().toString());
         parameters.put("interests", interests.getText().toString());
 
         if(GlobalBitmap.bitmap != null){
@@ -73,8 +160,8 @@ public class CreateProfile_Act extends AppCompatActivity {
         System.out.println("params made");
         Log.d("Email Passed:", email);
 
-        profile = new Profile(name.getText().toString(), languagesKnown.getText().toString(),
-                languagesLearning.getText().toString(), interests.getText().toString());
+       // profile = new Profile(name.getText().toString(), languagesKnown.getText().toString(),
+             //   languagesLearning.getText().toString(), interests.getText().toString());
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
