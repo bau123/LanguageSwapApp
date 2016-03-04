@@ -34,11 +34,6 @@ public class RegistrationIntentService extends IntentService {
         super(TAG);
     }
 
-    public static final String KEY = "key";
-    public static final String TOPIC = "topic";
-    public static final String SUBSCRIBE = "subscribe";
-    public static final String UNSUBSCRIBE = "unsubscribe";
-
     @Override
     // Register with gcm and obtain gcm reg id
     protected void onHandleIntent(Intent intent) {

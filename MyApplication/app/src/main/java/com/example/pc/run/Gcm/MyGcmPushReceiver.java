@@ -57,6 +57,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         switch (Integer.parseInt(flag)) {
             case Config.PUSH_TYPE_USER:
                 // push notification is specific to message from user
+                System.out.println("Push type is user");
                 processUserMessage(title, isBackground, data);
                 break;
             case Config.PUSH_TYPE_FRIEND:
@@ -122,9 +123,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 message.setDateCreated(datObj.getString("created_at"));
                 message.setName(datObj.getString("user_name"));
 
+                System.out.println("collected and created user message");
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-
+                    System.out.println("User message is sent to chat ");
                     // app is in foreground, broadcast the push message
                     Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
                     pushNotification.putExtra("type", Config.PUSH_TYPE_USER);
