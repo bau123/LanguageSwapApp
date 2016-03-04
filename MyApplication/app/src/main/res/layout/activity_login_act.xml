@@ -26,7 +26,8 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="50dp"
                 android:textColor="#ffffff"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:onClick="adminLogin" />
 
         </LinearLayout>
 

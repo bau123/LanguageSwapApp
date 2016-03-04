@@ -3,6 +3,10 @@ package com.example.pc.run;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -44,6 +48,7 @@ public class FriendsList_act extends AppCompatActivity{
         friendsList = (ListView)findViewById(R.id.friendsList);
 
         getFriendRequests();
+
 
     }
 
@@ -109,5 +114,10 @@ public class FriendsList_act extends AppCompatActivity{
     public void fullRefresh(){
         getFriendRequests();
     }
+
+
+
+
+
 
 }

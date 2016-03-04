@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -47,11 +50,13 @@ public class App_act extends AppCompatActivity {
 
     private static String TAG = "In AppAct";
     private BroadcastReceiver regReceiver;
+    private ArrayList<String> selectedCampus = new ArrayList<String>();
     private ViewPager viewPager;
     SearchView searchEngine;
     ProgressDialog progress;
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,9 @@ public class App_act extends AppCompatActivity {
 
         //Location
         setLocation();
+
+        setCheckHandlers();
+        setButtonHandler();
 
         Map<String, String> tempParams = new HashMap<>();
         tempParams.put("info", "");
@@ -281,6 +289,44 @@ public class App_act extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(regReceiver);
         super.onPause();
     }
+
+    public void setCheckHandlers() {
+        GridLayout grid = (GridLayout) findViewById(R.id.grid0);
+        for(int i = 0; i < grid.getChildCount();i++) {
+            grid.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CheckBox checkBox = (CheckBox) findViewById(v.getId());
+                    String IdAsString = v.getResources().getResourceName(v.getId());
+                    IdAsString = IdAsString.substring(IdAsString.length()-1);
+                    if(checkBox.isChecked()) {
+                        selectedCampus.add(IdAsString);
+                    }
+                    else {
+                        for(int i = 0 ; i < selectedCampus.size();i++) {
+                            if(selectedCampus.get(i).equals(IdAsString)) {
+                                selectedCampus.remove(i);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public void setButtonHandler() {
+        Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //show selected campuses
+                for (String i : selectedCampus) {
+                    System.out.println(i);
+                }
+            }
+        });
+    }
+
 
 }
 
