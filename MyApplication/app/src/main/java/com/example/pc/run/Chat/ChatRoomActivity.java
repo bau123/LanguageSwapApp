@@ -173,6 +173,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         params.put("chat_room_id", chatRoomId);
         params.put("message", message);
         params.put("gcmTo", gcmOfOther);
+        params.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
 
         //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
         for (String key : params.keySet()) {
@@ -272,6 +273,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("roomId", id);
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        parameters.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
+
 
         System.out.println("FETCHING MESSAGES!!!");
 
