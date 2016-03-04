@@ -80,7 +80,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
-        String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail();
+        String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
 
         mAdapter = new ChatRoomThreadAdapter(this, messageArrayList, selfUserId);
 
@@ -235,7 +235,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (response.getBoolean("error") == false) {
 
                         Message message = new Message();
-                        message.setEmail(response.getString("message_id"));
+                        message.setEmail(response.getString("email"));
+                        message.setMessageId(response.getString("message_id"));
                         message.setMessage(response.getString("message"));
                         message.setDateCreated(response.getString("created_at"));
                         message.setName(ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
@@ -291,7 +292,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         if (current.getBoolean("passed")) {
                             System.out.println("MESSAGE PASSED");
                             Message message = new Message(email, commentText, commentId, createdAt, name);
-                            message.setEmail(commentId);
+                            message.setEmail(email);
+                            message.setMessageId(commentId);
                             message.setMessage(commentText);
                             message.setDateCreated(createdAt);
                             message.setName(name);

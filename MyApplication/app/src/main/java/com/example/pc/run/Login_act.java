@@ -13,8 +13,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
+import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -99,7 +102,8 @@ public class Login_act extends AppCompatActivity {
         }
         if (result.equals("success")) {
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
-            PullProfile pulling = new PullProfile(mEmail);
+            //Pulls the profile info of the user logging in
+            pullProfile();
             GlobalProfile.profileEmail = mEmail;
             Thread.sleep(100);
             Intent intent = new Intent(this, App_act.class);
@@ -107,6 +111,48 @@ public class Login_act extends AppCompatActivity {
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
         }
+    }
+
+    //Pulls the user profile info and stores in shared pref
+    public void pullProfile(){
+        String pullUrl = "http://t-simkus.com/run/pullProfile.php";
+
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", email.getText().toString());
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, pullUrl, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+
+                    JSONArray result = response.getJSONArray("result");
+                    JSONObject current = result.getJSONObject(0);
+                    Profile p = new Profile();
+                    //Sets all the pull info into the temporally profile object
+                    p.setEmail(email.getText().toString());
+                    p.setProfilePicture(current.getString("photo"));
+                    p.updateName(current.getString("name"));
+                    p.updateInterests(current.getString("interests"));
+                    p.updateLanguagesKnown(current.getString("languagesKnown"));
+                    p.updateLanguagesLearning(current.getString("languagesLearning"));
+
+                    //Stores Profile into the shared pref
+                    ApplicationSingleton.getInstance().getPrefManager().storeProfile(p);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+
     }
 
 }
