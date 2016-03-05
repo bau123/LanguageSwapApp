@@ -52,15 +52,15 @@
         </service>
 
         <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".Login_act" />
-        <activity android:name=".Register_act" />
-        <activity android:name=".App_act">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Login_act" />
+        <activity android:name=".Register_act" />
+        <activity android:name=".App_act">
         </activity>
         <activity android:name=".Chat.chat" />
         <activity android:name=".CreateProfile_Act" />
