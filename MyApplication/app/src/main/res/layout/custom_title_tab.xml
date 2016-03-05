@@ -6,7 +6,7 @@
     <Spinner
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:id="@+id/languagesSpinner"
+        android:id="@+id/locationSpinner"
         android:layout_alignBottom="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
         android:layout_toEndOf="@+id/textView2" />

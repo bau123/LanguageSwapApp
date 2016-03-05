@@ -139,11 +139,6 @@ public class App_act extends AppCompatActivity {
         }
     }
 
-    public void toFriends(View view){
-        Intent intent = new Intent(this, FriendsList_act.class);
-        startActivity(intent);
-    }
-
     private void processParameters(Map<String, String> parameters){
        // progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
