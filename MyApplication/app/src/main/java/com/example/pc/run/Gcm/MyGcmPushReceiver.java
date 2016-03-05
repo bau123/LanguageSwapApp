@@ -128,6 +128,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     // app is in foreground, broadcast the push message
                     Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
                     pushNotification.putExtra("type", Config.PUSH_TYPE_USER);
+                    System.out.println("Message while in chat !!!!!!!!!!!!!!!!!!");
                     pushNotification.putExtra("message", message);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 

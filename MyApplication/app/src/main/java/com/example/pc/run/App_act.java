@@ -13,9 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
@@ -65,6 +63,12 @@ public class App_act extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();  //for higher version
+        actionBar.setDisplayShowCustomEnabled(true);
+        View customView=getLayoutInflater().inflate(R.layout.custom_title_tab, null);
+        actionBar.setCustomView(customView);
+
         setContentView(R.layout.activity_app_act);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -80,7 +84,8 @@ public class App_act extends AppCompatActivity {
         tempParams.put("email", GlobalProfile.profileEmail);
         processParameters(tempParams);
 
-        searchEngine = (SearchView) findViewById(R.id.searchView);
+        searchEngine = (SearchView) findViewById(R.id.searchEngine);
+        //searchEngine = (SearchView) findViewById(R.id.searchView);
         searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -371,6 +376,7 @@ public class App_act extends AppCompatActivity {
                 campuses.clear();
                 translateCampus(selectedCampus);
                 getCampusPeople();
+                //ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
             }
         });
     }
@@ -418,7 +424,10 @@ public class App_act extends AppCompatActivity {
         }
     }
 
-
+    public void goFriendsList(View v){
+        Intent intent = new Intent(App_act.this, FriendsList_act.class);
+        startActivity(intent);
+    }
 
 
 }

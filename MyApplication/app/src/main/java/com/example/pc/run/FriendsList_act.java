@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,6 +83,7 @@ public class FriendsList_act extends AppCompatActivity{
     private void processResult(JSONObject input) throws JSONException, InterruptedException {
 
         JSONArray profileNames = input.getJSONArray("result");
+        JSONArray otherFriends = input.getJSONArray("result2");
         Log.d("PROFILE NAMES:", profileNames.toString());
 
         for (int i = 0; i < profileNames.length(); i++) {
@@ -98,14 +100,28 @@ public class FriendsList_act extends AppCompatActivity{
 
             if (current.getString("boolean").equals("false")) {
                 friendReqList.add(profile);
-                friendReqAdapter = new FriendRequestAdapter(FriendsList_act.this, friendReqList);
-                friendsReqList.setAdapter(friendReqAdapter);
             } else {
                 friendList.add(profile);
-                friendListAdapter = new FriendListAdapter(FriendsList_act.this, friendList);
-                friendsList.setAdapter(friendListAdapter);
             }
         }
+
+        if(otherFriends.length() != 0){
+            for(int i=0; i<otherFriends.length(); i++){
+                JSONObject current = otherFriends.getJSONObject(i);
+                Log.d("OTHER DETAILS:", current.getString("email") + " " + current.getString("boolean")
+                        + " " + current.getString("name"));
+
+                Profile profile = new Profile(current.getString("email"),current.getString("name"), current.getString("languagesKnown"),
+                        current.getString("languagesLearning"), current.getString("interests"));
+
+                friendList.add(profile);
+
+            }
+        }
+        friendReqAdapter = new FriendRequestAdapter(FriendsList_act.this, friendReqList);
+        friendsReqList.setAdapter(friendReqAdapter);
+        friendListAdapter = new FriendListAdapter(FriendsList_act.this, friendList);
+        friendsList.setAdapter(friendListAdapter);
 
         System.out.println("Sending data");
 
@@ -115,7 +131,10 @@ public class FriendsList_act extends AppCompatActivity{
         getFriendRequests();
     }
 
-
+    public void returnHome(View v){
+        Intent intent = new Intent(FriendsList_act.this, App_act.class);
+        startActivity(intent);
+    }
 
 
 

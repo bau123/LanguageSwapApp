@@ -9,11 +9,18 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <SearchView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_gravity="right" />
+        android:text="Friendlist"
+        android:onClick="goFriendsList"
+        android:id="@+id/friendListButton" />
+
+    <!--<SearchView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/searchView"-->
+        <!--android:layout_gravity="right" />-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

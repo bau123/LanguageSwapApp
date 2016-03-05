@@ -16,7 +16,7 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:id="@+id/friendReqList"
             android:divider="@color/colorPrimary"
             android:dividerHeight="2px"/>
@@ -30,10 +30,17 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="199dp"
             android:id="@+id/friendsList"
             android:divider="@color/colorPrimary"
             android:dividerHeight="2px"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Return"
+            android:onClick="returnHome"
+            android:id="@+id/returnButton" />
 
 
     </LinearLayout>
