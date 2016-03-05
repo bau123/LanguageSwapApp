@@ -80,7 +80,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
-        String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getProfile().getEmail();
+        String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
 
         mAdapter = new ChatRoomThreadAdapter(this, messageArrayList, selfUserId);
 
@@ -96,6 +96,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    System.out.println("chat room: got new message");
                     // new push message is received
                     handlePushNotification(intent);
                 }
@@ -119,7 +120,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         // registering the receiver for new notification
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Config.PUSH_NOTIFICATION));
-
+        // Clear notification tray
         NotificationUtils.clearNotifications();
     }
 
@@ -135,9 +136,10 @@ public class ChatRoomActivity extends AppCompatActivity {
      */
     private void handlePushNotification(Intent intent) {
         Message message = (Message) intent.getSerializableExtra("message");
-        String chatRoomId = intent.getStringExtra("chat_room_id");
+        System.out.println("created user message and chat id");
 
-        if (message != null && chatRoomId != null) {
+        if (message != null ) {
+            System.out.println("Both are not null");
             messageArrayList.add(message);
             mAdapter.notifyDataSetChanged();
             if (mAdapter.getItemCount() > 1) {
@@ -171,6 +173,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         params.put("chat_room_id", chatRoomId);
         params.put("message", message);
         params.put("gcmTo", gcmOfOther);
+        params.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
 
         //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
         for (String key : params.keySet()) {
@@ -233,7 +236,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (response.getBoolean("error") == false) {
 
                         Message message = new Message();
-                        message.setEmail(response.getString("message_id"));
+                        message.setEmail(response.getString("email"));
+                        message.setMessageId(response.getString("message_id"));
                         message.setMessage(response.getString("message"));
                         message.setDateCreated(response.getString("created_at"));
                         message.setName(ApplicationSingleton.getInstance().getPrefManager().getProfile().getName());
@@ -269,6 +273,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("roomId", id);
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        parameters.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
+
 
         System.out.println("FETCHING MESSAGES!!!");
 
@@ -289,7 +296,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         if (current.getBoolean("passed")) {
                             System.out.println("MESSAGE PASSED");
                             Message message = new Message(email, commentText, commentId, createdAt, name);
-                            message.setEmail(commentId);
+                            message.setEmail(email);
+                            message.setMessageId(commentId);
                             message.setMessage(commentText);
                             message.setDateCreated(createdAt);
                             message.setName(name);

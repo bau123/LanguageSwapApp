@@ -17,11 +17,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.App_act;
 import com.example.pc.run.Network_Utils.Requests;
-import com.example.pc.run.Objects.Message;
 import com.example.pc.run.Objects.Profile;
-import com.example.pc.run.PullProfile;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 

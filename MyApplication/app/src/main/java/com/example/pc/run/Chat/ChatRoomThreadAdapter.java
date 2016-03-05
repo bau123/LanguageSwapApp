@@ -70,6 +70,8 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
         Message message = messageArrayList.get(position);
+        System.out.println(message.getEmail() + " userId is "+ userId);
+
         if (message.getEmail().equals(userId)) {
             return SELF;
         }
