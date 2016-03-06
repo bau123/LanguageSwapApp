@@ -51,17 +51,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".Login_act" />
         <activity android:name=".Register_act" />
-        <activity android:name=".App_act">
-        </activity>
+        <activity android:name=".App_act" />
         <activity android:name=".Chat.chat" />
         <activity android:name=".CreateProfile_Act" />
         <activity
@@ -70,7 +63,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UploadImage_act" />
         <activity android:name=".Profile_act" />
-        <activity android:name=".FriendsList_act">
+        <activity android:name=".FriendsList_act" />
+        <activity android:name=".CreateReview_act">
+        </activity>
+        <activity android:name=".ReviewList_act">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

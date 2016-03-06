@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Run</string>
     <string name="title_activity_chat_room">ChatRoomActivity</string>
-
+    <string-array name="typeSpinner">
+        <item>Teacher</item>
+        <item>Learner</item>
+    </string-array>
 </resources>
