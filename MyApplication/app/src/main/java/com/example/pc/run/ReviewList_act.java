@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ReviewList_act extends AppCompatActivity {
 
-    String email = "test@kcl.ac.uk";
+    String email;
     String url = "http://t-simkus.com/run/pullReviews.php";
     ListView teachingReviews;
     ListView learningReviews;
@@ -37,6 +37,9 @@ public class ReviewList_act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_list_act);
+
+        email = getIntent().getStringExtra("email");
+        Log.d("REVIEW EMAIL:", email);
 
         teachingReviews = (ListView)findViewById(R.id.reviewListTeaching);
         learningReviews = (ListView)findViewById(R.id.reviewListLearning);

@@ -19,6 +19,7 @@ import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.Chat.ChatRoomThreadAdapter;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
+import com.example.pc.run.Profile_act;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
@@ -74,6 +75,15 @@ public class FriendListAdapter extends BaseAdapter {
         if (profiles.get(position).getProfilePicture() != null) {
             viewHolder.profileImg.setImageBitmap(profiles.get(position).getProfilePicture());
         }
+
+        viewHolder.profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Profile_act.class);
+                intent.putExtra("email", profiles.get(position).getEmail());
+                context.startActivity(intent);
+            }
+        });
 
         viewHolder.chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
