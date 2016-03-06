@@ -119,8 +119,7 @@ public class Login_act extends AppCompatActivity {
             //login tries counter
             counter++;
             //
-            if(counter >4){
-                String lockUrl = "";
+            if(counter >5){
                 Toast.makeText(getApplicationContext(), "Too many tries! \n Sorry this account has now been locked for 15 minutes", Toast.LENGTH_LONG).show();
                 lockAccount(email.getText().toString());
             }
