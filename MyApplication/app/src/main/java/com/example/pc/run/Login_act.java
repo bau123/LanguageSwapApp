@@ -28,6 +28,7 @@ public class Login_act extends AppCompatActivity {
     private EditText email, pass;
     String url = "http://t-simkus.com/run/checkPass.php";
     String mEmail;
+    int counter= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +109,44 @@ public class Login_act extends AppCompatActivity {
             Thread.sleep(100);
             Intent intent = new Intent(this, App_act.class);
             startActivity(intent);
-        } else if (result.equals("failure")) {
+        }
+        else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
         }
+        //If user with the email exists
+        else if (result.equals("failure - exists")) {
+            Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
+            //login tries counter
+            counter++;
+            //
+            if(counter >5){
+                Toast.makeText(getApplicationContext(), "Too many tries! \n Sorry this account has now been locked for 15 minutes", Toast.LENGTH_LONG).show();
+                lockAccount(email.getText().toString());
+            }
+        }
+        //When account is locked out from too many tries
+        else if(result.equals("locked")){
+            Toast.makeText(getApplicationContext(), "The account is locked", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void lockAccount(String email){
+        String lockUrl = "http://t-simkus.com/run/lockAccount.php";
+
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", email);
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, lockUrl, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
     //Pulls the user profile info and stores in shared pref
