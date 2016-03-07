@@ -429,6 +429,5 @@ public class App_act extends AppCompatActivity {
         startActivity(intent);
     }
 
-
 }
 

@@ -56,8 +56,8 @@ public class FriendsList_act extends AppCompatActivity{
     public void getFriendRequests(){
         System.out.println("Making params");
         Map<String, String> parameters = new HashMap<String, String>();
-        Log.d("EMAIL:", GlobalProfile.profileEmail);
-        parameters.put("email", GlobalProfile.profileEmail);
+        Log.d("EMAIL:", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println("params made");
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {

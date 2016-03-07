@@ -14,12 +14,14 @@
         android:layout_marginBottom="100dp" />
 
     <Button
+        android:id="@+id/loginButton"
         android:text="Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="login"/>
 
     <Button
+        android:id="@+id/registerButton"
         android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
