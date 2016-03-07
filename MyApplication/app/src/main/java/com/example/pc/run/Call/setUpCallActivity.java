@@ -15,12 +15,6 @@ import com.sinch.android.rtc.calling.Call;
 public class setUpCallActivity extends BaseActivity implements CallAPIServices.StartFailedListener {
     ProgressDialog waitSpinner;
 
-     /*
-     Here set the email to be who is makingh the call and who the call is going out to
-     */
-    private String userID;
-    private String otherUserID;
-
     private Button startCall;
 
     @Override
@@ -31,17 +25,21 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
         startCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callUserButton();
+                callUserButton("make it return the name of the user you want to call(from a list of users?)");
             }
         });
     }
-
+    /*
+    This method will take in the string and starts the api client
+     */
+    private void startVideoClient(String loginID){
+        if (!getSinchServiceInterface().isStarted()) {
+            getSinchServiceInterface().startClient(loginID);
+        }
+    }
 
     @Override
     public void onStarted() {
-        /*
-        i think we can leave this empty for now
-         */
     }
 
     @Override
@@ -65,16 +63,25 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
         finish();
     }
 
-    private void callUserButton() {
-        String userName = userID;
-        String callReceiver = otherUserID;
-        if (callReceiver == null) {
-            Log.d("callReceiver", "Cannot Call User");
+    @Override
+    protected void onServiceConnected() {
+        getSinchServiceInterface().setStartListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        if (waitSpinner != null) {
+            waitSpinner.dismiss();
         }
-        if (!getSinchServiceInterface().isStarted()) {
-            getSinchServiceInterface().startClient(userName);
-            showSpinner();
-        } else {
+        super.onPause();
+    }
+
+    /*
+    Once the call button is clicked, it will take in the username of the data and call the other user
+    based on their name on the database
+     */
+    private void callUserButton(String callReceive) {
+        String callReceiver = callReceive;
 
             Call call = getSinchServiceInterface().callUserVideo(callReceiver);
             String callID = call.getCallId();
@@ -82,7 +89,6 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
             Intent callScreen = new Intent(this, CallScreenActivity.class);
             callScreen.putExtra(CallAPIServices.CALL_ID, callID);
             startActivity(callScreen);
-        }
     }
 
     private void startVideoStream() {

@@ -22,7 +22,7 @@ public class CallAPIServices extends Service {
     /*
     Make it take the name of which user to call
      */
-    private String callThisUser;
+    private String userID;
 
     private SinchClient userClient;
     private static final String TAG = CallAPIServices.class.getSimpleName();
@@ -41,20 +41,22 @@ public class CallAPIServices extends Service {
     sinchClient.checkManifest()
      */
 
-    public void setUp(){
-        userClient = Sinch.getSinchClientBuilder().context(getApplicationContext())
-                .applicationKey("e772e953-e32f-472d-b2bf-857fe305bd6c")
-                .applicationSecret("mFTbOmXcZUC9UFkgHhHRGw==")
-                .environmentHost("sandbox.sinch.com")
-                .userId(callThisUser)
-                .build();
+    public void start(String userName) {
+        if (userClient == null) {
+            userClient = Sinch.getSinchClientBuilder().context(getApplicationContext())
+                    .applicationKey("e772e953-e32f-472d-b2bf-857fe305bd6c")
+                    .applicationSecret("mFTbOmXcZUC9UFkgHhHRGw==")
+                    .environmentHost("sandbox.sinch.com")
+                    .userId(userName)
+                    .build();
 
-        userClient.setSupportCalling(true);
-        userClient.startListeningOnActiveConnection();
-        userClient.addSinchClientListener(new MySinchClientListener());
+            userClient.setSupportCalling(true);
+            userClient.startListeningOnActiveConnection();
+            userClient.addSinchClientListener(new MySinchClientListener());
 
-        userClient.getCallClient().addCallClientListener(new SinchCallClientListener());
-        userClient.start();
+            userClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+            userClient.start();
+        }
     }
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,7 +65,7 @@ public class CallAPIServices extends Service {
 
     public void startCall(){
         CallClient callClient = userClient.getCallClient();
-        Call call = callClient.callUserVideo(callThisUser);
+        Call call = callClient.callUserVideo(userID);
     }
     public void stopCall(){
         if (userClient != null) {
@@ -153,7 +155,7 @@ public class CallAPIServices extends Service {
         }
 
         public String getUserName() {
-            return callThisUser;
+            return userID;
         }
 
         public boolean isStarted() {
@@ -161,7 +163,7 @@ public class CallAPIServices extends Service {
         }
 
         public void startClient(String userName) {
-            startCall();
+            start(userName);
         }
 
         public void stopClient() {
@@ -189,6 +191,13 @@ public class CallAPIServices extends Service {
             }
             return userClient.getAudioController();
         }
+    }
+    @Override
+    public void onDestroy() {
+        if (userClient != null && userClient.isStarted()) {
+            userClient.terminate();
+        }
+        super.onDestroy();
     }
 
 
