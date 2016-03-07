@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
     <color name="colorPrimary">#454aec</color>
     <color name="colorPrimaryDark">#6A1B9A</color>
     <color name="colorAccent">#EA80FC</color>
     <color name="list_divider">#dedede</color>
     <color name="bg_bubble_self">#E1E1E1</color>
 
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
 
 </resources>
