@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Complete your profile and get started ! "
-        android:textSize="30dp"
+        android:textSize="60dp"
         android:gravity="center"
         android:textColor="#ffffff"
         android:layout_marginTop="14dp"
@@ -29,18 +29,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/backprof"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical"
         android:weightSum="12"
         android:layout_below="@+id/proftitle"
-        android:layout_marginTop="20dp"
-        android:layout_weight="3"
-        android:layout_marginBottom="40dp">
+        android:layout_marginTop="55dp"
+        android:layout_weight="3">
 
         <ImageView
-            android:layout_width="79dp"
-            android:layout_height="79dp"
+            android:layout_width="153dp"
+            android:layout_height="115dp"
             android:id="@+id/profileImage"
             android:onClick="uploadImage"
             android:src="@android:drawable/ic_input_add"
@@ -53,14 +52,14 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="35dp"
             android:layout_marginLeft="12dp"
             android:textColor="#a59696"
             android:hint="Enter name:"
             android:id="@+id/nameEdit"
+            android:layout_weight="1"
             android:singleLine="true"
-            android:layout_marginTop="-55dp"
-            android:maxLength="10"/>
+            android:layout_marginTop="-80dp" />
 
 
 
@@ -68,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Languages spoken:"
-            android:textSize="14dp"
-            android:layout_marginTop="20dp"
+            android:textSize="35dp"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="15dp"
             android:layout_weight="1" />
 
@@ -79,21 +78,21 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp">
             </Spinner>
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner2"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="15dp">
             </Spinner>
@@ -101,16 +100,15 @@
         </LinearLayout>
 
 
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Languages you want to learn:"
-            android:textSize="14dp"
-            android:layout_marginTop="35dp"
+            android:textSize="35dp"
+            android:layout_marginTop="60dp"
             android:layout_marginLeft="15dp"
             android:layout_weight="1" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -118,21 +116,21 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner3"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="25dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp">
             </Spinner>
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner4"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="24dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="15dp">
             </Spinner>
@@ -143,44 +141,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Interests:"
-            android:textSize="14dp"
-            android:layout_marginTop="12dp"
+            android:textSize="35dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="15dp" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-11dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:textColor="#000000"
             android:id="@+id/interestsEdit"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="18dp" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-11dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="#000000"
-            android:layout_weight="1" />
-
-
-
+            android:layout_weight="1"
+            android:textSize="18dp" />
         <Button
-            android:layout_width="128dp"
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:text="Create profile"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/mybutton"
             android:onClick="addProfileInfo"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textColor="#ffffff"
             android:textStyle="normal"
-            android:layout_marginBottom="20dp" />
+            android:textSize="20dp" />
 
 
     </LinearLayout>
 </RelativeLayout>
+

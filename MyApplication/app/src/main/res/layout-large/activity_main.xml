@@ -16,12 +16,11 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:layout_gravity="center_horizontal"
-        android:textSize="50dp"
+        android:textSize="70dp"
         android:textColor="#ffffff"
         android:gravity="center"
         android:id="@+id/titleMain"
         android:paddingTop="10dp" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +28,8 @@
         android:layout_weight="1"
 
         android:orientation="vertical"
-        android:paddingTop="80dp">
+        android:paddingTop="80dp"
+        android:weightSum="1">
 
         <Button
             android:text="Login"
@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             android:onClick="login"
             android:background="@drawable/mybutton"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_weight="0.03" />
 
         <Button
             android:text="Register"
@@ -45,10 +47,10 @@
             android:layout_height="wrap_content"
             android:onClick="register"
             android:background="@drawable/mybutton"
-            android:layout_marginTop="10dp"
-            android:textColor="#ffffff" />
-
+            android:layout_marginTop="25dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_weight="0.03" />
 
     </LinearLayout>
-
 </LinearLayout>

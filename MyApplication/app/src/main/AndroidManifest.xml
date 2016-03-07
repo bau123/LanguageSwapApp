@@ -20,7 +20,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -51,28 +51,28 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login_act" />
-        <activity android:name=".Register_act" />
-        <activity android:name=".App_act" />
+        <activity android:name=".Login_act" android:noHistory="true" android:screenOrientation="portrait"/>
+        <activity android:name=".Register_act" android:noHistory="true" android:screenOrientation="portrait"/>
+        <activity android:name=".App_act" android:screenOrientation="portrait"/>
         <activity android:name=".Chat.chat" />
-        <activity android:name=".CreateProfile_Act" />
+        <activity android:name=".CreateProfile_Act" android:screenOrientation="portrait"/>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UploadImage_act" />
-        <activity android:name=".Profile_act" />
-        <activity android:name=".FriendsList_act" />
-        <activity android:name=".CreateReview_act">
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
+        <activity android:name=".UploadImage_act" android:screenOrientation="portrait"/>
+        <activity android:name=".Profile_act" android:screenOrientation="portrait"/>
+        <activity android:name=".FriendsList_act" android:screenOrientation="portrait"/>
+        <activity android:name=".CreateReview_act" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ReviewList_act">
+        <activity android:name=".ReviewList_act" android:screenOrientation="portrait">
         </activity>
     </application>
 

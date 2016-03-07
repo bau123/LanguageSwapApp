@@ -24,10 +24,10 @@
                 android:layout_height="wrap_content"
                 android:text="Login"
                 android:layout_gravity="center_horizontal"
-                android:textSize="50dp"
+                android:textSize="80dp"
                 android:textColor="#ffffff"
                 android:gravity="center"
-                android:onClick="adminLogin" />
+                android:id="@+id/title" />
 
         </LinearLayout>
 
@@ -36,6 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="100dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,29 +45,28 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="2">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:text="Email :"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#ffffff"
-                            />
+                            android:textSize="30dp" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/email_log"
-                            android:textSize="16dp"
-                            android:singleLine="true"/>
+                            android:textSize="30dp"
+                            android:singleLine="true"
+                            android:layout_marginTop="20dp" />
 
                     </LinearLayout>
 
@@ -88,21 +88,26 @@
                             android:text="Password :"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#ffffff" />
+                            android:textColor="#ffffff"
+                            android:layout_marginTop="50dp"
+                            android:textSize="30dp" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/pass_log"
                             android:inputType="textPassword"
-                            android:textSize="16dp"
+                            android:textSize="30dp"
+                            android:layout_marginTop="20dp"
                             android:singleLine="true"/>
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Remember me"
-                            android:textColor="#ffffff" />
+                            android:textColor="#ffffff"
+                            android:layout_marginTop="30dp"
+                            android:textSize="29dp" />
 
                     </LinearLayout>
 
@@ -121,11 +126,13 @@
 
                         <Button
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="72dp"
                             android:text="Login"
                             android:onClick="login"
-                            android:background="@null"
-                            android:textColor="#000000" />
+                            android:background="@drawable/mybutton"
+                            android:textColor="#ffffff"
+                            android:textSize="30dp"
+                            android:layout_marginTop="20dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -145,5 +152,3 @@
 
 
 </LinearLayout>
-
-
