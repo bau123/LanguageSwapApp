@@ -107,7 +107,7 @@ public class Login_act extends AppCompatActivity {
             pullProfile();
             GlobalProfile.profileEmail = mEmail;
             Thread.sleep(100);
-            Intent intent = new Intent(this, App_act.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
         else if (result.equals("failure")) {
