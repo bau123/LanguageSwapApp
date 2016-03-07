@@ -19,8 +19,11 @@ import com.sinch.android.rtc.video.VideoController;
 
 public class CallAPIServices extends Service {
 
-    //Make it take the name of which user to call
+    /*
+    Make it take the name of which user to call
+     */
     private String callThisUser;
+
     private SinchClient userClient;
     private static final String TAG = CallAPIServices.class.getSimpleName();
     public static final String CALL_ID = "CALL_ID";

@@ -14,17 +14,13 @@ import com.sinch.android.rtc.calling.Call;
 
 public class setUpCallActivity extends BaseActivity implements CallAPIServices.StartFailedListener {
     ProgressDialog waitSpinner;
-    /*
-    UserID will be the ID of the caller
+
+     /*
+     Here set the email to be who is makingh the call and who the call is going out to
      */
     private String userID;
-    /*
-    otherUserId will be the ID of the receiver of the call
-     */
     private String otherUserID;
-    /*
-    checks if the other user is logged in to be able to call
-     */
+
     private Button startCall;
 
     @Override
@@ -43,7 +39,9 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
 
     @Override
     public void onStarted() {
-
+        /*
+        i think we can leave this empty for now
+         */
     }
 
     @Override
@@ -70,8 +68,8 @@ public class setUpCallActivity extends BaseActivity implements CallAPIServices.S
     private void callUserButton() {
         String userName = userID;
         String callReceiver = otherUserID;
-        if (userName == null) {
-            Log.d("callUserButton", "User does not exist");
+        if (callReceiver == null) {
+            Log.d("callReceiver", "Cannot Call User");
         }
         if (!getSinchServiceInterface().isStarted()) {
             getSinchServiceInterface().startClient(userName);
