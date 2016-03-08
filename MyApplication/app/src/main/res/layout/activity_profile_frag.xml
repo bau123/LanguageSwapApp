@@ -73,12 +73,11 @@
         android:layout_below="@+id/langLearningField"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send Friend Request"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:id="@+id/addFavBtn"
         android:onClick="addFav"
-        android:background="@color/buttonA"
+        android:background="@drawable/sendinvite"
         android:textColor="#ffffff"
         android:layout_gravity="center_horizontal" />
 
