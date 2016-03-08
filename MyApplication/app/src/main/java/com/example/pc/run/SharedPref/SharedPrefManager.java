@@ -23,6 +23,7 @@ public class SharedPrefManager {
     private static final String KEY_PROFILE_languagesKnown = "profile_languagesKnown";
     private static final String KEY_PROFILE_languagesLearning = "profile_languagesLearning";
     private static final String KEY_PROFILE_interests = "profile_interests";
+    private static final String KEY_PROFILE_image = "profile_image";
     private static final String KEY_token = "token";
     private static final String KEY_email = "email";
     private static final String KEY_password = "password";
@@ -77,6 +78,15 @@ public class SharedPrefManager {
         interests = pref.getString(KEY_PROFILE_interests, null);
         Profile temp = new Profile(name,languagesKnown,languagesLearning,interests);
         return temp;
+    }
+
+    public void storeProfileImage(String image){
+        editor.putString(KEY_PROFILE_image, image);
+        editor.commit();
+    }
+
+    public String getString(){
+        return pref.getString(KEY_PROFILE_image, null);
     }
 
     //Store the profile object

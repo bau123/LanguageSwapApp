@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Chat.ChatRoomActivity;
+import com.example.pc.run.CreateReview_act;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.Profile_act;
@@ -66,6 +67,7 @@ public class FriendListAdapter extends BaseAdapter {
             viewHolder.name = (TextView) convertView.findViewById(R.id.frNameText);
             viewHolder.chatButton = (Button) convertView.findViewById(R.id.frMessageButton);
             viewHolder.callButton = (Button)convertView.findViewById(R.id.frCallButton);
+            viewHolder.reviewButton = (Button)convertView.findViewById(R.id.reviewButton);
 
             convertView.setTag(viewHolder);
         } else {
@@ -129,6 +131,17 @@ public class FriendListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
+        viewHolder.reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
+                Intent intent = new Intent(context, CreateReview_act.class);
+                intent.putExtra("myEmail", myEmail);
+                intent.putExtra("userEmail", profiles.get(position).getEmail());
+                context.startActivity(intent);
+            }
+        });
         return convertView;
     }
 
@@ -152,5 +165,6 @@ public class FriendListAdapter extends BaseAdapter {
         public TextView name;
         public Button chatButton;
         public Button callButton;
+        public Button reviewButton;
     }
 }
