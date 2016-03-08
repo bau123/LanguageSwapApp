@@ -1,10 +1,14 @@
 package com.example.pc.run;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
@@ -28,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FriendsList_act extends AppCompatActivity{
+public class FriendsList_act extends Fragment {
 
     public ListView friendsList;
     public ListView friendsReqList;
@@ -39,18 +43,22 @@ public class FriendsList_act extends AppCompatActivity{
     String url = "http://t-simkus.com/run/getFriendRequests.php";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends_list_act);
 
         friendList = new ArrayList<>();
         friendReqList = new ArrayList<>();
-        friendsReqList = (ListView)findViewById(R.id.friendReqList);
-        friendsList = (ListView)findViewById(R.id.friendsList);
+    }
+
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_friends_list_act, container, false);
+
+        friendsReqList = (ListView) v.findViewById(R.id.friendReqList);
+        friendsList = (ListView) v.findViewById(R.id.friendsList);
 
         getFriendRequests();
 
-
+        return v;
     }
 
     public void getFriendRequests(){
@@ -118,9 +126,9 @@ public class FriendsList_act extends AppCompatActivity{
 
             }
         }
-        friendReqAdapter = new FriendRequestAdapter(FriendsList_act.this, friendReqList);
+        friendReqAdapter = new FriendRequestAdapter(getActivity(), friendReqList);
         friendsReqList.setAdapter(friendReqAdapter);
-        friendListAdapter = new FriendListAdapter(FriendsList_act.this, friendList);
+        friendListAdapter = new FriendListAdapter(getActivity(), friendList);
         friendsList.setAdapter(friendListAdapter);
 
         System.out.println("Sending data");
@@ -130,13 +138,5 @@ public class FriendsList_act extends AppCompatActivity{
     public void fullRefresh(){
         getFriendRequests();
     }
-
-    public void returnHome(View v){
-        Intent intent = new Intent(FriendsList_act.this, App_act.class);
-        startActivity(intent);
-    }
-
-
-
 
 }
