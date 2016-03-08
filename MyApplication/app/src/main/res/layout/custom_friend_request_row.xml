@@ -22,9 +22,9 @@
 
     <Button
         android:id="@+id/acceptButton"
-        android:text="Accept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/accept"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:onClick="acceptFriendRequest"
         android:layout_toLeftOf="@+id/rejectButton"
@@ -32,9 +32,9 @@
 
     <Button
         android:id="@+id/rejectButton"
-        android:text="Reject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/decline"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:onClick="rejectFriendRequest"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

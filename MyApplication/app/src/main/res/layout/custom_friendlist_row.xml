@@ -6,8 +6,8 @@
 
     <ImageView
         android:src="@android:drawable/sym_def_app_icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/frProfileImage" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:background="@drawable/msg"
         android:textColor="@color/WHITE"
         android:id="@+id/frMessageButton"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/frCallButton"
@@ -36,16 +36,15 @@
         android:background="@drawable/video_call"
         android:textColor="@color/WHITE"
         android:id="@+id/frCallButton"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
-        android:textSize="15dp"
         android:background="@drawable/review"
         android:textColor="@color/WHITE"
         android:id="@+id/reviewButton"

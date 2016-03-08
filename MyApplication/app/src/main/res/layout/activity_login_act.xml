@@ -124,7 +124,7 @@
                             android:layout_height="match_parent"
                             android:text="Login"
                             android:onClick="login"
-                            android:background="@null"
+                            android:background="@color/buttonA"
                             android:textColor="#000000" />
 
                     </LinearLayout>

@@ -31,31 +31,31 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertNotNull(mainActivity);
     }
 
-    @Test
-    public void testLoginButton(){
-        MainActivity mainActivity = getActivity();
-        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Login_act.class.getName(), null, false);
-        loginButton = (Button)mainActivity.findViewById(R.id.loginButton);
-
-        TouchUtils.clickView(this, loginButton);
-
-        Login_act nextActivity = (Login_act) activityMonitor.waitForActivity();
-        assertNotNull("Next act is not launched", nextActivity);
-        nextActivity.finish();
-    }
-
-    @Test
-    public void testRegisterButton(){
-        MainActivity mainActivity = getActivity();
-        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Register_act.class.getName(), null, false);
-        registerButton = (Button)mainActivity.findViewById(R.id.registerButton);
-
-        TouchUtils.clickView(this, registerButton);
-
-        Register_act nextActivity = (Register_act) activityMonitor.waitForActivity();
-        assertNotNull("Next act is not launched", nextActivity);
-        nextActivity.finish();
-    }
+//    @Test
+//    public void testLoginButton(){
+//        MainActivity mainActivity = getActivity();
+//        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Login_act.class.getName(), null, false);
+//        loginButton = (Button)mainActivity.findViewById(R.id.loginButton);
+//
+//        TouchUtils.clickView(this, loginButton);
+//
+//        Login_act nextActivity = (Login_act) activityMonitor.waitForActivity();
+//        assertNotNull("Next act is not launched", nextActivity);
+//        nextActivity.finish();
+//    }
+//
+//    @Test
+//    public void testRegisterButton(){
+//        MainActivity mainActivity = getActivity();
+//        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Register_act.class.getName(), null, false);
+//        registerButton = (Button)mainActivity.findViewById(R.id.registerButton);
+//
+//        TouchUtils.clickView(this, registerButton);
+//
+//        Register_act nextActivity = (Register_act) activityMonitor.waitForActivity();
+//        assertNotNull("Next act is not launched", nextActivity);
+//        nextActivity.finish();
+//    }
 
 }
 
