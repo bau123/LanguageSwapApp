@@ -12,12 +12,14 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/buttonA"
         tools:context="com.example.pc.run.ReviewList_act">
 
         <TextView
             android:text="Learning Reviews"
             android:id="@+id/reviewTitle"
             android:textSize="20dp"
+            android:textColor="@color/WHITE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -36,6 +38,7 @@
             android:id="@+id/teacherListText"
             android:text="Teaching Reviews"
             android:textSize="20dp"
+            android:textColor="@color/WHITE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/reviewListLearning"
