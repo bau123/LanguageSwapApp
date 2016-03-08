@@ -16,8 +16,7 @@
         android:textSize="25dp"
         android:id="@+id/frNameText"
         android:layout_alignTop="@+id/frProfileImage"
-        android:layout_toRightOf="@id/frProfileImage"
-        android:layout_marginTop="20dp" />
+        android:layout_toRightOf="@id/frProfileImage"/>
 
     <Button
         android:textSize="10dp"
@@ -27,10 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/frCallButton"
-        android:layout_toStartOf="@+id/frCallButton"
-        android:background="@drawable/mybutton"
-        android:textColor="#ffffff"
-        android:layout_marginTop="15dp" />
+        android:layout_toStartOf="@+id/frCallButton" />
 
     <Button
         android:textSize="10dp"
@@ -40,10 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/mybutton"
-        android:textColor="#ffffff"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"

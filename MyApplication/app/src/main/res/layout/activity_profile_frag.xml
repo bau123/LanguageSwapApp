@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#3faee0"
     tools:context="com.example.pc.run.Search.Profile_frag"
     android:orientation="vertical">
 
@@ -14,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile Info"
+        android:textColor="#ffffff"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -26,6 +28,7 @@
         android:layout_height="150dp"
         android:id="@+id/profileImageSwipe"
         android:src="@android:drawable/sym_def_app_icon"
+        android:background="@drawable/rounded"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"
@@ -36,6 +39,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Name:"
+        android:textColor="#ffffff"
         android:id="@+id/nameField"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/textView"/>
@@ -46,6 +50,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Known:"
         android:id="@+id/langKnownField"
+        android:textColor="#ffffff"
         android:layout_below="@+id/nameField"
          />
 
@@ -55,6 +60,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Learning:"
         android:id="@+id/langLearningField"
+        android:textColor="#ffffff"
         android:layout_below="@+id/langKnownField" />
 
     <TextView
@@ -63,14 +69,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Interests:"
         android:id="@+id/interestsField"
+        android:textColor="#ffffff"
         android:layout_below="@+id/langLearningField"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add (Change me)"
+        android:text="Send Friend Request"
         android:id="@+id/addFavBtn"
         android:onClick="addFav"
+        android:background="@color/buttonA"
+        android:textColor="#ffffff"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

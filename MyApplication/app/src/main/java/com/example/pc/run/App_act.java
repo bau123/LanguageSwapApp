@@ -65,9 +65,9 @@ public class App_act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();  //for higher version
-//        actionBar.setDisplayShowCustomEnabled(true);
-        //View customView=getLayoutInflater().inflate(R.layout.custom_title_tab, null);
-     //   actionBar.setCustomView(customView);
+        actionBar.setDisplayShowCustomEnabled(true);
+        View customView=getLayoutInflater().inflate(R.layout.custom_title_tab, null);
+        actionBar.setCustomView(customView);
 
         setContentView(R.layout.activity_app_act);
 
@@ -76,35 +76,35 @@ public class App_act extends AppCompatActivity {
         //Location
         setLocation();
 
-        setCheckHandlers();
-        setButtonHandler();
+//        setCheckHandlers();
+//        setButtonHandler();
 
         Map<String, String> tempParams = new HashMap<>();
         tempParams.put("info", "");
         tempParams.put("email", GlobalProfile.profileEmail);
         processParameters(tempParams);
 
-//        searchEngine = (SearchView) findViewById(R.id.searchEngine);
-//        //searchEngine = (SearchView) findViewById(R.id.searchView);
-//        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                System.out.println("making params");
-//                Map<String, String> parameters = new HashMap<>();
-//                parameters.put("info", query);
-//                parameters.put("email", GlobalProfile.profileEmail);
-//                System.out.println("params made " + query);
-//
-//                processParameters(parameters);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
+        searchEngine = (SearchView) findViewById(R.id.searchEngine);
+        //searchEngine = (SearchView) findViewById(R.id.searchView);
+        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                System.out.println("making params");
+                Map<String, String> parameters = new HashMap<>();
+                parameters.put("info", query);
+                parameters.put("email", GlobalProfile.profileEmail);
+                System.out.println("params made " + query);
+
+                processParameters(parameters);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
 
 
@@ -343,43 +343,43 @@ public class App_act extends AppCompatActivity {
 
     }
 
-    public void setCheckHandlers() {
-        GridLayout grid = (GridLayout) findViewById(R.id.grid0);
-        for(int i = 0; i < grid.getChildCount();i++) {
-            grid.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CheckBox checkBox = (CheckBox) findViewById(v.getId());
-                    String IdAsString = v.getResources().getResourceName(v.getId());
-                    IdAsString = IdAsString.substring(IdAsString.length()-1);
-                    if(checkBox.isChecked()) {
-                        selectedCampus.add(new SelectedCampus(Integer.valueOf(IdAsString),true));
-                    }
-                    else {
-                        for(int i = 0 ; i < selectedCampus.size();i++) {
-                            if(selectedCampus.get(i).campus==Integer.parseInt(IdAsString)) {
-                                System.out.println("made invalid");
-                                selectedCampus.get(i).valid = false;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
+//    public void setCheckHandlers() {
+//        GridLayout grid = (GridLayout) findViewById(R.id.grid0);
+//        for(int i = 0; i < grid.getChildCount();i++) {
+//            grid.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    CheckBox checkBox = (CheckBox) findViewById(v.getId());
+//                    String IdAsString = v.getResources().getResourceName(v.getId());
+//                    IdAsString = IdAsString.substring(IdAsString.length()-1);
+//                    if(checkBox.isChecked()) {
+//                        selectedCampus.add(new SelectedCampus(Integer.valueOf(IdAsString),true));
+//                    }
+//                    else {
+//                        for(int i = 0 ; i < selectedCampus.size();i++) {
+//                            if(selectedCampus.get(i).campus==Integer.parseInt(IdAsString)) {
+//                                System.out.println("made invalid");
+//                                selectedCampus.get(i).valid = false;
+//                            }
+//                        }
+//                    }
+//                }
+//            });
+//        }
+//    }
 
-    public void setButtonHandler() {
-        Button btnSearch = (Button) findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                campuses.clear();
-                translateCampus(selectedCampus);
-                getCampusPeople();
-                //ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-            }
-        });
-    }
+//    public void setButtonHandler() {
+//        Button btnSearch = (Button) findViewById(R.id.btnSearch);
+//        btnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                campuses.clear();
+//                translateCampus(selectedCampus);
+//                getCampusPeople();
+//                //ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
+//            }
+//        });
+//    }
 
 
     public void translateCampus(ArrayList<SelectedCampus> c) {

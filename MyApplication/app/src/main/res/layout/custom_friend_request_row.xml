@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ImageView
         android:src="@android:drawable/sym_def_app_icon"
@@ -17,9 +16,7 @@
         android:layout_toRightOf="@+id/fqProfileImage"
         android:layout_alignTop="@+id/fqProfileImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:layout_marginTop="15dp" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/acceptButton"
@@ -28,11 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:onClick="acceptFriendRequest"
-        android:background="@drawable/mybutton"
         android:layout_toLeftOf="@+id/rejectButton"
-        android:layout_toStartOf="@+id/rejectButton"
-        android:textColor="#ffffff"
-        android:layout_marginTop="15dp" />
+        android:layout_toStartOf="@+id/rejectButton" />
 
     <Button
         android:id="@+id/rejectButton"
@@ -40,10 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="rejectFriendRequest"
-        android:background="@drawable/mybutton"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#ffffff"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

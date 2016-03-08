@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Adapters.MultiSelectionSpinner;
 import com.example.pc.run.Global.GlobalBitmap;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
@@ -28,24 +26,21 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class CreateProfile_Act extends AppCompatActivity {
+public class CreateProfile_Act extends AppCompatActivity implements MultiSelectionSpinner.OnMultipleItemsSelectedListener{
 
     EditText name;
     EditText interests;
-   // EditText languagesKnown;
-   // EditText languagesLearning;
+    String languagesKnown;
+    String languagesLearning;
+    MultiSelectionSpinner langKnownSpinner;
+    MultiSelectionSpinner langLearningSpinner;
     String email;
     String url = "http://t-simkus.com/run/insert-profile-db.php";
     Profile profile;
     ImageView profileImage;
-
-    private Spinner spin1;
-    private Spinner spin2;
-    private Spinner spin3;
-    private Spinner spin4;
-    ArrayAdapter<CharSequence> adapter;
 
 
     @Override
@@ -54,6 +49,27 @@ public class CreateProfile_Act extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile_);
 
         profileImage = (ImageView)findViewById(R.id.profileImage);
+        langKnownSpinner = (MultiSelectionSpinner)findViewById(R.id.langKnownSpinner);
+        langLearningSpinner = (MultiSelectionSpinner)findViewById(R.id.langLearningSpinner);
+        langKnownSpinner.setListener(this);langLearningSpinner.setListener(this);
+
+        String[] array = {"Akan", "Assamese", "Azerbaijani", "Belarusian", "Bengali",
+                "Berbe", "Bhojpuri", "Bulgarian", "Bengali", "Burmese",
+                "Cebuano", "Chattisgarh", "Chitagonian", "Czech", "Dekhni",
+                "Dsindhi", "Dutch", "Egyptian Arabic", "English", "French",
+                "Fula", "Fulfulde", "Gan Chinese", "German", "Greek",
+                "Gugarato", "Haitan Creole", "Hakka Chinese", "Haryanvi", "Hausa",
+                "Hebrew", "Hiligaynon", "Hindi", "Hungarian", "Igbo",
+                "Ilokano", "Italian", "Japanese", "Jin Yu Chinese", "Kannada",
+                "Kazah", "Khme", "Kinyarwanda", "Korean", "Kurdish",
+                "Levantine Arabic", "Madurese", "Magadhi", "Maghrebi Arabic", "Malagasy",
+                "Marwari", "Arabic", "Panjabi", "Persian", "Polish",
+                "Portuguese", "Romanian", "Russian", "Saraiki", "Swedish",
+                "Shinhala", "Somali", "Spanish", "Sudanese", "Tamil",
+                "Thai", "Turkish", "Ukrainian", "Urdu", "Uzbek",
+                "Vietnamese", "Wu Chinese", "Xiang Chinese", "Zulu", "Yoruba",};
+
+        langKnownSpinner.setItems(array);langLearningSpinner.setItems(array);
 
         email = getIntent().getStringExtra("email");
 
@@ -62,91 +78,24 @@ public class CreateProfile_Act extends AppCompatActivity {
         }
         name = (EditText)findViewById(R.id.nameEdit);
         interests = (EditText)findViewById(R.id.interestsEdit);
-       // languagesKnown = (EditText)findViewById(R.id.langKnownEdit);
-       // languagesLearning = (EditText)findViewById(R.id.langLearningEdit);
-
-        //limit the size of the editText
-        EditText myEditText = (EditText) findViewById(R.id.nameEdit);
-        InputFilter[] filters = new InputFilter[1];
-        filters[0] = new InputFilter.LengthFilter(20); //Filter to 10 characters
-        myEditText.setFilters(filters);
-
-        spin1 = (Spinner) findViewById(R.id.spinner);
-        spin2 = (Spinner) findViewById(R.id.spinner2);
-        spin3 = (Spinner) findViewById(R.id.spinner3);
-        spin4 = (Spinner) findViewById(R.id.spinner4);
-
-        adapter = ArrayAdapter.createFromResource(this, R.array.countriesArr, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spin1.setAdapter(adapter);
-        spin2.setAdapter(adapter);
-        spin3.setAdapter(adapter);
-        spin4.setAdapter(adapter);
-
-        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText((getBaseContext()), parent.getItemAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
     }
 
     public void addProfileInfo(View view) {
         System.out.println("making params");
         Map<String, String> parameters = new HashMap<>();
+
+        /*
+            TODO: set languagesKnown/languagesLearning correctly
+         */
+
+        languagesKnown = langKnownSpinner.getSelectedItemsAsString();
+        languagesLearning = langLearningSpinner.getSelectedItemsAsString();
+        System.out.println("CHECKING FUNCTIONALITY LANGUAGES " + langKnownSpinner.getSelectedItemsAsString() + " \n" + langLearningSpinner.getSelectedItemsAsString());
+
         parameters.put("email", email);
         parameters.put("name", name.getText().toString());
-        //parameters.put("languagesKnown", languagesKnown.getText().toString());
-       // parameters.put("languagesLearning", languagesLearning.getText().toString());
+        parameters.put("languagesKnown", languagesKnown);
+        parameters.put("languagesLearning", languagesLearning);
         parameters.put("interests", interests.getText().toString());
 
         if(GlobalBitmap.bitmap != null){
@@ -157,8 +106,8 @@ public class CreateProfile_Act extends AppCompatActivity {
         System.out.println("params made");
         Log.d("Email Passed:", email);
 
-       //profile = new Profile(name.getText().toString(), languagesKnown.getText().toString(),
-             //  languagesLearning.getText().toString(), interests.getText().toString());
+        profile = new Profile(name.getText().toString(), languagesKnown,
+                languagesLearning, interests.getText().toString());
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
@@ -209,5 +158,15 @@ public class CreateProfile_Act extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    @Override
+    public void selectedIndices(List<Integer> indices) {
+
+    }
+
+    @Override
+    public void selectedStrings(List<String> strings) {
+
     }
 }

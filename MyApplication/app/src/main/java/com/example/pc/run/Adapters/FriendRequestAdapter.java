@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pc.run.FriendsList_act;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
@@ -50,7 +51,7 @@ public class FriendRequestAdapter extends BaseAdapter{
         ViewHolder viewHolder = null;
 
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.custom_friendlist_row, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.custom_friend_request_row, null);
             viewHolder = new ViewHolder();
 
             viewHolder.profileImg = (ImageView)convertView.findViewById(R.id.fqProfileImage);
