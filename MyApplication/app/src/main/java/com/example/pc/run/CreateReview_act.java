@@ -24,8 +24,8 @@ import java.util.Map;
 
 public class CreateReview_act extends AppCompatActivity {
 
-    String email = "test@kcl.ac.uk";
-    String reviewerEmail = "test2@kcl.ac.uk";
+    String email;
+    String reviewerEmail;
     Integer checker;
     String description;
     String type;
@@ -38,6 +38,10 @@ public class CreateReview_act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_act);
+
+        reviewerEmail = getIntent().getStringExtra("myEmail");
+        email = getIntent().getStringExtra("userEmail");
+        Log.d("MAKING REVIEW BETWEEN:", email + " " + reviewerEmail);
 
         rating = (RatingBar)findViewById(R.id.ratingBar);
         rating.setRating(5);
@@ -84,8 +88,8 @@ public class CreateReview_act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
-//            Intent intent = new Intent(CreateReview_act.this, FriendsList_act.class);
-//            startActivity(intent);
+            Intent intent = new Intent(CreateReview_act.this, FriendsList_act.class);
+            startActivity(intent);
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Only one review is aloud per person...", Toast.LENGTH_LONG).show();
         }

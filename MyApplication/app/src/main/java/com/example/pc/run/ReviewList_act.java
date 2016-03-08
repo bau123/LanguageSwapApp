@@ -54,7 +54,7 @@ public class ReviewList_act extends AppCompatActivity {
     }
 
     public ReviewList_act(String email){
-        //this.email = email;
+        this.email = email;
     }
 
     public void getReviews(){

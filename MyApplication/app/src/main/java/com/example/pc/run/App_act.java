@@ -65,9 +65,9 @@ public class App_act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();  //for higher version
-        actionBar.setDisplayShowCustomEnabled(true);
-        View customView=getLayoutInflater().inflate(R.layout.custom_title_tab, null);
-        actionBar.setCustomView(customView);
+//        actionBar.setDisplayShowCustomEnabled(true);
+        //View customView=getLayoutInflater().inflate(R.layout.custom_title_tab, null);
+     //   actionBar.setCustomView(customView);
 
         setContentView(R.layout.activity_app_act);
 
@@ -84,27 +84,27 @@ public class App_act extends AppCompatActivity {
         tempParams.put("email", GlobalProfile.profileEmail);
         processParameters(tempParams);
 
-        searchEngine = (SearchView) findViewById(R.id.searchEngine);
-        //searchEngine = (SearchView) findViewById(R.id.searchView);
-        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                System.out.println("making params");
-                Map<String, String> parameters = new HashMap<>();
-                parameters.put("info", query);
-                parameters.put("email", GlobalProfile.profileEmail);
-                System.out.println("params made " + query);
-
-                processParameters(parameters);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        searchEngine = (SearchView) findViewById(R.id.searchEngine);
+//        //searchEngine = (SearchView) findViewById(R.id.searchView);
+//        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                System.out.println("making params");
+//                Map<String, String> parameters = new HashMap<>();
+//                parameters.put("info", query);
+//                parameters.put("email", GlobalProfile.profileEmail);
+//                System.out.println("params made " + query);
+//
+//                processParameters(parameters);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
 
 
 
@@ -428,7 +428,6 @@ public class App_act extends AppCompatActivity {
         Intent intent = new Intent(App_act.this, FriendsList_act.class);
         startActivity(intent);
     }
-
 
 }
 

@@ -6,6 +6,11 @@
         <item>Learner</item>
     </string-array>
 
+    <string name="title_activity_make_call">MakeCall</string>
+    <string name="title_activity_incoming_call_screen">IncomingCallScreenActivity</string>
+    <string name="title_activity_set_up_call">setUpCallActivity</string>
+    <string name="title_activity_place_call">PlaceCallActivity</string>
+
     <string-array name="countriesArr">
         <item>Akan</item>
         <item>Assamese</item>
@@ -110,5 +115,4 @@
         <item>Zulu</item>
 
     </string-array>
-
 </resources>
