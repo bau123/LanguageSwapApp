@@ -97,6 +97,8 @@ public class FriendListAdapter extends BaseAdapter {
                     parameters.put("user1", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
                     parameters.put("user2", profiles.get(position).getEmail());
 
+                    System.out.println("Chatting with " + profiles.get(position).getEmail());
+
                     Requests jsObjRequest = new Requests(Request.Method.POST, getIdUrl, parameters, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
