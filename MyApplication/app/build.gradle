@@ -32,4 +32,6 @@ dependencies {
     compile files('/Users/Joss/LangSwap/MyApplication/libs/junit-4.12.jar')
     compile files('/Users/Joss/LangSwap/MyApplication/libs/hamcrest-core-1.3.jar')
     compile files('/Users/Joss/LangSwap/MyApplication/libs/sinch-android-rtc-3.9.3.jar')
+    compile files('C:/Users/Bau/Desktop/LanguageSwapApp/MyApplication/libs/sinch-android-rtc-3.9.3.jar')
+    compile files('C:/Users/Bau/Desktop/LanguageSwapApp/MyApplication/libs/junit-4.12.jar')
 }
