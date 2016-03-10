@@ -88,7 +88,7 @@ public class ReviewList_act extends AppCompatActivity {
             JSONObject current = reviews.getJSONObject(i);
 
             Review review = new Review(current.getString("rating"), current.getString("review"),
-                    current.getString("reviewer"), current.getString("type"));
+                    current.getString("revieweremail"), current.getString("type"));
 
             if(current.getString("type").equals("Teacher")){
                 teachingReviewList.add(review);
