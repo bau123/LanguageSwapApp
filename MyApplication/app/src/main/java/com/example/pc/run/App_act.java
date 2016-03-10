@@ -58,6 +58,7 @@ public class App_act extends AppCompatActivity {
     ProgressDialog progress;
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
+    Button button;
 
 
     @Override
@@ -72,6 +73,7 @@ public class App_act extends AppCompatActivity {
         setContentView(R.layout.activity_app_act);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
+
 
         //Location
         setLocation();

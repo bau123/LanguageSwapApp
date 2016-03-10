@@ -21,7 +21,6 @@ import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.Profile_act;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
-import com.example.pc.run.VideoChat.setUpCallActivity;
 
 import org.json.JSONObject;
 
