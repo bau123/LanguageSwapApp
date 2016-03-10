@@ -42,43 +42,47 @@ public class Register_act extends AppCompatActivity {
         emailString = email.getText().toString();
         passwordString = pass.getText().toString();
         if (emailString.contains("@kcl.ac.uk")) {
+            if (passwordString.length() > 7) {
+                System.out.println("making params");
+                Map<String, String> parameters = new HashMap<>();
+                parameters.put("email", emailString);
+                parameters.put("password", passwordString);
+                System.out.println("params made");
 
-            System.out.println("making params");
-            Map<String, String> parameters = new HashMap<>();
-            parameters.put("email", emailString);
-            parameters.put("password", pass.getText().toString());
-            System.out.println("params made");
-
-            Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        System.out.println(response.toString());
-                        processResult(response);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println(response.toString());
+                            processResult(response);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError response) {
-                    Log.d("Response: ", response.toString());
-                }
-            });
-            ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError response) {
+                        Log.d("Response: ", response.toString());
+                    }
+                });
+                ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sorry, please enter a password with at least 8 characters", Toast.LENGTH_LONG).show();
+            }
 
         } else {
-
             Toast.makeText(getApplicationContext(), "Sorry, not a valid King's College London email!", Toast.LENGTH_LONG).show();
         }
-    };
+    }
+
+    ;
 
     //Determines whether input is valid.
     private void processResult(JSONObject input) {
         String result = "";
-        try{
+        try {
             result = input.getString("message");
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         if (result.equals("success")) {

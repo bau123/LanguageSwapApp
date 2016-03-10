@@ -65,8 +65,11 @@
         </activity>
         <activity android:name=".Login_act" />
         <activity android:name=".Register_act" />
+<<<<<<< HEAD
         <activity android:name=".App_act" />
         <activity android:name=".Chat.chat" />
+=======
+>>>>>>> c6bfc0c1a6b28c1e38690c3fdf8207698da9e203
         <activity android:name=".CreateProfile_Act" />
         <activity
             android:name=".Chat.ChatRoomActivity"
