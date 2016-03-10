@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pc.run.Chat.ChatRooms;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
@@ -157,13 +158,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new FriendsList_act();
                 title = getString(R.string.title_friends);
                 break;
-            /*
             case 2:
-                fragment = new MessagesFragment();
+                fragment = new ChatRooms();
                 title = getString(R.string.title_messages);
                 break;
 
-                */
+
             default:fragment = new App_act();
                 break;
         }

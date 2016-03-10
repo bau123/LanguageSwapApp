@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChatRoomActivity extends AppCompatActivity {
-    private String TAG = ChatRoomActivity.class.getSimpleName();
 
     private String chatRoomId;
     private RecyclerView recyclerView;

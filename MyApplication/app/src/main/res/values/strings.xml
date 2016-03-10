@@ -32,4 +32,18 @@
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Login item labels  -->
+    <string name="log_email">Email</string>
+    <string name="log_pass">Password</string>
+    <string name="log_email_error">Please enter a valid email address</string>
+    <string name="log_pass_error">Please enter the password</string>
+
+    <!-- CreateProfile/Register item labels  -->
+
+
+
 </resources>

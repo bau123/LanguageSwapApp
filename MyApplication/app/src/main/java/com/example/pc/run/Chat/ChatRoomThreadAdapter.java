@@ -18,8 +18,6 @@ import com.example.pc.run.R;
 
 public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static String TAG = ChatRoomThreadAdapter.class.getSimpleName();
-
     private String userId;
     private int SELF = 100;
     private static String today;
