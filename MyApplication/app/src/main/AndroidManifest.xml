@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pc.run">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <permission
+        android:name="com.example.pc.run.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
+
+    <!-- END Added for GCM -->
+    <application
+        android:name=".SharedPref.ApplicationSingleton"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Gcm.MyGcmPushReceiver"
+            android:exported="false">
+            android:name=".Gcm.RegistrationIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Gcm.RegistrationIntentService"
+            android:exported="false">
+            android:name=".Gcm.TokenListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Login_act" />
+        <activity android:name=".Register_act" />
+        <activity android:name=".App_act" />
+        <activity android:name=".Chat.chat" />
+        <activity android:name=".CreateProfile_Act" />
+        <activity
+            android:name=".Chat.ChatRoomActivity"
+            android:label="@string/title_activity_chat_room"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UploadImage_act" />
+        <activity android:name=".Profile_act" />
+        <activity android:name=".FriendsList_act" />
+        <activity android:name=".CreateReview_act">
+        </activity>
+        <activity android:name=".ReviewList_act">
+        </activity>
+        <activity android:name=".VideoChat.CallScreenActivity" />
+        <activity android:name=".VideoChat.IncomingCallScreenActivity"></activity>
+        <activity
+            android:name=".VideoChat.setUpCallActivity"
+            android:label="@string/title_activity_set_up_call"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>
