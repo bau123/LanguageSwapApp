@@ -166,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|center"
-                    android:onClick=""
+                    android:onClick="toRegister"
                     android:paddingBottom="20dp"
                     android:text="@string/log_reg"
                     android:textAppearance="?android:attr/textAppearanceMedium" />

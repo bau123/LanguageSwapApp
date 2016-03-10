@@ -45,7 +45,9 @@
     <string name="log_forgotten">Forgotten password</string>
 
     <!-- CreateProfile/Register item labels  -->
-
-
+    <string name="reg_email">Enter your KCL Email</string>
+    <string name="reg_repass">Renter Password</string>
+    <string name="reg_match">Password does not match!</string>
+    <string name="reg_pass_error">Password does not match</string>
 
 </resources>

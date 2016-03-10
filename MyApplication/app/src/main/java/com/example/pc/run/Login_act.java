@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
@@ -60,28 +61,6 @@ public class Login_act extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pass_log);
 
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
-        //  pass.addTextChangedListener(new MyTextWatcher(inputEmail)); ADD LATER!!!!!!!!
-    }
-
-    //Checks if email is in correct form
-    public boolean validateEmail() {
-        String re1 = "((?:[a-z][a-z]+))";    // Word 1
-        String re2 = "(.)";    // Any Single Character 1
-        String re3 = "((?:[a-z][a-z]+))";    // Word 2
-        String re4 = "(@)";    // Any Single Character 2
-        String re5 = "(kcl\\.ac\\.uk)";    // Fully Qualified Domain Name 1
-
-        Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-        Matcher matcher = p.matcher(email.getText().toString());
-
-        Boolean result = matcher.matches();
-        if (result) {
-            inputEmail.setErrorEnabled(false);
-        } else {
-            inputEmail.setError(getString(R.string.log_email_error));
-            requestFocus(inputEmail);
-        }
-        return result;
     }
 
     private void requestFocus(View view) {
@@ -92,16 +71,17 @@ public class Login_act extends AppCompatActivity {
 
     public void login(View view) {
         //Checks if there is an internet connection
-        if (isNetworkAvailable()) {
+        if (!GlobalMethds.isNetworkAvailable()) {
             Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
 
             snackbar.show();
-
             return;
         }
         //Checks if the email is in the correct format
-        if (validateEmail()) {
+        if (GlobalMethds.validateEmail(email.getText().toString())) {
+            inputEmail.setErrorEnabled(false);
+
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("email", email.getText().toString());
             parameters.put("password", pass.getText().toString());
@@ -125,6 +105,9 @@ public class Login_act extends AppCompatActivity {
                 }
             });
             ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+        } else {
+            inputEmail.setError(getString(R.string.log_email_error));
+            requestFocus(inputEmail);
         }
     }
 
@@ -164,11 +147,11 @@ public class Login_act extends AppCompatActivity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
+            //Stores the authentication details of the user
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             //Pulls the profile info of the user logging in
             pullProfile();
-            GlobalProfile.profileEmail = mEmail;
-            Thread.sleep(100);
+            //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else if (result.equals("failure")) {
@@ -176,27 +159,23 @@ public class Login_act extends AppCompatActivity {
         }
         //If user with the email exists
         else if (result.equals("failure - exists")) {
-            Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Incorrect Password", Snackbar.LENGTH_LONG);
+            snackbar.show();
             //login tries counter
             counter++;
             //
             if (counter > 5) {
-                Toast.makeText(getApplicationContext(), "Too many tries! \n Sorry this account has now been locked for 15 minutes", Toast.LENGTH_LONG).show();
+                Snackbar tries = Snackbar.make(coordinatorLayout, "Too many tries! \n" + " Sorry this account has now been locked for 15 minutes", Snackbar.LENGTH_LONG);
+                tries.show();
                 lockAccount(email.getText().toString());
             }
         }
         //When account is locked out from too many tries
         else if (result.equals("locked")) {
-            Toast.makeText(getApplicationContext(), "The account is locked", Toast.LENGTH_LONG).show();
+            Snackbar tries = Snackbar.make(coordinatorLayout, "Account is locked", Snackbar.LENGTH_LONG);
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
     public void lockAccount(String email) {
         String lockUrl = "http://t-simkus.com/run/lockAccount.php";
@@ -265,7 +244,7 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void forgottenPass(View view) {
-        Intent intent = new Intent();  //FIXXX
+        Intent intent = new Intent();
         startActivity(intent);
     }
 
@@ -286,11 +265,8 @@ public class Login_act extends AppCompatActivity {
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
                 case R.id.email_log:
-                    validateEmail();
+                    GlobalMethds.validateEmail(email.getText().toString());
                     break;
-                // case R.id.pass_log:
-                //   validatePassword();        PUT BACK IN AT END!!!!!!!!!!!!!!!!
-                // break;
             }
         }
     }
