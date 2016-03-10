@@ -43,6 +43,8 @@
     <string name="log_pass">Password</string>
     <string name="log_email_error">Please enter a valid email address</string>
     <string name="log_pass_error">Please enter the password</string>
+    <string name="log_reg">Register account</string>
+    <string name="log_forgotten">Forgotten password</string>
 
     <!-- CreateProfile/Register item labels  -->
 

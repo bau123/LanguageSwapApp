@@ -1,6 +1,12 @@
 package com.example.pc.run;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,7 +40,9 @@ public class Login_act extends AppCompatActivity {
 
     private EditText email, pass;
     private TextInputLayout inputEmail, inputPassword;
+    private CoordinatorLayout coordinatorLayout;
     String url = "http://t-simkus.com/run/checkPass.php";
+
     String mEmail;
     int counter = 0;
 
@@ -42,13 +51,16 @@ public class Login_act extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_act);
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
+
         inputEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         email = (EditText) findViewById(R.id.email_log);
         pass = (EditText) findViewById(R.id.pass_log);
 
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
-       //  pass.addTextChangedListener(new MyTextWatcher(inputEmail)); ADD LATER!!!!!!!!
+        //  pass.addTextChangedListener(new MyTextWatcher(inputEmail)); ADD LATER!!!!!!!!
     }
 
     //Checks if email is in correct form
@@ -63,9 +75,9 @@ public class Login_act extends AppCompatActivity {
         Matcher matcher = p.matcher(email.getText().toString());
 
         Boolean result = matcher.matches();
-        if(result){
+        if (result) {
             inputEmail.setErrorEnabled(false);
-        }else{
+        } else {
             inputEmail.setError(getString(R.string.log_email_error));
             requestFocus(inputEmail);
         }
@@ -79,7 +91,17 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void login(View view) {
-        if(validateEmail()){
+        //Checks if there is an internet connection
+        if (isNetworkAvailable()) {
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
+
+            snackbar.show();
+
+            return;
+        }
+        //Checks if the email is in the correct format
+        if (validateEmail()) {
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("email", email.getText().toString());
             parameters.put("password", pass.getText().toString());
@@ -169,6 +191,13 @@ public class Login_act extends AppCompatActivity {
         }
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void lockAccount(String email) {
         String lockUrl = "http://t-simkus.com/run/lockAccount.php";
 
@@ -230,6 +259,16 @@ public class Login_act extends AppCompatActivity {
 
     }
 
+    public void toRegister(View view) {
+        Intent intent = new Intent(this, Register_act.class);
+        startActivity(intent);
+    }
+
+    public void forgottenPass(View view) {
+        Intent intent = new Intent();  //FIXXX
+        startActivity(intent);
+    }
+
     private class MyTextWatcher implements TextWatcher {
 
         private View view;
@@ -249,9 +288,9 @@ public class Login_act extends AppCompatActivity {
                 case R.id.email_log:
                     validateEmail();
                     break;
-               // case R.id.pass_log:
-                 //   validatePassword();        PUT BACK IN AT END!!!!!!!!!!!!!!!!
-                   // break;
+                // case R.id.pass_log:
+                //   validatePassword();        PUT BACK IN AT END!!!!!!!!!!!!!!!!
+                // break;
             }
         }
     }
