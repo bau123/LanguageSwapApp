@@ -71,13 +71,13 @@ public class Login_act extends AppCompatActivity {
 
     public void login(View view) {
         //Checks if there is an internet connection
-        if (!GlobalMethds.isNetworkAvailable()) {
+        /*if (!GlobalMethds.isNetworkAvailable()) {
             Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
 
             snackbar.show();
             return;
-        }
+        }*/
         //Checks if the email is in the correct format
         if (GlobalMethds.validateEmail(email.getText().toString())) {
             inputEmail.setErrorEnabled(false);

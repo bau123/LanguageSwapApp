@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +23,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.pc.run.Gcm.Config;
-import com.example.pc.run.Gcm.MyGcmPushReceiver;
-import com.example.pc.run.Gcm.NotificationUtils;
+import com.example.pc.run.Adapters.MultiSelectionSpinner;
+
+
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.LocationServices.CoordinatesToString;
@@ -38,12 +43,12 @@ import com.example.pc.run.LocationServices.UserLocation;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,14 +69,18 @@ public class App_act extends Fragment {
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
     private View masterView;
+    private JSONObject niput;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Location
+        //Update location table
         setLocation();
+
+        //Get location table
+        setParams();
 
         Map<String, String> tempParams = new HashMap<>();
         tempParams.put("info", "");
@@ -84,7 +93,10 @@ public class App_act extends Fragment {
         parameters.put("email", GlobalProfile.profileEmail);
         System.out.println("params made " + searchInput);
 
+
         processParameters(parameters);
+
+
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,10 +104,59 @@ public class App_act extends Fragment {
 
         viewPager = (ViewPager) v.findViewById(R.id.viewPager);
         masterView = v;
+        MultiSelectionSpinner spinner = (MultiSelectionSpinner) v.findViewById(R.id.spinner);
+        buildSpinner(spinner);
 
-        //setCheckHandlers();
 
         return v;
+    }
+
+    public void buildSpinner(MultiSelectionSpinner spinner) {
+
+
+        //Add the items
+        String[] items = new String[]{
+                "Strand",
+                "Franklin-Wilkins",
+                "James Clerk Maxwell",
+                "Maughan Library",
+                "Durry Lane",
+                "Virginia Woolf"
+        };
+
+
+        spinner.setItems(items);
+
+
+        //Set the listener
+        spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
+            @Override
+            public void selectedIndices(List<Integer> indices) {
+                campuses.clear();
+                TextView t = (TextView) getView().findViewById(R.id.textView3);
+                t.setText("");
+                selectedCampus.clear();
+                for (int i = 0; i < indices.size(); i++) {
+                    selectedCampus.add(new SelectedCampus(indices.get(i), true));
+                }
+                translateCampus(selectedCampus);
+                getCampusPeople();
+                //t.setText(t.getText() + " \n" + arrayUsers.toString() + " " + campuses.toString() + " " + selectedCampus.toString());
+                try {
+                    processResult(niput, true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void selectedStrings(List<String> strings) {
+
+                //
+            }
+        });
     }
 
 
@@ -117,7 +178,8 @@ public class App_act extends Fragment {
                 try {
                     System.out.println(response.toString());
                     //progress.dismiss();
-                    processResult(response);
+                    niput = response;
+                    processResult(response, false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -132,7 +194,7 @@ public class App_act extends Fragment {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    private void processResult(JSONObject input) throws JSONException, InterruptedException {
+    private void processResult(JSONObject input, Boolean queried) throws JSONException, InterruptedException {
 
         JSONArray profileNames = input.getJSONArray("result");
         //Clear the array containing the profile fragments
@@ -143,18 +205,48 @@ public class App_act extends Fragment {
 
         for (int i = 0; i < profileNames.length(); i++) {
             JSONObject current = profileNames.getJSONObject(i);
-            if (current.getString("passed").equals("true")) {
-                information.add(current);
+            if (queried) {
+                for (int b = 0; b < selectedEmails.size(); b++) {
+                    if (current.getString("passed").equals("true") && current.getString("email").equals(selectedEmails.get(b))) {
+                        information.add(current);
+                    } else {
+                        //Produce message !!!!!
+                    }
+                }
             } else {
-                //Produce message !!!!!
+
+                if (current.getString("passed").equals("true")) {
+                    information.add(current);
+                } else {
+                    //Produce message !!!!!
+                }
+
             }
+
+
         }
         System.out.println("Sending data");
         // Make fragments for every user found, store in frag array.
         for (int i = 0; i < information.size(); i++) {
             JSONObject tempJson = new JSONObject(information.get(i).toString());
+
+
+            for (int b = 0; b < arrayUsers.size(); b++) {
+                // t.setText(t.getText() + "\n " +arrayUsers.get(b).email);
+                if (tempJson.getString("email").equals(arrayUsers.get(b).email)) {
+                    tempJson.put("campus", arrayUsers.get(b).campus);
+                }
+            }
             tempFrags.add(Profile_frag.newInstance(tempJson));
+
+
         }
+
+        if (information.isEmpty()) {
+            Toast.makeText(getActivity(), "Search returned 0 results", Toast.LENGTH_SHORT).show();
+
+        }
+
         frags = tempFrags;
 
         viewPager.removeAllViews();
@@ -162,6 +254,8 @@ public class App_act extends Fragment {
         viewPager.setAdapter(new PagerAdapter(getChildFragmentManager()));
         System.out.println("refreshed pageAdapter");
         //progress.dismiss();
+        TextView t = (TextView) getView().findViewById(R.id.textView3);
+        t.setText("Search By Campus");
     }
 
     class PagerAdapter extends FragmentPagerAdapter {
@@ -184,6 +278,7 @@ public class App_act extends Fragment {
 
     public void setLocation() {
         String locationUrl = "http://t-simkus.com/run/updateLocation.php";
+
         try {
             CoordinatesToString cts = new CoordinatesToString(this.getContext());
             System.out.println("Current location " + cts.latitude + " " + cts.longitude);
@@ -201,6 +296,7 @@ public class App_act extends Fragment {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
+                        System.out.println(response.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -249,64 +345,23 @@ public class App_act extends Fragment {
     private void processResultCampus(JSONObject input) throws InterruptedException {
         try {
             JSONArray r = input.getJSONArray("result");
-            for(int i = 0; i < r.length();i++) {
+            for (int i = 0; i < r.length(); i++) {
                 JSONObject j = (JSONObject) r.get(i);
                 String e = j.get("email").toString();
                 String c = j.get("campus").toString();
-                this.arrayUsers.add(new UserLocation(e,c));
+                this.arrayUsers.add(new UserLocation(e, c));
             }
-        }
-        catch(JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-//    public void setCheckHandlers() {
-//        GridLayout grid = (GridLayout) findViewById(R.id.grid0);
-//        for(int i = 0; i < grid.getChildCount();i++) {
-//            grid.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    CheckBox checkBox = (CheckBox) findViewById(v.getId());
-//                    String IdAsString = v.getResources().getResourceName(v.getId());
-//                    IdAsString = IdAsString.substring(IdAsString.length()-1);
-//                    if(checkBox.isChecked()) {
-//                        selectedCampus.add(new SelectedCampus(Integer.valueOf(IdAsString),true));
-//                    }
-//                    else {
-//                        for(int i = 0 ; i < selectedCampus.size();i++) {
-//                            if(selectedCampus.get(i).campus==Integer.parseInt(IdAsString)) {
-//                                System.out.println("made invalid");
-//                                selectedCampus.get(i).valid = false;
-//                            }
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//    }
-
-//    public void setButtonHandler() {
-//        Button btnSearch = (Button) findViewById(R.id.btnSearch);
-//        btnSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                campuses.clear();
-//                translateCampus(selectedCampus);
-//                getCampusPeople();
-//                //ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-//            }
-//        });
-//    }
-
-
     public void translateCampus(ArrayList<SelectedCampus> c) {
         //Translate numbers to string for campuses
-        if(c.size() == 0) {
+        if (c.size() == 0) {
             campuses.add("Not at any campus");
-        }
-        else {
+        } else {
             for (int i = 0; i < c.size(); i++) {
 
                 if (c.get(i).campus == 0 && c.get(i).valid) {
@@ -324,20 +379,24 @@ public class App_act extends Fragment {
                 }
 
             }
-
-
         }
     }
 
     /*
     Get people from selected campuses
      */
+    ArrayList<String> selectedEmails = new ArrayList<>();
+
     public void getCampusPeople() {
-        System.out.println("People at selected campus:");
-        for(String campus : campuses) {
-            for(UserLocation user : arrayUsers) {
-                if(user.campus.equals(campus)) {
-                    System.out.println(user.email + " " + user.campus);
+        selectedEmails.clear();
+        //Over every selected campus
+        for (String campus : campuses) {
+            //Over every user
+            for (UserLocation user : arrayUsers) {
+                //If user is in the location of the currently iterating campus
+                if (user.campus.equals(campus)) {
+                    //Add his email to the list
+                    selectedEmails.add(user.email);
                 }
             }
         }

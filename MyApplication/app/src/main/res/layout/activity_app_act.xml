@@ -25,81 +25,28 @@
         android:layout_height="111dp"
         android:layout_weight="1.00" />
 
-    <TextView
-        android:text="Search By Campus"
-        android:textSize="25dp"
-        android:textColor="@color/WHITE"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
+        android:id="@+id/spinnerLayout">
 
-    <!--<GridLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:rowCount="3"-->
-        <!--android:columnCount="2"-->
-        <!--android:id="@+id/grid0" >-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="Search By Campus"
+            android:id="@+id/textView3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal" />
 
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Strand"-->
-            <!--android:id="@+id/checkBox0"-->
-            <!--android:checked="false"-->
-            <!--android:layout_row="0"-->
-            <!--android:layout_column="0" />-->
+        <com.example.pc.run.Adapters.MultiSelectionSpinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_gravity="center_horizontal" />
 
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Franklin-Wilkins"-->
-            <!--android:id="@+id/checkBox1"-->
-            <!--android:checked="false"-->
-            <!--android:layout_column="1"-->
-            <!--android:layout_row="0" />-->
-
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="James Clerk Maxwell"-->
-            <!--android:id="@+id/checkBox2"-->
-            <!--android:checked="false"-->
-            <!--android:layout_column="0"-->
-            <!--android:layout_row="1" />-->
-
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Maughan Library"-->
-            <!--android:id="@+id/checkBox3"-->
-            <!--android:layout_row="1"-->
-            <!--android:layout_column="1"-->
-            <!--android:checked="false" />-->
-
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Durry Lane"-->
-            <!--android:id="@+id/checkBox4"-->
-            <!--android:checked="false"-->
-            <!--android:layout_column="0"-->
-            <!--android:layout_row="2" />-->
-
-        <!--<CheckBox-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Virginia Woolf"-->
-            <!--android:id="@+id/checkBox5"-->
-            <!--android:checked="false"-->
-            <!--android:layout_column="1"-->
-            <!--android:layout_row="2" />-->
-    <!--</GridLayout>-->
-
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Search"-->
-        <!--android:id="@+id/btnSearch" />-->
+    </LinearLayout>
 
 </LinearLayout>
 
