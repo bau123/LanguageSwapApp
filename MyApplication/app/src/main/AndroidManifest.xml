@@ -17,7 +17,6 @@
 
     <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
 
-    <!-- END Added for GCM -->
     <application
         android:name=".SharedPref.ApplicationSingleton"
         android:allowBackup="true"
@@ -68,7 +67,7 @@
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
         <activity android:name=".UploadImage_act" />
         <activity android:name=".Profile_act" />
         <activity android:name=".CreateReview_act">
@@ -80,7 +79,7 @@
         <activity
             android:name=".VideoChat.setUpCallActivity"
             android:label="@string/title_activity_set_up_call"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
     </application>
 
 </manifest>
