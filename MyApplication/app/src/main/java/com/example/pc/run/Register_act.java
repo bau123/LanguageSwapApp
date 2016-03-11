@@ -17,14 +17,18 @@ import android.widget.ProgressBar;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Register_act extends AppCompatActivity {
 
@@ -36,7 +40,6 @@ public class Register_act extends AppCompatActivity {
     String url = "http://t-simkus.com/run/checkEmail.php";
     int i;
     ProgressBar passBar;
-    Boolean result = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +94,7 @@ public class Register_act extends AppCompatActivity {
             return;
         }
 
-        if(passwordString.length() <8){
+        if (passwordString.length() < 8) {
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Password must be at least 8 characters long", Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
@@ -104,22 +107,11 @@ public class Register_act extends AppCompatActivity {
             return;
         }
 
-        //Checks if email already taken
-        if (!checkEmailAvailable()) {
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Sorry, email is already taken", Snackbar.LENGTH_LONG);
-            snackbar.show();
-            return;
-        }
-
-        Intent intent = new Intent(this, CreateProfile_Act.class);
-        intent.putExtra("email", emailString);
-        intent.putExtra("pass", passwordString);
-
+        checkEmailAvailable();
 
     }
 
-    public boolean checkEmailAvailable(){
-        result = false;
+    public void checkEmailAvailable(){
 
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("email", emailString);
@@ -127,11 +119,14 @@ public class Register_act extends AppCompatActivity {
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-               try{
-                   processEmailQeuery(response);
-               }catch (Exception e){
-                   e.printStackTrace();
-               }
+                try {
+                    System.out.print(response);
+                    String output = response.getString("message");
+                    processResult(output);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -140,22 +135,17 @@ public class Register_act extends AppCompatActivity {
             }
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-
-        return result;
     }
 
-    public void processEmailQeuery(JSONObject input) throws InterruptedException {
-        String output = "";
-        System.out.print("Reg output is " + output);
-        try {
-            output = input.getString("message");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void processResult(String output){
         if (output.equals("found")) {
-            result = true;
-        }else if(output.equals("notFound")) {
-            result = false;
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Sorry, email is already taken", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        } else if (output.equals("notFound")) {
+            Intent intent = new Intent(this, CreateProfile_Act.class);
+            intent.putExtra("email", emailString);
+            intent.putExtra("pass", passwordString);
+            startActivity(intent);
         }
     }
 
@@ -184,6 +174,7 @@ public class Register_act extends AppCompatActivity {
                     break;
             }
         }
+
     }
 
     private void requestFocus(View view) {
@@ -195,7 +186,6 @@ public class Register_act extends AppCompatActivity {
     //Calculates the password strength
     protected void caculation() {
         String temp = pass.getText().toString();
-        System.out.println(i + " current password is : " + temp);
         i = i + 1;
 
         int length = 0, uppercase = 0, lowercase = 0, digits = 0, symbols = 0, bonus = 0, requirements = 0;
@@ -273,8 +263,6 @@ public class Register_act extends AppCompatActivity {
                 + ((length - lowercase) * 2) + (digits * 4) + (symbols * 6)
                 + (bonus * 2) + (requirements * 2) - (lettersonly * length * 2)
                 - (numbersonly * length * 3) - (cuc * 2) - (clc * 2);
-
-        System.out.println("Total" + Total);
 
         if (Total < 30) {
             passBar.setProgress(Total - 15);

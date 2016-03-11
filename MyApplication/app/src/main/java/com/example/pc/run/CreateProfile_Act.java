@@ -37,7 +37,8 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
     String languagesLearning;
     MultiSelectionSpinner langKnownSpinner;
     MultiSelectionSpinner langLearningSpinner;
-    String email;
+    private String email;
+    private String pass;
     String url = "http://t-simkus.com/run/insert-profile-db.php";
     Profile profile;
     ImageView profileImage;
@@ -72,6 +73,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         langKnownSpinner.setItems(array);langLearningSpinner.setItems(array);
 
         email = getIntent().getStringExtra("email");
+        pass = getIntent().getStringExtra("pass");
 
         if(GlobalBitmap.bitmap != null){
             profileImage.setImageBitmap(GlobalBitmap.bitmap);
@@ -92,6 +94,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         languagesLearning = langLearningSpinner.getSelectedItemsAsString();
         System.out.println("CHECKING FUNCTIONALITY LANGUAGES " + langKnownSpinner.getSelectedItemsAsString() + " \n" + langLearningSpinner.getSelectedItemsAsString());
 
+        parameters.put("password", pass);
         parameters.put("email", email);
         parameters.put("name", name.getText().toString());
         parameters.put("languagesKnown", languagesKnown);
