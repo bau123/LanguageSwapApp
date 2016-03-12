@@ -98,7 +98,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     String currentDateandTime = sdf.format(new Date());
 
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);
+                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
                     System.out.println("Friend request: " + message);
                     showNotificationMessage(getApplicationContext(), title, message, currentDateandTime, resultIntent);
                 }

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-      //  handleIntent(getIntent());
+         //  handleIntent(getIntent());
 
         //Setting up broadcast receiver
         regReceiver = new BroadcastReceiver() {
@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
     }
+
+
 /* FIXX THIS SEACH STUFF
     @Override
     protected void onNewIntent(Intent intent) {
