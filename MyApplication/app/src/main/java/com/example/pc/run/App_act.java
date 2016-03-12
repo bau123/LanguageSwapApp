@@ -58,8 +58,7 @@ import java.util.Map;
 public class App_act extends Fragment {
 
     private static String TAG = "In AppAct";
-    private BroadcastReceiver regReceiver;
-    private ArrayList<UserLocation> arrayUsers = new ArrayList<>();
+
     private ArrayList<String> campuses = new ArrayList<>();
     private ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
     private ViewPager viewPager;
@@ -69,7 +68,6 @@ public class App_act extends Fragment {
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
     private View masterView;
-    private JSONObject niput;
 
 
     @Override
@@ -79,24 +77,15 @@ public class App_act extends Fragment {
         //Update location table
         setLocation();
 
-        //Get location table
-        setParams();
+        System.out.println("After setLocation");
 
-        Map<String, String> tempParams = new HashMap<>();
-        tempParams.put("info", "");
-        tempParams.put("email", GlobalProfile.profileEmail);
-        processParameters(tempParams);
-
-        System.out.println("making params");
         Map<String, String> parameters = new HashMap<>();
         parameters.put("info", searchInput);
-        parameters.put("email", GlobalProfile.profileEmail);
-        System.out.println("params made " + searchInput);
-
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        System.out.println("params made for search " + searchInput);
 
         processParameters(parameters);
-
-
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -107,12 +96,10 @@ public class App_act extends Fragment {
         MultiSelectionSpinner spinner = (MultiSelectionSpinner) v.findViewById(R.id.spinner);
         buildSpinner(spinner);
 
-
         return v;
     }
 
     public void buildSpinner(MultiSelectionSpinner spinner) {
-
 
         //Add the items
         String[] items = new String[]{
@@ -124,9 +111,7 @@ public class App_act extends Fragment {
                 "Virginia Woolf"
         };
 
-
         spinner.setItems(items);
-
 
         //Set the listener
         spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
@@ -140,15 +125,6 @@ public class App_act extends Fragment {
                     selectedCampus.add(new SelectedCampus(indices.get(i), true));
                 }
                 translateCampus(selectedCampus);
-                getCampusPeople();
-                //t.setText(t.getText() + " \n" + arrayUsers.toString() + " " + campuses.toString() + " " + selectedCampus.toString());
-                try {
-                    processResult(niput, true);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override
@@ -172,14 +148,15 @@ public class App_act extends Fragment {
 
     private void processParameters(Map<String, String> parameters) {
         // progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
+
+        System.out.println("In processParameters");
+
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     System.out.println(response.toString());
-                    //progress.dismiss();
-                    niput = response;
-                    processResult(response, false);
+                    processResult(response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -187,66 +164,40 @@ public class App_act extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError response) {
-                Log.d("Response: ", response.toString());
+                System.out.println("Error in processParameters");
                 //progress.dismiss();
             }
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    private void processResult(JSONObject input, Boolean queried) throws JSONException, InterruptedException {
+    private void processResult(JSONObject input) throws JSONException, InterruptedException {
+
+        System.out.println("In processResult");
 
         JSONArray profileNames = input.getJSONArray("result");
         //Clear the array containing the profile fragments
         ArrayList<Fragment> tempFrags = new ArrayList<>();
-        Log.d("PROFILE NAMES:", profileNames.toString());
+        Log.d(TAG, "PROFILE NAMES: " + profileNames.toString());
 
         ArrayList<JSONObject> information = new ArrayList<>();
 
+
+        // Make fragments for every user found, store in frag array.
         for (int i = 0; i < profileNames.length(); i++) {
             JSONObject current = profileNames.getJSONObject(i);
-            if (queried) {
-                for (int b = 0; b < selectedEmails.size(); b++) {
-                    if (current.getString("passed").equals("true") && current.getString("email").equals(selectedEmails.get(b))) {
-                        information.add(current);
-                    } else {
-                        //Produce message !!!!!
-                    }
-                }
+            if (current.getString("passed").equals("true")) {
+                information.add(current);
             } else {
-
-                if (current.getString("passed").equals("true")) {
-                    information.add(current);
-                } else {
-                    //Produce message !!!!!
-                }
-
+                //Produce message !!!!!
             }
-
-
         }
         System.out.println("Sending data");
         // Make fragments for every user found, store in frag array.
         for (int i = 0; i < information.size(); i++) {
             JSONObject tempJson = new JSONObject(information.get(i).toString());
-
-
-            for (int b = 0; b < arrayUsers.size(); b++) {
-                // t.setText(t.getText() + "\n " +arrayUsers.get(b).email);
-                if (tempJson.getString("email").equals(arrayUsers.get(b).email)) {
-                    tempJson.put("campus", arrayUsers.get(b).campus);
-                }
-            }
             tempFrags.add(Profile_frag.newInstance(tempJson));
-
-
         }
-
-        if (information.isEmpty()) {
-            Toast.makeText(getActivity(), "Search returned 0 results", Toast.LENGTH_SHORT).show();
-
-        }
-
         frags = tempFrags;
 
         viewPager.removeAllViews();
@@ -254,8 +205,6 @@ public class App_act extends Fragment {
         viewPager.setAdapter(new PagerAdapter(getChildFragmentManager()));
         System.out.println("refreshed pageAdapter");
         //progress.dismiss();
-        TextView t = (TextView) getView().findViewById(R.id.textView3);
-        t.setText("Search By Campus");
     }
 
     class PagerAdapter extends FragmentPagerAdapter {
@@ -283,6 +232,7 @@ public class App_act extends Fragment {
             CoordinatesToString cts = new CoordinatesToString(this.getContext());
             System.out.println("Current location " + cts.latitude + " " + cts.longitude);
             System.out.println("Current campus " + cts.campus);
+
             //The string of the campus name
             String campus = cts.campus;
 
@@ -296,15 +246,16 @@ public class App_act extends Fragment {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        System.out.println(response.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
+                        System.out.println("In getLocation");
+                        Log.d(TAG, "response error in setLocation method");
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError response) {
-                    Log.d("Response: ", response.toString());
+                    Log.d(TAG, response.toString() + "In setLocation");
                 }
             });
             ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
@@ -312,49 +263,6 @@ public class App_act extends Fragment {
             e.printStackTrace();
             Toast.makeText(this.getContext().getApplicationContext(), "Sorry we cant get the location", Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void setParams() {
-        String url2 = "http://t-simkus.com/run/getLocations.php";
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("campus", "Not at any campus");
-
-        Requests jsObjRequest = new Requests(Request.Method.POST, url2, parameters, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    processResultCampus(response);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError response) {
-                Log.d("Response: ", response.toString());
-            }
-        });
-        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-    }
-
-
-    /*
-    Process json result
-     */
-    private void processResultCampus(JSONObject input) throws InterruptedException {
-        try {
-            JSONArray r = input.getJSONArray("result");
-            for (int i = 0; i < r.length(); i++) {
-                JSONObject j = (JSONObject) r.get(i);
-                String e = j.get("email").toString();
-                String c = j.get("campus").toString();
-                this.arrayUsers.add(new UserLocation(e, c));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void translateCampus(ArrayList<SelectedCampus> c) {
@@ -382,25 +290,6 @@ public class App_act extends Fragment {
         }
     }
 
-    /*
-    Get people from selected campuses
-     */
-    ArrayList<String> selectedEmails = new ArrayList<>();
-
-    public void getCampusPeople() {
-        selectedEmails.clear();
-        //Over every selected campus
-        for (String campus : campuses) {
-            //Over every user
-            for (UserLocation user : arrayUsers) {
-                //If user is in the location of the currently iterating campus
-                if (user.campus.equals(campus)) {
-                    //Add his email to the list
-                    selectedEmails.add(user.email);
-                }
-            }
-        }
-    }
 
 }
 
