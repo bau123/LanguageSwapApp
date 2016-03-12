@@ -77,10 +77,8 @@ public class App_act extends Fragment {
         //Update location table
         setLocation();
 
-        System.out.println("After setLocation");
-
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("info", searchInput);
+        parameters.put("info", "");
         parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println("params made for search " + searchInput);
@@ -148,14 +146,13 @@ public class App_act extends Fragment {
 
     private void processParameters(Map<String, String> parameters) {
         // progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
-
         System.out.println("In processParameters");
-
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     System.out.println(response.toString());
+                    //progress.dismiss();
                     processResult(response);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -165,6 +162,7 @@ public class App_act extends Fragment {
             @Override
             public void onErrorResponse(VolleyError response) {
                 System.out.println("Error in processParameters");
+                Log.d("Response: ", response.toString());
                 //progress.dismiss();
             }
         });

@@ -10,15 +10,6 @@
     android:weightSum="1"
     android:background="@color/MAIN">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friendlist"
-        android:textColor="@color/WHITE"
-        android:background="@color/buttonA"
-        android:onClick="goFriendsList"
-        android:id="@+id/friendListButton" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
