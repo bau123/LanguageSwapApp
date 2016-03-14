@@ -36,6 +36,9 @@ public class PullProfile {
 
     public void pullInformation() {
 
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", email);
+/*
         // Execute Synchronous volley request
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, future, future) {
@@ -68,7 +71,7 @@ public class PullProfile {
             System.out.println("timeout in pull profile");
             e.printStackTrace();
         }
-
+*/
     }
 
     private void processResult(JSONObject input) throws JSONException {

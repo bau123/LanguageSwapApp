@@ -163,12 +163,7 @@ public class Login_act extends AppCompatActivity {
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
 
             //Pulls the profile info of the user logging in
-            PullProfile pull = new PullProfile();
-            pull.pullInformation();
-
-            //Starts the main activity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            pullInformation(email.getText().toString());
 
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
@@ -189,6 +184,61 @@ public class Login_act extends AppCompatActivity {
         //When account is locked out from too many tries
         else if (result.equals("locked")) {
             Snackbar tries = Snackbar.make(coordinatorLayout, "Account is locked", Snackbar.LENGTH_LONG);
+        }
+    }
+
+    public void pullInformation(String email) {
+        System.out.println("Making params");
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("email", email);
+        System.out.println("params made");
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.toString());
+                    processProfileInfo(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
+
+    private void processProfileInfo(JSONObject input) throws JSONException {
+
+        JSONArray userInfo = input.getJSONArray("result");
+        JSONObject current = userInfo.getJSONObject(0);
+
+        Log.d("NAME:", current.getString("name"));
+        Log.d("Interests::", current.getString("interests"));
+        Log.d("Languages Known:", current.getString("languagesKnown"));
+        Log.d("Languages Learning:", current.getString("languagesLearning"));
+        Log.d("BITMAP STRING:", current.getString("photo"));
+
+        Profile profile = new Profile(current.getString("name"), current.getString("languagesKnown"),
+                current.getString("languagesLearning"), current.getString("interests"));
+
+        ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile);
+        ApplicationSingleton.getInstance().getPrefManager().storeProfileImage("photo");
+
+        if(current.getString("name") != null) {
+            System.out.println("SUCCESSFUL");
+
+            //Starts the main activity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+        }else{
+            System.out.println("UNSUCCESSFUL");
         }
     }
 
