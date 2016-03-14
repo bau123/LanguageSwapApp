@@ -61,6 +61,13 @@ public class Login_act extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pass_log);
 
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
+
+        //If User has already logged in before it automatically logs in for them.
+        if(ApplicationSingleton.getInstance().getPrefManager().checkAccount()){
+            login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0] ,ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
+        }else{
+            ApplicationSingleton.getInstance().getPrefManager().clear();
+        }
     }
 
     private void requestFocus(View view) {
@@ -70,7 +77,11 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void login(View view) {
-        //Checks if there is an internet connection
+        login(email.getText().toString(), pass.getText().toString());
+    }
+
+    protected void login(String email ,String pass){
+        //Checks if there is an internet connection     //FIXXXXXXXXXXXXXXXXXX
         /*if (!GlobalMethds.isNetworkAvailable()) {
             Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
@@ -79,14 +90,14 @@ public class Login_act extends AppCompatActivity {
             return;
         }*/
         //Checks if the email is in the correct format
-        if (GlobalMethds.validateEmail(email.getText().toString())) {
+        if (GlobalMethds.validateEmail(email)) {
             inputEmail.setErrorEnabled(false);
 
             Map<String, String> parameters = new HashMap<String, String>();
-            parameters.put("email", email.getText().toString());
-            parameters.put("password", pass.getText().toString());
+            parameters.put("email", email);
+            parameters.put("password", pass);
 
-            mEmail = email.getText().toString();
+            mEmail = email;
             Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -110,6 +121,7 @@ public class Login_act extends AppCompatActivity {
             requestFocus(inputEmail);
         }
     }
+
 
     public void adminLogin(View view) {
         System.out.println("Making params");

@@ -106,6 +106,13 @@ public class SharedPrefManager {
         editor.commit();
     }
 
+    public boolean checkAccount(){
+        if(pref.getString(KEY_email, null) != null && pref.getString(KEY_password, null) != null){
+            return true;
+        }
+        return false;
+    }
+
     //Returns an array of password and email
     public String[] getAuthentication(){
         String[] auth = {pref.getString(KEY_email, null), pref.getString(KEY_password, null)};

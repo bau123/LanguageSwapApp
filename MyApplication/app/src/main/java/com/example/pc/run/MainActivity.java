@@ -26,6 +26,7 @@ import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Navigation_Drawer.FragmentDrawer;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -127,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
@@ -143,6 +143,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         if (id == R.id.action_About) {   //ADD ABOUT US HERE HERE!!!!!!
             return true;
+        }
+
+        if (id == R.id.action_signOut) {
+            ApplicationSingleton.getInstance().getPrefManager().clear();
+            Intent intent = new Intent(this, Login_act.class);
+            startActivity(intent);
         }
 
         if(id == R.id.action_search){
