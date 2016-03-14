@@ -193,7 +193,9 @@ public class Login_act extends AppCompatActivity {
         parameters.put("email", email);
         System.out.println("params made");
 
-        Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
+        String pullUrl = "http://t-simkus.com/run/pullProfile.php";
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, pullUrl, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -232,7 +234,6 @@ public class Login_act extends AppCompatActivity {
 
         if(current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
-
             //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

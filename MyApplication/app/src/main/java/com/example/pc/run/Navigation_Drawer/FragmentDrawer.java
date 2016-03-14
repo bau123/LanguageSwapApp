@@ -89,7 +89,8 @@ public class FragmentDrawer extends Fragment {
         }));
 
         String image = ApplicationSingleton.getInstance().getPrefManager().getString();
-        if(image != null){
+        if(!image.equals("photo")){
+            System.out.println(image);
             //Sets the navigation main image as the users profile image
             navImage = (ImageView) layout.findViewById(R.id.imageView);
             byte[] decodedByte = Base64.decode(image, 0);
