@@ -1,6 +1,9 @@
 package com.example.pc.run.Navigation_Drawer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -8,14 +11,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.pc.run.Adapters.NavigationDrawerAdapter;
 import com.example.pc.run.R;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,7 @@ public class FragmentDrawer extends Fragment {
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
+    private ImageView navImage;
     private static String[] titles = null;
     private FragmentDrawerListener drawerListener;
 
@@ -80,6 +87,16 @@ public class FragmentDrawer extends Fragment {
 
             }
         }));
+
+        String image = ApplicationSingleton.getInstance().getPrefManager().getString();
+        if(image != null){
+            //Sets the navigation main image as the users profile image
+            navImage = (ImageView) layout.findViewById(R.id.imageView);
+            byte[] decodedByte = Base64.decode(image, 0);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+            navImage.setImageBitmap(bitmap);
+
+        }
 
         return layout;
     }

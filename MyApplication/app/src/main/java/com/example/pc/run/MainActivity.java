@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pc.run.Chat.ChatRooms;
@@ -47,10 +48,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
+        //Display search frag as default
+        displayView(0);
 
          //  handleIntent(getIntent());
 
@@ -178,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 2:
                 fragment = new ChatRooms();
                 title = getString(R.string.title_messages);
+                break;
+            case 3:
+                // PROFILE FRAGMENT GOES HERE !!!!!!!!!!
+                title = getString(R.string.title_profile);
                 break;
 
             default:fragment = new App_act();

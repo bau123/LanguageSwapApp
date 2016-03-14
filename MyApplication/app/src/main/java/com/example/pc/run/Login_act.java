@@ -161,11 +161,15 @@ public class Login_act extends AppCompatActivity {
         if (result.equals("success")) {
             //Stores the authentication details of the user
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
+
             //Pulls the profile info of the user logging in
-            pullProfile();
+            PullProfile pull = new PullProfile();
+            pull.pullInformation();
+
             //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
         }
@@ -206,48 +210,6 @@ public class Login_act extends AppCompatActivity {
             }
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-    }
-
-    //Pulls the user profile info and stores in shared pref
-    public void pullProfile() {
-        String pullUrl = "http://t-simkus.com/run/pullProfile.php";
-
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("email", email.getText().toString());
-
-        Requests jsObjRequest = new Requests(Request.Method.POST, pullUrl, parameters, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    System.out.println(response.toString());
-
-                    JSONArray result = response.getJSONArray("result");
-                    JSONObject current = result.getJSONObject(0);
-                    Profile p = new Profile();
-                    //Sets all the pull info into the temporally profile object
-                    p.setEmail(email.getText().toString());
-                    p.setProfilePicture(current.getString("photo"));
-                    p.updateName(current.getString("name"));
-                    p.updateInterests(current.getString("interests"));
-                    p.updateLanguagesKnown(current.getString("languagesKnown"));
-                    p.updateLanguagesLearning(current.getString("languagesLearning"));
-
-                    //Stores Profile into the shared pref
-                    ApplicationSingleton.getInstance().getPrefManager().storeProfile(p);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError response) {
-                Log.d("Response: ", response.toString());
-            }
-        });
-        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
-
     }
 
     public void toRegister(View view) {

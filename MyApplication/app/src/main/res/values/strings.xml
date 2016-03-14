@@ -23,17 +23,20 @@
     <string name="nav_item_home">Home</string>
     <string name="nav_item_friends">Friends</string>
     <string name="nav_item_notifications">Messages</string>
+    <string name="nav_item_profile">Profile</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_friends</item>
         <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_notifications</item>
     </string-array>
 
     <string name="title_home">Home</string>
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
+    <string name="title_profile">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

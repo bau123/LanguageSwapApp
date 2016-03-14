@@ -53,7 +53,6 @@ public class Profile_act extends AppCompatActivity {
         profileImage = (ImageView) findViewById(R.id.profileImageView);
 
         getProfileInfo();
-
     }
 
 
