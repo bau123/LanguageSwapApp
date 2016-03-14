@@ -133,12 +133,6 @@
     <orderEntry type="library" exported="" name="play-services-drive-8.3.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.2.0" level="project" />
     <orderEntry type="library" exported="" name="sinch-android-rtc-3.9.3" level="project" />
-<<<<<<< HEAD
-=======
-    <orderEntry type="library" exported="" name="1_sinch-android-rtc-3.9.3" level="project" />
-    <orderEntry type="library" exported="" name="2_sinch-android-rtc-3.9.3" level="project" />
-    <orderEntry type="library" exported="" name="3_sinch-android-rtc-3.9.3" level="project" />
->>>>>>> fd245864ea274c2a0b0682967d621e96a7b8887b
     <orderEntry type="library" exported="" name="appcompat-v7-23.2.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-23.2.0" level="project" />
@@ -153,17 +147,6 @@
     <orderEntry type="library" exported="" name="play-services-basement-8.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-8.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-8.3.0" level="project" />
-<<<<<<< HEAD
-=======
-    <orderEntry type="library" exported="" name="hamcrest-core-1.3" level="project" />
-    <orderEntry type="library" exported="" name="1_hamcrest-core-1.3" level="project" />
-    <orderEntry type="library" exported="" name="2_hamcrest-core-1.3" level="project" />
-    <orderEntry type="library" exported="" name="3_hamcrest-core-1.3" level="project" />
-    <orderEntry type="library" exported="" name="junit-4.12" level="project" />
-    <orderEntry type="library" exported="" name="1_junit-4.12" level="project" />
-    <orderEntry type="library" exported="" name="2_junit-4.12" level="project" />
-    <orderEntry type="library" exported="" name="3_junit-4.12" level="project" />
->>>>>>> fd245864ea274c2a0b0682967d621e96a7b8887b
     <orderEntry type="library" exported="" name="play-services-fitness-8.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-panorama-8.3.0" level="project" />
   </component>
