@@ -83,7 +83,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         mAdapter = new ChatRoomThreadAdapter(this, messageArrayList, selfUserId);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getBaseContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);

@@ -1,7 +1,6 @@
 package com.example.pc.run.Navigation_Drawer;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentDrawer extends Fragment {
-    private static String TAG = FragmentDrawer.class.getSimpleName();
 
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;

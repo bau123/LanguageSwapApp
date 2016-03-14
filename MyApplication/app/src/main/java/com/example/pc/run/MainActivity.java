@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
                 } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
                     // gcm registration id is stored in our server's MySQL
-                    Toast.makeText(getApplicationContext(), "GCM registration token is stored in server!", Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(getApplicationContext(), "GCM registration token is stored in server!", Toast.LENGTH_LONG).show();
 
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     processPushNotification(intent);
@@ -136,6 +136,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if (id == R.id.action_Code) {  //ADD CODE OF CONDUCT HERE!!!!!!
+            return true;
+        }
+
+        if (id == R.id.action_About) {   //ADD ABOUT US HERE HERE!!!!!!
+            return true;
+        }
+
         if(id == R.id.action_search){
             return true;
         }
@@ -164,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new ChatRooms();
                 title = getString(R.string.title_messages);
                 break;
-
 
             default:fragment = new App_act();
                 break;

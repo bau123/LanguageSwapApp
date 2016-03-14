@@ -13,7 +13,10 @@
 
     <string name="app_name">Tandem rename me</string>
     <string name="action_settings">Settings</string>
+    <string name="action_SignOut">Sign Out</string>
     <string name="action_search">Search</string>
+    <string name="action_aboutUs">About Us</string>
+    <string name="action_codeOfConduct">Code of conduct</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -28,15 +31,12 @@
         <item>@string/nav_item_notifications</item>
     </string-array>
 
+    <string name="title_home">Home</string>
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
-    <string name="title_home">Home</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
-
 
     <!-- Login item labels  -->
     <string name="log_email">Email</string>
