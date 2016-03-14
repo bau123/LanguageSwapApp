@@ -79,8 +79,6 @@
             android:name=".VideoChat.setUpCallActivity"
             android:label="@string/title_activity_set_up_call"
             android:theme="@style/MyMaterialTheme.NoActionBar" />
-        <activity android:name=".Friends">
-        </activity>
     </application>
 
 </manifest>

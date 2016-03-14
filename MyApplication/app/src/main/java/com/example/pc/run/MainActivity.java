@@ -27,14 +27,17 @@ import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Navigation_Drawer.FragmentDrawer;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
 
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private static String TAG = "In MainAct";
     private Toolbar mToolbar;
+    SearchView searchEngine;
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
 
@@ -139,14 +142,30 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
         if (id == R.id.action_Code) {  //ADD CODE OF CONDUCT HERE!!!!!!
+            CodeOfConduct_frag frag = new CodeOfConduct_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
         if (id == R.id.action_About) {   //ADD ABOUT US HERE HERE!!!!!!
+            AboutUs_frag frag = new AboutUs_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
         if(id == R.id.action_search){
+
+            App_act frag = new App_act();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
@@ -174,8 +193,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new ChatRooms();
                 title = getString(R.string.title_messages);
                 break;
-
-            default:fragment = new App_act();
+            case 3:
+                fragment = new MyProfile();
+                title = getString(R.string.title_profile);
+                break;
+            default:
+                fragment = new App_act();
                 break;
         }
 

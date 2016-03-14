@@ -34,6 +34,7 @@
     <string name="title_home">Home</string>
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
+    <string name="title_profile">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -51,5 +52,59 @@
     <string name="reg_repass">Renter Password</string>
     <string name="reg_match">Password does not match!</string>
     <string name="reg_pass_error">Password does not match</string>
+
+    <string name="code_conduct">Code of Conduct \n\n
+
+The safety of our users is very important to us. There are steps that everyone can follow to ensure their safety while using Helpr App. Please take a few minutes to read these tips.\n\n
+
+Keep your financial information private\n
+Ignore any request to send money – even if the person claims to be in an emergency – and report it to us immediately. Never give out financial information such as your social security number, credit card number or bank information.\n\n
+
+Keep your personal information\n
+You are in control of your Helpr App experience at all times – remain anonymous until you feel ready. Be careful about sharing personal information, such as your full name, phone number, email and address. Protect your identity until you are comfortable enough with someone to share it. Also, leave any personal contact information out of your Tinder profile.\n
+Note: Helpr App will never send you an email asking for your username and password information. Any such communication should be reported immediately.\n\n
+
+Spam/Scammers There are red flags to watch out for that may indicate you\'re dealing with a scammer. Be aware of anyone who:\n
+•	Sends you messages containing links to third-party websites\n
+•	Quickly asks to talk or chat outside of Helpr\n
+•	Asks you for money\n
+•	Vanishes mysteriously then reappears under a different name\n
+•	Asks for your address under the guise of sending flowers or gifts\n\n
+
+Report suspicious users Please report anyone who violates our terms of use. Examples of terms of use violations include:\n
+•	Asking you for money or donations\n
+•	Anyone who is not part of King’s College London\n
+•	Users sending harassing or offensive messages\n
+•	Users behaving inappropriately after meeting in person\n
+•	Fraudulent profiles\n
+•	Spam or solicitation, such as attempts to sell products or services\n\n
+
+Meeting In Person\n
+First meetings are exciting, but always take precautions and follow these guidelines to help you stay safe:\n\n
+
+Get to know the other person before meeting them offline\n
+Get to know someone through chat before disclosing personal information or meeting in person. We don\'t conduct criminal background checks on our users, so it’s up to you to do your own research and remain cautious.\n
+\n
+Always meet in public\n
+Meet for the first time in a populated, public place – never in a private or remote location, and never at your home or apartment. Ideally students should meet on compass.\n
+\n
+Tell a friend or family member of your plans.\n
+Tell them who you are meeting, where you are going and when you will return. Bring your phone with you.\n
+</string>
+
+    <string name="about_us">
+        ABOUT US \n\n
+
+The Modern Language Centre provides courses to King\'s undergraduate and graduate students, and to the local professional and residential community. It is situated in the heart of London, at the College\'s main Strand Campus. It is close to Waterloo and Charing Cross train stations as well as Holborn, the City and Covent Garden.\n\n
+
+The Centre is part of the Faculty of Arts and Humanities, one of the UK’s most prestigious and comprehensive faculties of its kind.\n\n
+
+The MLC employs over 100 teaching staff from a wide range of linguistic and cultural backgrounds.\n\n
+
+All teaching staff are native speakers of the language they teach, and have in-depth knowledge of language teaching methodology. Many have expertise in other areas such as journalism, politics, business, international affairs and the health sector.\n\n
+
+In recent years the Centre has expanded its activities and has implemented a number of leading-edge UK-based projects, including the design of customised and generic elearning packages.\n
+The Centre also offers a state-of-the-art Language Resources Centre for independent language learning; the Language Resources Centre houses a large collection of learning materials as well as magazines and newspapers, CDs, DVDs, satellite television, computer-based materials and internet links.\n\n
+    </string>
 
 </resources>
