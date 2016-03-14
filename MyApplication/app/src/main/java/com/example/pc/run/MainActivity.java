@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pc.run.Chat.ChatRooms;
+import com.example.pc.run.FriendTabs.FriendsList_act;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
