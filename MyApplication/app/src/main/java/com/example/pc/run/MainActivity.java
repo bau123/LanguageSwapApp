@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static String TAG = "In MainAct";
     private Toolbar mToolbar;
     SearchView searchEngine;
+    public SearchView searchView;
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
 
@@ -48,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
@@ -120,11 +124,17 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager)MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+        searchView = null;
+        if(searchItem != null){
+            searchView = (SearchView)MenuItemCompat.getActionView(searchItem);
+        }
+        if(searchView != null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
 
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        }
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -160,6 +170,20 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
         if(id == R.id.action_search){
+
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+//
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    return false;
+//                }
+//            });
 
             App_act frag = new App_act();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -207,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_body, fragment);
             fragmentTransaction.commit();
-
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
