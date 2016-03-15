@@ -7,87 +7,197 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#3faee0"
     tools:context="com.example.pc.run.Search.Profile_frag"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/back">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/profileImageSwipe"
+            android:src="@android:drawable/sym_def_app_icon"
+            android:layout_below="@+id/textView"
+            android:layout_alignRight="@+id/textView"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_gravity="center_horizontal|left" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Name:"
+                android:id="@+id/nameField"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/textView"
+                android:paddingLeft="9dp"
+                android:layout_gravity="right" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:background="@drawable/star2"
+                android:layout_gravity="bottom|right"
+                android:paddingTop="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="5.0"
+            android:id="@+id/textView6"
+            android:layout_gravity="center_vertical|left"
+            android:paddingTop="15dp"
+            android:textColor="#a1a1a1" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Info"
-        android:textColor="#ffffff"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textIsSelectable="false"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="30dp" />
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/profileImageSwipe"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:background="@drawable/rounded"
-        android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="Name:"
-        android:textColor="#ffffff"
-        android:id="@+id/nameField"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Known:"
         android:id="@+id/langKnownField"
-        android:textColor="#ffffff"
         android:layout_below="@+id/nameField"
-        />
+        android:paddingLeft="8dp"
+        android:paddingTop="10dp"
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="fill_vertical" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Language1"
+        android:id="@+id/langKnownField"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textColor="#a1a1a1"
+        android:paddingTop="5dp"
+        android:gravity="bottom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/line" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Languages Learning:"
         android:id="@+id/langLearningField"
-        android:textColor="#ffffff"
-        android:layout_below="@+id/langKnownField" />
+        android:layout_below="@+id/langKnownField"
+        android:paddingLeft="8dp"
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Language1"
+        android:id="@+id/langLearningField"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textColor="#a1a1a1"
+        android:paddingTop="7dp"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/line" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Interests:"
         android:id="@+id/interestsField"
-        android:textColor="#ffffff"
-        android:layout_below="@+id/langLearningField"/>
+        android:layout_below="@+id/langLearningField"
+        android:paddingLeft="8dp"
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Interest1"
+        android:id="@+id/interestField"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/line"
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Campus:"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/langLearningField"
+        android:paddingLeft="8dp"
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Campus1"
         android:id="@+id/lblCampus"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FFFFFF" />
+        android:textColor="#a1a1a1"
+        android:layout_weight="1"
+        android:gravity="bottom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView7"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/line" />
 
     <Button
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:id="@+id/addFavBtn"
+        android:layout_width="233dp"
+        android:layout_height="46dp"
+        android:id="@+id/addFav"
         android:onClick="addFav"
+        android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/sendinvite"
-        android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal" />
+        android:singleLine="false" />
 
 </LinearLayout>
