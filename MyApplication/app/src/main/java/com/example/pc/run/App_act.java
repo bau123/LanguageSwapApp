@@ -71,7 +71,6 @@ public class App_act extends Fragment {
     ArrayList<Fragment> frags = new ArrayList<>();
     private View masterView;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
