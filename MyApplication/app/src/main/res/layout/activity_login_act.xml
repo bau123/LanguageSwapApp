@@ -131,7 +131,8 @@
                                 android:background="@color/buttonA"
                                 android:onClick="login"
                                 android:text="Login"
-                                android:textColor="#000000" />
+                                android:textColor="#000000"
+                                android:id="@+id/btnLogin" />
 
                         </LinearLayout>
 
@@ -169,7 +170,8 @@
                     android:onClick="toRegister"
                     android:paddingBottom="20dp"
                     android:text="@string/log_reg"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/lblRegister" />
             </LinearLayout>
 
         </LinearLayout>
