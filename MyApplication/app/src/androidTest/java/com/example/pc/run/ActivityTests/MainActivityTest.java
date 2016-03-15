@@ -30,14 +30,13 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         MainActivity mainActivity = getActivity();
         assertNotNull(mainActivity);
     }
-
-//    @Test
-//    public void testLoginButton(){
-//        MainActivity mainActivity = getActivity();
-//        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Login_act.class.getName(), null, false);
-//        loginButton = (Button)mainActivity.findViewById(R.id.loginButton);
+   // @Test
+   // public void testLoginButton(){
+  //      MainActivity mainActivity = getActivity();
+   //     Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(Login_act.class.getName(), null, false);
+  //      loginButton = (Button)mainActivity.findViewById(R.id.bt);
 //
-//        TouchUtils.clickView(this, loginButton);
+ //       TouchUtils.clickView(this, loginButton);
 //
 //        Login_act nextActivity = (Login_act) activityMonitor.waitForActivity();
 //        assertNotNull("Next act is not launched", nextActivity);

@@ -63,6 +63,7 @@ public class App_act extends Fragment {
 
     private ArrayList<String> campuses = new ArrayList<>();
     private ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
+    private ArrayList<UserLocation> arrayUsers = new ArrayList<>();
     private ViewPager viewPager;
     SearchView searchEngine;
     String searchInput;
@@ -70,6 +71,7 @@ public class App_act extends Fragment {
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
     private View masterView;
+    private JSONObject niput;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,9 @@ public class App_act extends Fragment {
 
         //Update location table
         setLocation();
+
+        //Get location table
+        setParams();
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put("info", "");
@@ -136,6 +141,7 @@ public class App_act extends Fragment {
         spinner.setItems(items);
 
         //Set the listener
+        //Set the listener
         spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
             @Override
             public void selectedIndices(List<Integer> indices) {
@@ -147,6 +153,14 @@ public class App_act extends Fragment {
                     selectedCampus.add(new SelectedCampus(indices.get(i), true));
                 }
                 translateCampus(selectedCampus);
+                getCampusPeople();
+                try {
+                    processResult(niput, true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -155,6 +169,7 @@ public class App_act extends Fragment {
                 //
             }
         });
+
     }
 
 
@@ -177,7 +192,8 @@ public class App_act extends Fragment {
                 try {
                     System.out.println(response.toString());
                     //progress.dismiss();
-                    processResult(response);
+                    niput = response;
+                    processResult(response,false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -193,33 +209,60 @@ public class App_act extends Fragment {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    private void processResult(JSONObject input) throws JSONException, InterruptedException {
-
-        System.out.println("In processResult");
+    private void processResult(JSONObject input, Boolean queried) throws JSONException, InterruptedException {
 
         JSONArray profileNames = input.getJSONArray("result");
         //Clear the array containing the profile fragments
         ArrayList<Fragment> tempFrags = new ArrayList<>();
-        Log.d(TAG, "PROFILE NAMES: " + profileNames.toString());
+        Log.d("PROFILE NAMES:", profileNames.toString());
 
         ArrayList<JSONObject> information = new ArrayList<>();
 
-
-        // Make fragments for every user found, store in frag array.
         for (int i = 0; i < profileNames.length(); i++) {
             JSONObject current = profileNames.getJSONObject(i);
-            if (current.getString("passed").equals("true")) {
-                information.add(current);
-            } else {
-                //Produce message !!!!!
+            if(queried) {
+                for(int b = 0; b < selectedEmails.size();b++) {
+                    if (current.getString("passed").equals("true") && current.getString("email").equals(selectedEmails.get(b))) {
+                        information.add(current);
+                    } else {
+                        //Produce message !!!!!
+                    }
+                }
             }
+            else {
+
+                if (current.getString("passed").equals("true") ) {
+                    information.add(current);
+                } else {
+                    //Produce message !!!!!
+                }
+
+            }
+
+
         }
         System.out.println("Sending data");
         // Make fragments for every user found, store in frag array.
         for (int i = 0; i < information.size(); i++) {
             JSONObject tempJson = new JSONObject(information.get(i).toString());
+
+
+            for(int b = 0; b < arrayUsers.size();b++) {
+                // t.setText(t.getText() + "\n " +arrayUsers.get(b).email);
+                if(tempJson.getString("email").equals(arrayUsers.get(b).email)) {
+                    tempJson.put("campus",arrayUsers.get(b).campus);
+                }
+            }
             tempFrags.add(Profile_frag.newInstance(tempJson));
+
+
         }
+
+        if(information.isEmpty()) {
+            Toast.makeText(getActivity(),"Search returned 0 results",Toast.LENGTH_SHORT).show();
+
+        }
+
         frags = tempFrags;
 
         viewPager.removeAllViews();
@@ -227,7 +270,10 @@ public class App_act extends Fragment {
         viewPager.setAdapter(new PagerAdapter(getChildFragmentManager()));
         System.out.println("refreshed pageAdapter");
         //progress.dismiss();
+        TextView t = (TextView) getView().findViewById(R.id.textView3);
+        t.setText("Search By Campus");
     }
+
 
     class PagerAdapter extends FragmentPagerAdapter {
         public PagerAdapter(FragmentManager fm) {
@@ -287,11 +333,57 @@ public class App_act extends Fragment {
         }
     }
 
+    public void setParams() {
+        String url2 = "http://t-simkus.com/run/getLocations.php";
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("campus", "Not at any campus");
+
+        Requests jsObjRequest = new Requests(Request.Method.POST, url2, parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    processResultCampus(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response: ", response.toString());
+            }
+        });
+        ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
+
+
+    /*
+    Process json result
+     */
+    private void processResultCampus(JSONObject input) throws InterruptedException {
+        try {
+            JSONArray r = input.getJSONArray("result");
+            for(int i = 0; i < r.length();i++) {
+                JSONObject j = (JSONObject) r.get(i);
+                String e = j.get("email").toString();
+                String c = j.get("campus").toString();
+                this.arrayUsers.add(new UserLocation(e,c));
+            }
+        }
+        catch(JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public void translateCampus(ArrayList<SelectedCampus> c) {
         //Translate numbers to string for campuses
-        if (c.size() == 0) {
+        if(c.size() == 0) {
             campuses.add("Not at any campus");
-        } else {
+        }
+        else {
             for (int i = 0; i < c.size(); i++) {
 
                 if (c.get(i).campus == 0 && c.get(i).valid) {
@@ -308,6 +400,27 @@ public class App_act extends Fragment {
                     campuses.add("Virginia Woolf");
                 }
 
+            }
+
+
+        }
+    }
+
+    /*
+    Get people from selected campuses
+     */
+    ArrayList<String> selectedEmails = new ArrayList<>();
+    public void getCampusPeople() {
+        selectedEmails.clear();
+        //Over every selected campus
+        for(String campus : campuses) {
+            //Over every user
+            for(UserLocation user : arrayUsers) {
+                //If user is in the location of the currently iterating campus
+                if (user.campus.equals(campus)) {
+                    //Add his email to the list
+                    selectedEmails.add(user.email);
+                }
             }
         }
     }
