@@ -43,7 +43,6 @@ public class Login_act extends AppCompatActivity {
     private TextInputLayout inputEmail, inputPassword;
     private CoordinatorLayout coordinatorLayout;
     String url = "http://t-simkus.com/run/checkPass.php";
-
     String mEmail;
     int counter = 0;
 

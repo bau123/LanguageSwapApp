@@ -15,9 +15,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -69,7 +71,6 @@ public class App_act extends Fragment {
     ArrayList<Fragment> frags = new ArrayList<>();
     private View masterView;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,14 +89,37 @@ public class App_act extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_app_act, container, false);
+        setHasOptionsMenu(true);
 
         viewPager = (ViewPager) v.findViewById(R.id.viewPager);
         masterView = v;
         MultiSelectionSpinner spinner = (MultiSelectionSpinner) v.findViewById(R.id.spinner);
         buildSpinner(spinner);
 
+        searchEngine = (SearchView)v.findViewById(R.id.searchView);
+
+        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Map<String, String> parameters = new HashMap<>();
+                parameters.put("info", query);
+                parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+                System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+                System.out.println("params made for search " + searchInput);
+                processParameters(parameters);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return v;
     }
+
+
+
 
     public void buildSpinner(MultiSelectionSpinner spinner) {
 
@@ -144,7 +168,7 @@ public class App_act extends Fragment {
         super.onDetach();
     }
 
-    private void processParameters(Map<String, String> parameters) {
+    public void processParameters(Map<String, String> parameters) {
         // progress = ProgressDialog.show(this, "Please wait..", "Loading profiles...", true);
         System.out.println("In processParameters");
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {

@@ -49,7 +49,7 @@ public class Profile_frag extends Fragment {
         data = getArguments().getString("data");
         View v = inflater.inflate(R.layout.activity_profile_frag, container, false);
 
-        addFriend = (Button) v.findViewById(R.id.addFavBtn);
+        addFriend = (Button) v.findViewById(R.id.addFav);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -80,11 +80,11 @@ public class Profile_frag extends Fragment {
         }
 
         //Set textviews with the profile details
-        name.setText("Name: " + profile.getName());
-        languagesKnown.setText("Languages Known: " + profile.getLanguagesKnown());
-        languagesLearning.setText("Languages Learning: " + profile.getLanguagesLearning());
-        interests.setText("Interests: " + profile.getInterests());
-        campus.setText("Campus: " + this.strCampus);
+        name.setText("Name:" + profile.getName());
+        languagesKnown.setText(profile.getLanguagesKnown());
+        languagesLearning.setText(profile.getLanguagesLearning());
+        interests.setText(profile.getInterests());
+        campus.setText(this.strCampus);
 
         if(profile.getProfilePicture() != null){
             profileImage.setImageBitmap(profile.getProfilePicture());

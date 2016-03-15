@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pc.run.FriendsList_act;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
