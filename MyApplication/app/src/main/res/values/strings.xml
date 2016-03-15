@@ -30,7 +30,7 @@
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_friends</item>
         <item>@string/nav_item_notifications</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_profile</item>
     </string-array>
 
     <string name="title_home">Home</string>

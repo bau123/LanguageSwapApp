@@ -52,14 +52,12 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         // left or right
         if (viewType == SELF) {
             // self message
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.chat_item_self, parent, false);
+            itemView = LayoutInflater.from(mContext).inflate(R.layout.chat_item_self, parent, false);
         } else {
             // others message
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.chat_item_other, parent, false);
         }
-
 
         return new ViewHolder(itemView);
     }

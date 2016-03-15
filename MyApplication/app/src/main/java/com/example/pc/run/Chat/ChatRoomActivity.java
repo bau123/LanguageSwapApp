@@ -81,7 +81,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         // self user id is to identify the message owner
         String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
 
-        mAdapter = new ChatRoomThreadAdapter(this, messageArrayList, selfUserId);
+        mAdapter = new ChatRoomThreadAdapter(this.getApplicationContext(), messageArrayList, selfUserId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getBaseContext());
         recyclerView.setLayoutManager(layoutManager);
