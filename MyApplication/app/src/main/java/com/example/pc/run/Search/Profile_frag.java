@@ -49,7 +49,7 @@ public class Profile_frag extends Fragment {
         data = getArguments().getString("data");
         View v = inflater.inflate(R.layout.activity_profile_frag, container, false);
 
-        addFriend = (Button) v.findViewById(R.id.addFav);
+        addFriend = (Button) v.findViewById(R.id.addFavBtn);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
