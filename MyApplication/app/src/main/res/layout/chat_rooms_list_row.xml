@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chatImage"
+            android:src="@android:drawable/sym_def_app_icon"
             android:layout_alignParentLeft="false"
             android:layout_alignParentRight="false"
             android:layout_alignParentTop="true" />
@@ -36,6 +37,7 @@
             android:layout_alignParentTop="true"
             android:textColor="#444444"
             android:textStyle="bold"
+            android:text="example"
             android:textSize="16dp" />
 
         <TextView android:id="@+id/message"

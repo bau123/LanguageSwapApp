@@ -43,7 +43,6 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         }
     }
 
-
     public ChatRoomsAdapter(Context mContext, ArrayList<ChatRoom> chatRoomArrayList) {
         this.mContext = mContext;
         this.chatRoomArrayList = chatRoomArrayList;

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pc.run.Chat.ChatRooms;
+import com.example.pc.run.Chat.messages;
 import com.example.pc.run.FriendTabs.FriendsList_act;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_friends);
                 break;
             case 2:
-                fragment = new ChatRooms();
+                fragment = new messages();
                 title = getString(R.string.title_messages);
                 break;
             case 3:

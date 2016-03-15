@@ -5,18 +5,27 @@ import java.io.Serializable;
 
 public class ChatRoom implements Serializable {
 
-    String id, name, lastMessage, timeStamp, image;
-    int unreadCount;
+    private String id, name, lastMessage, timeStamp, image, email;
+    private int unreadCount;
 
     public ChatRoom() {
     }
 
-    public ChatRoom(String id, String name, String lastMessage, String timestamp, int unreadCount) {
+    public ChatRoom(String id, String name, String email, String lastMessage, String timestamp, int unreadCount) {
         this.id = id;
         this.name = name;
         this.lastMessage = lastMessage;
         this.timeStamp = timestamp;
         this.unreadCount = unreadCount;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+
+        return email;
     }
 
     public String getId() {
