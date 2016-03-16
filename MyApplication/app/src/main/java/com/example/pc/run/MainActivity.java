@@ -19,12 +19,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.pc.run.Chat.ChatRooms;
-import com.example.pc.run.Chat.messages;
-import com.example.pc.run.FriendTabs.FriendsList_act;
+import com.example.pc.run.Chat.Messages;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
@@ -181,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_friends);
                 break;
             case 2:
-                fragment = new messages();
+                fragment = new Messages();
                 title = getString(R.string.title_messages);
                 break;
             case 3:

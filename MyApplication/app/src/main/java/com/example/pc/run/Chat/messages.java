@@ -1,6 +1,5 @@
 package com.example.pc.run.Chat;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,20 +28,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class messages extends Fragment {
+public class Messages extends Fragment {
+
+    private enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
 
     private ArrayList<ChatRoom> chatRoomArrayList;
+    private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private ChatRoomsAdapter mAdapter;
     private RecyclerView recyclerView;
+    protected RecyclerView.LayoutManager mLayoutManager;
+    protected LayoutManagerType mCurrentLayoutManagerType;
 
-    private OnFragmentInteractionListener mListener;
 
-    public messages() {
+    public Messages() {
         // Required empty public constructor
     }
 
-    public static messages newInstance(String param1, String param2) {
-        messages fragment = new messages();
+    public static Messages newInstance(String param1, String param2) {
+        Messages fragment = new Messages();
         Bundle args = new Bundle();
         //  args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -55,8 +61,25 @@ public class messages extends Fragment {
 
         chatRoomArrayList = new ArrayList<>();
 
+
+
+
+
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_messages, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.messages_recycler_view);
+
+        chatRoomArrayList = new ArrayList<>();
+
         mAdapter = new ChatRoomsAdapter(this.getContext(), chatRoomArrayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
                 getContext().getApplicationContext()
@@ -86,14 +109,6 @@ public class messages extends Fragment {
         //Gets all the past chat history and displays them
         retrieveChats();
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.messages_recycler_view);
         return view;
     }
 
@@ -117,10 +132,10 @@ public class messages extends Fragment {
     //Retrieve all chat rooms that the user has been in
     //Add each room to recycleView
     private void retrieveChats() {
-        String url = "http://t-simkus.com/run/getChatRooms.php";
+        String url = "http://t-simkus.com/run/GetRooms.php";
 
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        parameters.put("user", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
@@ -131,14 +146,24 @@ public class messages extends Fragment {
                     for (int i = 0; i < rooms.length(); i++) {
                         JSONObject current = rooms.getJSONObject(i);
 
-                        String email = current.getString("email");
+                        String user1 = current.getString("user1");
+                        String user2 = current.getString("user2");
                         String name = current.getString("name");
+                        String messageEmail =  current.getString("email");
                         String message = current.getString("message");
                         String roomId = current.getString("chat_room_id");
                         String createdAt = current.getString("created_at");
+                        String photo = current.getString("photo");
+
+                        String otherUser = "";
+                        if(user1.equals(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0])){
+                            otherUser = user2;
+                        }else{
+                            otherUser = user2;
+                        }
 
                         //Create the new chat room object containing these details
-                        ChatRoom room = new ChatRoom(roomId, name, email, message, createdAt, 0);
+                        ChatRoom room = new ChatRoom(roomId, name, messageEmail, message, createdAt, otherUser, 0, photo);
 
                         chatRoomArrayList.add(room);
                     }
@@ -158,25 +183,4 @@ public class messages extends Fragment {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-
-        void onFragmentInteraction(Uri uri);
-    }
 }

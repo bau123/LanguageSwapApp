@@ -63,11 +63,13 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         ChatRoom chatRoom = chatRoomArrayList.get(position);
 
-        //Convert the image string into a bitmap
-        byte[] decodedByte = Base64.decode(chatRoom.getImage(), 0);
-        Bitmap profilePicture  = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+        if(!chatRoom.getImage().equals("photo")) {
+            //Convert the image string into a bitmap
+            byte[] decodedByte = Base64.decode(chatRoom.getImage(), 0);
+            Bitmap profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+            holder.image.setImageBitmap(profilePicture);
+        }
 
-        holder.image.setImageBitmap(profilePicture);
         holder.name.setText(chatRoom.getName());
         holder.message.setText(chatRoom.getLastMessage());
         if (chatRoom.getUnreadCount() > 0) {
