@@ -52,4 +52,10 @@
     <string name="reg_match">Password does not match!</string>
     <string name="reg_pass_error">Password does not match</string>
 
+    <string name="option1">Verbal abuse</string>
+    <string name="option2">Bullying</string>
+    <string name="option3">Racial abuse</string>
+    <string name="option4">Hate speech</string>
+    <string name="option5">Offensive/inappropriate name</string>
+
 </resources>

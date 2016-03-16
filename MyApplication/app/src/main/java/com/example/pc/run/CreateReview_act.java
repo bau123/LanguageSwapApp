@@ -1,10 +1,13 @@
 package com.example.pc.run;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -33,6 +36,7 @@ public class CreateReview_act extends AppCompatActivity {
     EditText comment;
     Spinner reviewType;
     String url = "http://t-simkus.com/run/createReview.php";
+    Button ReportMain, ReportSubmit, ReportCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,41 @@ public class CreateReview_act extends AppCompatActivity {
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Only one review is aloud per person...", Toast.LENGTH_LONG).show();
         }
+
+    }
+    public void reportButton(View view) {
+        ReportMain = (Button) findViewById(R.id.ReportMain);
+
+        ReportMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(CreateReview_act.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.custom_report_dialogue);
+                dialog.show();
+
+                ReportSubmit = (Button) dialog.findViewById(R.id.ReportSubmit);
+                ReportCancel = (Button) dialog.findViewById(R.id.ReportCancel);
+
+                ReportSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //
+                        //
+                        //
+                    }
+                });
+
+                ReportCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
+            }
+        });
 
     }
 }

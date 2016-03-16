@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose Image"
-        android:id="@+id/buttonChoose" />
+        android:id="@+id/buttonChoose"
+        android:background="@color/buttonA"/>
 
 
     <ImageView
@@ -29,7 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Return"
-            android:id="@+id/buttonReturn" />
+            android:id="@+id/buttonReturn"
+            android:background="@color/buttonA"
+            />
 
     </RelativeLayout>
 

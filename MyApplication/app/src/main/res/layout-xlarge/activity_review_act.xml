@@ -19,7 +19,8 @@
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp"/>
+        android:textSize="50dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,23 +29,24 @@
         android:text="Review type:"
         android:textColor="@color/BLACK"
         android:id="@+id/textView5"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="30dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/typeSpinner"
         android:entries="@array/typeSpinner"
-        android:layout_alignBottom="@+id/textView5"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/textView5"
         android:layout_alignTop="@+id/textView5"
         android:layout_alignLeft="@+id/relativeLayout"
-        android:layout_alignStart="@+id/relativeLayout" />
+        android:layout_alignStart="@+id/relativeLayout"
+        android:layout_alignBottom="@+id/textView5" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -61,11 +63,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
-            android:numStars="4"
+            android:numStars="5"
             android:stepSize="1.0"
             android:onClick="getRating"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="0dp"/>
+            android:layout_marginTop="50dp" />
 
     </RelativeLayout>
 
@@ -75,12 +76,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select rating:"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:id="@+id/textView6"
         android:textColor="@color/BLACK"
         android:layout_alignBottom="@+id/relativeLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,11 +95,12 @@
         android:layout_marginTop="45dp"
         android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="30dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="400dp"
         android:background="@drawable/boxforsubmit"
         android:id="@+id/commentEdit"
         android:textColor="@color/BLACK"
@@ -105,10 +109,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="25dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:background="@drawable/imageforreview"
@@ -116,7 +120,8 @@
         android:id="@+id/submitButton"
         android:layout_below="@+id/commentEdit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>/>
+        android:layout_marginTop="40dp"
+        android:textSize="20dp" />/>
 
     <Button
         android:layout_width="40dp"

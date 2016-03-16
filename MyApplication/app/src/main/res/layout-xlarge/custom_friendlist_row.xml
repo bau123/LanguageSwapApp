@@ -2,20 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/boxforsubmit">
+    android:background="@color/buttonA">
 
     <ImageView
         android:src="@android:drawable/sym_def_app_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/frProfileImage" />
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:id="@+id/frProfileImage"
+        android:layout_margin="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textColor="@color/BLACK"
-        android:textSize="14dp"
+        android:textColor="@color/WHITE"
+        android:textSize="38dp"
         android:id="@+id/frNameText"
         android:layout_alignTop="@+id/frProfileImage"
         android:layout_toRightOf="@id/frProfileImage"
@@ -26,37 +27,37 @@
         android:background="@drawable/new_message"
         android:textColor="@color/WHITE"
         android:id="@+id/frMessageButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/frCallButton"
         android:layout_toStartOf="@+id/frCallButton"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="25dp" />
 
     <Button
         android:textSize="15dp"
         android:background="@drawable/new_call"
         android:textColor="@color/WHITE"
         android:id="@+id/frCallButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp" />
 
     <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/thumbs_up_new"
         android:textColor="@color/WHITE"
         android:id="@+id/reviewButton"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/frMessageButton"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="25dp" />
 
 
 </RelativeLayout>

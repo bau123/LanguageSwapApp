@@ -1,9 +1,14 @@
 package com.example.pc.run;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,6 +37,7 @@ public class ReviewList_act extends AppCompatActivity {
     ArrayList<Review> learningReviewList;
     ReviewListAdapter teachingAdapter;
     ReviewListAdapter learningAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,5 +110,6 @@ public class ReviewList_act extends AppCompatActivity {
         learningReviews.setAdapter(learningAdapter);
 
     }
+
 
 }

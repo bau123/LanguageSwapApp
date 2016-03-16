@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +15,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,17 +34,22 @@ import com.example.pc.run.SharedPref.ApplicationSingleton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.transform.OutputKeys;
+
 public class Login_act extends AppCompatActivity {
 
     private EditText email, pass;
     private TextInputLayout inputEmail, inputPassword;
     private CoordinatorLayout coordinatorLayout;
+    private TextView forpass;
+    private Button OK, CANCEL;
     String url = "http://t-simkus.com/run/checkPass.php";
 
     String mEmail;
@@ -59,6 +67,7 @@ public class Login_act extends AppCompatActivity {
         inputPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         email = (EditText) findViewById(R.id.email_log);
         pass = (EditText) findViewById(R.id.pass_log);
+
 
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
 
@@ -256,8 +265,41 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void forgottenPass(View view) {
-        Intent intent = new Intent();
-        startActivity(intent);
+        forpass = (TextView) findViewById(R.id.forgotpass);
+
+
+
+        forpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(Login_act.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.custom_dialogue);
+                dialog.show();
+
+                OK = (Button)dialog.findViewById(R.id.btn_yes);
+                CANCEL = (Button)dialog.findViewById(R.id.btn_no);
+
+               OK.setOnClickListener(new View.OnClickListener(){
+                   @Override
+                   public void onClick(View v) {
+                       //
+                       //
+                       //
+                   }
+               });
+
+                CANCEL.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        dialog.cancel();
+                    }
+                });
+
+            }
+        });
+
     }
 
     private class MyTextWatcher implements TextWatcher {
