@@ -3,10 +3,8 @@ package com.example.pc.run.ActivityTests;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.text.method.Touch;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.pc.run.Login_act;
 import com.example.pc.run.R;

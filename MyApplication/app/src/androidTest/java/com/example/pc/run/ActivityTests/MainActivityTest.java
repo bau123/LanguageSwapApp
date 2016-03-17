@@ -10,8 +10,6 @@ import com.example.pc.run.MainActivity;
 import com.example.pc.run.R;
 import com.example.pc.run.Register_act;
 
-import org.junit.Test;
-
 /**
  * Created by Joss on 07/03/2016.
  */
@@ -25,7 +23,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super(MainActivity.class);
     }
 
-    @Test
+
     public void testActivityExists() {
         MainActivity mainActivity = getActivity();
         assertNotNull(mainActivity);
