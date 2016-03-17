@@ -147,11 +147,21 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return true;
         }
 
-        if (id == R.id.action_Code) {  //ADD CODE OF CONDUCT HERE!!!!!!
+        if (id == R.id.action_Code) { 
+			CodeOfConduct_frag frag = new CodeOfConduct_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
-        if (id == R.id.action_About) {   //ADD ABOUT US HERE HERE!!!!!!
+        if (id == R.id.action_About) {  
+            AboutUs_frag frag = new AboutUs_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
@@ -161,7 +171,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             startActivity(intent);
         }
 
-        if(id == R.id.action_search){
+       if(id == R.id.action_search){
+            App_act frag = new App_act();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
@@ -190,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_messages);
                 break;
             case 3:
-                // PROFILE FRAGMENT GOES HERE !!!!!!!!!!
+                fragment = new MyProfile();
                 title = getString(R.string.title_profile);
                 break;
 

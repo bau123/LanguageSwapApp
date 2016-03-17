@@ -17,7 +17,6 @@
 
     <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
 
-    <!-- END Added for GCM -->
     <application
         android:name=".SharedPref.ApplicationSingleton"
         android:allowBackup="true"

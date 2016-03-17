@@ -1,18 +1,25 @@
 package com.example.pc.run.FriendTabs;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.FriendListAdapter;
+import com.example.pc.run.Adapters.FriendRequestAdapter;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
@@ -54,7 +61,7 @@ public class FriendsList_act extends Fragment {
         System.out.println("Making params");
         Map<String, String> parameters = new HashMap<String, String>();
         Log.d("EMAIL:", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-        parameters.put("email", "test.test@kcl.ac.uk");
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println("params made");
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {

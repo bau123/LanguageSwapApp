@@ -1,15 +1,17 @@
 <resources>
-    <string name="app_name">Run</string>
     <string name="title_activity_chat_room">ChatRoomActivity</string>
-
-
-    <string name="search_hint">Search</string>
-
     <string-array name="typeSpinner">
         <item>Teacher</item>
         <item>Learner</item>
     </string-array>
+    <string name="title_activity_make_call">MakeCall</string>
+    <string name="title_activity_incoming_call_screen">IncomingCallScreenActivity</string>
+    <string name="title_activity_set_up_call">setUpCallActivity</string>
+    <string name="title_activity_place_call">PlaceCallActivity</string>
 
+    <string name="search_hint">Search</string>
+
+    <string name="app_name">Tandem rename me</string>
     <string name="action_settings">Settings</string>
     <string name="action_SignOut">Sign Out</string>
     <string name="action_search">Search</string>
@@ -53,8 +55,7 @@
     <string name="reg_match">Password does not match!</string>
     <string name="reg_pass_error">Password does not match</string>
 
-
-<string name="code_conduct">Code of Conduct \n\n
+    <string name="code_conduct">Code of Conduct \n\n
 
 The safety of our users is very important to us. There are steps that everyone can follow to ensure their safety while using Helpr App. Please take a few minutes to read these tips.\n\n
 
@@ -108,4 +109,9 @@ In recent years the Centre has expanded its activities and has implemented a num
 The Centre also offers a state-of-the-art Language Resources Centre for independent language learning; the Language Resources Centre houses a large collection of learning materials as well as magazines and newspapers, CDs, DVDs, satellite television, computer-based materials and internet links.\n\n
     </string>
 
+    <string name="option1">Verbal abuse</string>
+    <string name="option2">Bullying</string>
+    <string name="option3">Racial abuse</string>
+    <string name="option4">Hate speech</string>
+    <string name="option5">Offensive/inappropriate name</string>
 </resources>

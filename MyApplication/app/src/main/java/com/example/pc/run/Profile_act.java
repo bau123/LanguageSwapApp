@@ -3,8 +3,8 @@ package com.example.pc.run;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +14,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.FriendTabs.Review_learner;
+import com.example.pc.run.FriendTabs.Review_teacher;
+import com.example.pc.run.Global.GlobalBitmap;
+import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
+import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;
@@ -111,6 +116,11 @@ public class Profile_act extends AppCompatActivity {
     public void seeReviews(View view){
         Intent intent = new Intent(Profile_act.this, ReviewList_act.class);
         intent.putExtra("email", email);
+//        Bundle b = new Bundle();
+//        b.putString("email", email);
+//        Review_learner rl = new Review_learner();
+//        Review_teacher rt = new Review_teacher();
+//        rl.setArguments(b);rt.setArguments(b);
         startActivity(intent);
     }
 

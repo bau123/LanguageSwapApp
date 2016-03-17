@@ -1,7 +1,10 @@
 package com.example.pc.run.Search;
 
-import android.os.Bundle;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +22,9 @@ import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 

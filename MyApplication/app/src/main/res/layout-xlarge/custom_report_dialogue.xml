@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="650dp"
+    android:background="@color/buttonA"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/txt_dia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Report"
+            android:textColor="#000000"
+            android:textSize="55dp"
+            android:textStyle="normal"
+            android:layout_weight="0.18" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/option1"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="26dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/option2"
+            android:layout_marginLeft="10dp"
+            android:textSize="26dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/option3"
+            android:layout_marginLeft="10dp"
+            android:textSize="26dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/option4"
+            android:layout_marginLeft="10dp"
+            android:textSize="26dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/option5"
+            android:layout_marginLeft="10dp"
+            android:textSize="26dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/boxforsubmit"
+        android:id="@+id/reportComment"
+        android:textColor="@color/BLACK"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/buttonA"
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
+
+
+        <Button
+            android:id="@+id/ReportSubmit"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:background="@drawable/imageforreview"
+            android:clickable="true"
+            android:text="report"
+            android:textColor="#000000"
+            android:onClick=""
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/ReportCancel"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/imageforreview"
+            android:clickable="false"
+            android:text="Cancel"
+            android:textColor="#000000"
+            android:onClick=""
+            android:singleLine="true"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</LinearLayout>

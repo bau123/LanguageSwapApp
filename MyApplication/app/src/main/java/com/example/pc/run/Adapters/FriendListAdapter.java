@@ -121,14 +121,17 @@ public class FriendListAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-                Log.d("CHECKING EMAIL", myEmail);
-
-            }
-        });
+//        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
+//                Log.d("CHECKING EMAIL", myEmail);
+//                Intent intent = new Intent(context, setUpCallActivity.class);
+//                intent.putExtra("myEmail", myEmail);
+//                intent.putExtra("userEmail", profiles.get(position).getEmail());
+//                context.startActivity(intent);
+//            }
+//        });
 
         viewHolder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +151,7 @@ public class FriendListAdapter extends BaseAdapter {
         String result ="";
         try{
             result = input.getString("message");
-            Intent intent = new Intent(this.context.getApplicationContext(), ChatRoomActivity.class);
+            Intent intent = new Intent(this.context, ChatRoomActivity.class);
             intent.putExtra("email", profiles.get(position).getEmail());
             intent.putExtra("chat_room_id", result);
             this.context.startActivity(intent);

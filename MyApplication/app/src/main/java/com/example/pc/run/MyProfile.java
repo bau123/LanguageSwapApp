@@ -107,9 +107,9 @@ public class MyProfile extends Fragment {
         Log.d("BITMAP STRING:", current.getString("photo"));
 
         name.setText("Name: " + current.getString("name"));
-        interests.setText(current.getString("interests"));
-        languagesKnown.setText(current.getString("languagesKnown"));
-        languagesLearning.setText(current.getString("languagesLearning"));
+        interests.setText("Interests: " + current.getString("interests"));
+        languagesKnown.setText("Languages Known: " +current.getString("languagesKnown"));
+        languagesLearning.setText("Languages learning: " +current.getString("languagesLearning"));
 
         if(current.getString("photo") != null) {
             Log.d("PROFILE BITMAP:", current.getString("photo"));
