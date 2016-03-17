@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Messages extends Fragment {
+public class messages extends Fragment {
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -42,12 +42,12 @@ public class Messages extends Fragment {
     protected LayoutManagerType mCurrentLayoutManagerType;
 
 
-    public Messages() {
+    public messages() {
         // Required empty public constructor
     }
 
-    public static Messages newInstance(String param1, String param2) {
-        Messages fragment = new Messages();
+    public static messages newInstance(String param1, String param2) {
+        messages fragment = new messages();
         Bundle args = new Bundle();
         //  args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);

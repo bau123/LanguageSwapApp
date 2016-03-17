@@ -70,6 +70,7 @@ public class App_act extends Fragment {
     ProgressDialog progress;
     String url = "http://t-simkus.com/run/search-db.php";
     ArrayList<Fragment> frags = new ArrayList<>();
+    Boolean makingRequest = false;
     private View masterView;
     private JSONObject niput;
 
@@ -83,13 +84,10 @@ public class App_act extends Fragment {
         //Get location table
         setParams();
 
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("info", "");
-        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-        System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-        System.out.println("params made for search " + searchInput);
+        if(!makingRequest){
+            getAll();
+        }
 
-        processParameters(parameters);
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,29 +99,8 @@ public class App_act extends Fragment {
         MultiSelectionSpinner spinner = (MultiSelectionSpinner) v.findViewById(R.id.spinner);
         buildSpinner(spinner);
 
-        searchEngine = (SearchView)v.findViewById(R.id.searchView);
-
-        searchEngine.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Map<String, String> parameters = new HashMap<>();
-                parameters.put("info", query);
-                parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-                System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-                System.out.println("params made for search " + searchInput);
-                processParameters(parameters);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
         return v;
     }
-
-
 
 
     public void buildSpinner(MultiSelectionSpinner spinner) {
@@ -172,6 +149,22 @@ public class App_act extends Fragment {
 
     }
 
+    public void externalQuery(String query){
+        makingRequest = true;
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("info", query);
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        processParameters(parameters);
+    }
+
+    public void getAll(){
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        parameters.put("info", "");
+        System.out.println(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        System.out.println("params made for search " + searchInput);
+        processParameters(parameters);
+    }
 
     @Override
     public void onAttach(Activity activity) {

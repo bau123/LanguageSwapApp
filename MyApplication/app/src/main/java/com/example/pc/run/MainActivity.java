@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pc.run.Chat.ChatRoomActivity;
-import com.example.pc.run.Chat.Messages;
+import com.example.pc.run.Chat.messages;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
@@ -132,6 +132,23 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                App_act frag = new App_act();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_body, frag);
+                frag.externalQuery(query);
+                fragmentTransaction.commit();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -196,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_friends);
                 break;
             case 2:
-                fragment = new Messages();
+                fragment = new messages();
                 title = getString(R.string.title_messages);
                 break;
             case 3:
