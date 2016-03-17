@@ -53,9 +53,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chat_rooms_list_row, parent, false);
-
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.chat_rooms_list_row, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -69,6 +67,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
             Bitmap profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             holder.image.setImageBitmap(profilePicture);
         }
+        holder.image.setVisibility(View.VISIBLE);
 
         holder.name.setText(chatRoom.getName());
         holder.message.setText(chatRoom.getLastMessage());
@@ -78,7 +77,6 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         } else {
             holder.count.setVisibility(View.GONE);
         }
-
         holder.timestamp.setText(getTimeStamp(chatRoom.getTimeStamp()));
     }
 
@@ -109,7 +107,6 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
 
     public interface ClickListener {
         void onClick(View view, int position);
-
         void onLongClick(View view, int position);
     }
 
@@ -138,7 +135,6 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
 
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
             View child = rv.findChildViewUnder(e.getX(), e.getY());
             if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
                 clickListener.onClick(child, rv.getChildPosition(child));

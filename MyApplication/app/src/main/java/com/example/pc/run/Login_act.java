@@ -1,29 +1,23 @@
 package com.example.pc.run;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Global.GlobalMethds;
-import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -34,8 +28,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Login_act extends AppCompatActivity {
 
@@ -63,7 +55,7 @@ public class Login_act extends AppCompatActivity {
 
         //If User has already logged in before it automatically logs in for them.
         if(ApplicationSingleton.getInstance().getPrefManager().checkAccount()){
-            login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0] ,ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
+            login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0] , ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
         }else{
             ApplicationSingleton.getInstance().getPrefManager().clear();
         }

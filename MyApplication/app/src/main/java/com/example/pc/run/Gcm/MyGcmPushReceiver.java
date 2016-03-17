@@ -40,9 +40,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         String flag = bundle.getString("flag");
         String data = bundle.getString("data");
 
-        System.out.println(data);
-        System.out.println(title);
-
         if (flag == null)
             return;
 
@@ -60,7 +57,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         switch (Integer.parseInt(flag)) {
             case Config.PUSH_TYPE_USER:
                 // push notification is specific to message from user
-                System.out.println("Push type is user");
                 processUserMessage(title, isBackground, data);
                 break;
             case Config.PUSH_TYPE_FRIEND:
@@ -98,7 +94,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     String currentDateandTime = sdf.format(new Date());
 
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);
                     System.out.println("Friend request: " + message);
                     showNotificationMessage(getApplicationContext(), title, message, currentDateandTime, resultIntent);
                 }
@@ -125,23 +121,19 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 message.setMessageId(datObj.getString("message_id"));
                 message.setDateCreated(datObj.getString("created_at"));
                 message.setName(datObj.getString("user_name"));
-                message.setEmail(datObj.getString("email"));
-
-                System.out.println("collected and created user message " + datObj.getString("created_at"));
 
                 // verifying whether the app is in background or foreground
                 if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-                    System.out.println("User message is sent to chat ");
+
                     // app is in foreground, broadcast the push message
                     Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
                     pushNotification.putExtra("type", Config.PUSH_TYPE_USER);
-                    System.out.println("Message while in chat !!!!!!!!!!!!!!!!!!");
                     pushNotification.putExtra("message", message);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
                 } else {
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), ChatRoomActivity.class);  // FIXXXXXXXXXXX
+                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);  // FIXXXXXXXXXXX
                     showNotificationMessage(getApplicationContext(), title, message.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
             } catch (JSONException e) {

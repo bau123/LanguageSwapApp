@@ -1,7 +1,5 @@
 package com.example.pc.run.Chat;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,6 +13,7 @@ import android.view.ViewGroup;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.MainActivity;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.ChatRoom;
 import com.example.pc.run.Objects.Message;
@@ -62,11 +61,7 @@ public class Messages extends Fragment {
         chatRoomArrayList = new ArrayList<>();
 
 
-
-
-
     }
-
 
 
     @Override
@@ -93,11 +88,16 @@ public class Messages extends Fragment {
                 // when chat is clicked, launch full chat thread activity
                 ChatRoom chatRoom = chatRoomArrayList.get(position);
 
-                    /*
-                    intent.putExtra("chat_room_id", chatRoom.getId());
-                    intent.putExtra("name", chatRoom.getName());
-                    startActivity(intent);
-                    */
+
+                MainActivity.openChat(chatRoom.getOtherUser(), chatRoom.getId());
+
+                /*
+                Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                intent.putExtra("email", chatRoom.getOtherUser());
+                intent.putExtra("chat_room_id", chatRoom.getId());
+                startActivity(intent);
+
+                */
             }
 
             @Override
@@ -149,16 +149,16 @@ public class Messages extends Fragment {
                         String user1 = current.getString("user1");
                         String user2 = current.getString("user2");
                         String name = current.getString("name");
-                        String messageEmail =  current.getString("email");
+                        String messageEmail = current.getString("email");
                         String message = current.getString("message");
                         String roomId = current.getString("chat_room_id");
                         String createdAt = current.getString("created_at");
                         String photo = current.getString("photo");
 
                         String otherUser = "";
-                        if(user1.equals(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0])){
+                        if (user1.equals(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0])) {
                             otherUser = user2;
-                        }else{
+                        } else {
                             otherUser = user2;
                         }
 

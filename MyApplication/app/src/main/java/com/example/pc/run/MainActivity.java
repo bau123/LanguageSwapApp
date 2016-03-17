@@ -5,13 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.Chat.Messages;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
@@ -37,12 +38,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mContext = this;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -113,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             }
         }
     }*/
+
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -249,6 +257,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(regReceiver);
         super.onPause();
+    }
+
+    public static void openChat(String userEmail, String roomId){
+        Intent intent = new Intent(mContext, ChatRoomActivity.class);
+        intent.putExtra("email", userEmail);
+        intent.putExtra("chat_room_id", roomId);
+        mContext.startActivity(intent);
     }
 
 }

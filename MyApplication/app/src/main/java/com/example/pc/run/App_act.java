@@ -2,31 +2,16 @@ package com.example.pc.run;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.MultiSelectionSpinner;
-
-
-import com.example.pc.run.Gcm.RegistrationIntentService;
-import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.LocationServices.SelectedCampus;
 import com.example.pc.run.LocationServices.UserLocation;
@@ -46,11 +27,9 @@ import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;

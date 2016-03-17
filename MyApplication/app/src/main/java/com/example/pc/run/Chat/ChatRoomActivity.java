@@ -1,13 +1,10 @@
 package com.example.pc.run.Chat;
 
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,22 +19,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Message;
-import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -76,17 +69,20 @@ public class ChatRoomActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true); ///////////////
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
         String selfUserId = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
 
-        mAdapter = new ChatRoomThreadAdapter(this.getApplicationContext(), messageArrayList, selfUserId);
+        mAdapter = new ChatRoomThreadAdapter(this, messageArrayList, selfUserId);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getBaseContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this); ///////
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL); /////////////
+
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //Gets the gcm registration of other user
         getOtherGcm();
@@ -243,6 +239,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                         //Add message to chat
                         messageArrayList.add(message);
+
                         mAdapter.notifyDataSetChanged();
                         if (mAdapter.getItemCount() > 1) {
                             // scrolling to bottom of the recycler view
@@ -261,6 +258,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Log.d("Response: ", response.toString());
             }
         });
+
+        int socketTimeout = 0;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        jsObjRequest.setRetryPolicy(policy);
+
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 

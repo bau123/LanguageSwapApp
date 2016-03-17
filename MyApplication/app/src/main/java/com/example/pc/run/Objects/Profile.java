@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import com.example.pc.run.Global.GlobalProfile;
-
 import java.io.Serializable;
 
 public class Profile implements Serializable{

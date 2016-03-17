@@ -8,29 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.example.pc.run.MainActivity;
-import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.ChatRoom;
 import com.example.pc.run.Objects.Message;
-import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
-import com.example.pc.run.SharedPref.ApplicationSingleton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ChatRooms extends Fragment {
 

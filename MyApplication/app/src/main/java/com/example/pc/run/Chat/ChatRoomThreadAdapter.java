@@ -1,5 +1,6 @@
 package com.example.pc.run.Chat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,14 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.pc.run.Objects.Message;
+import com.example.pc.run.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.example.pc.run.Objects.Message;
-import com.example.pc.run.R;
 
 public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -23,6 +24,8 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static String today;
 
     private Context mContext;
+    Activity context;
+
     private ArrayList<Message> messageArrayList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -52,11 +55,10 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         // left or right
         if (viewType == SELF) {
             // self message
-            itemView = LayoutInflater.from(mContext).inflate(R.layout.chat_item_self, parent, false);
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item_self, parent, false);
         } else {
             // others message
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.chat_item_other, parent, false);
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item_other, parent, false);
         }
 
         return new ViewHolder(itemView);
@@ -109,5 +111,10 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             e.printStackTrace();
         }
         return timestamp;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }

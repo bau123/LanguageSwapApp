@@ -17,13 +17,14 @@
 
     <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
 
+    <!-- END Added for GCM -->
     <application
         android:name=".SharedPref.ApplicationSingleton"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/AppTheme">
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -54,10 +55,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Login_act">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -66,19 +68,12 @@
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
-            android:theme="@style/MyMaterialTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".UploadImage_act" />
         <activity android:name=".Profile_act" />
-        <activity android:name=".CreateReview_act">
-        </activity>
-        <activity android:name=".ReviewList_act">
-        </activity>
-        <activity android:name=".VideoChat.CallScreenActivity" />
-        <activity android:name=".VideoChat.IncomingCallScreenActivity"></activity>
-        <activity
-            android:name=".VideoChat.setUpCallActivity"
-            android:label="@string/title_activity_set_up_call"
-            android:theme="@style/MyMaterialTheme.NoActionBar" />
+        <activity android:name=".CreateReview_act"></activity>
+        <activity android:name=".ReviewList_act"></activity>
     </application>
 
 </manifest>
