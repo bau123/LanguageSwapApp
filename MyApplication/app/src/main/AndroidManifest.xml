@@ -55,9 +55,6 @@
         </service>
 
         <activity android:name=".MainActivity" >
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchResultsActivity" />
         </activity>
         <activity android:name=".Login_act" >
             <intent-filter>
@@ -77,21 +74,6 @@
         <activity android:name=".CreateReview_act" >
         </activity>
         <activity android:name=".ReviewList_act" >
-        </activity>
-        <activity android:name=".VideoChat.CallScreenActivity" />
-        <activity android:name=".VideoChat.IncomingCallScreenActivity" />
-        <activity
-            android:name=".VideoChat.setUpCallActivity"
-            android:label="@string/title_activity_set_up_call"
-            android:theme="@style/MyMaterialTheme.NoActionBar" />
-        <activity
-            android:name=".SearchTest" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
     </application>
 

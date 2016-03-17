@@ -21,7 +21,6 @@ import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.Profile_act;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
-import com.example.pc.run.VideoChat.setUpCallActivity;
 
 import org.json.JSONObject;
 
@@ -122,17 +121,17 @@ public class FriendListAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-                Log.d("CHECKING EMAIL", myEmail);
-                Intent intent = new Intent(context, setUpCallActivity.class);
-                intent.putExtra("myEmail", myEmail);
-                intent.putExtra("userEmail", profiles.get(position).getEmail());
-                context.startActivity(intent);
-            }
-        });
+//        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
+//                Log.d("CHECKING EMAIL", myEmail);
+//                Intent intent = new Intent(context, setUpCallActivity.class);
+//                intent.putExtra("myEmail", myEmail);
+//                intent.putExtra("userEmail", profiles.get(position).getEmail());
+//                context.startActivity(intent);
+//            }
+//        });
 
         viewHolder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
