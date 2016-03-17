@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.FriendTabs.Review_learner;
+import com.example.pc.run.FriendTabs.Review_teacher;
 import com.example.pc.run.Global.GlobalBitmap;
 import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
@@ -114,6 +116,11 @@ public class Profile_act extends AppCompatActivity {
     public void seeReviews(View view){
         Intent intent = new Intent(Profile_act.this, ReviewList_act.class);
         intent.putExtra("email", email);
+//        Bundle b = new Bundle();
+//        b.putString("email", email);
+//        Review_learner rl = new Review_learner();
+//        Review_teacher rt = new Review_teacher();
+//        rl.setArguments(b);rt.setArguments(b);
         startActivity(intent);
     }
 

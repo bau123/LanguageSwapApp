@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_messages);
                 break;
             case 3:
-                // PROFILE FRAGMENT GOES HERE !!!!!!!!!!
+                fragment = new MyProfile();
                 title = getString(R.string.title_profile);
                 break;
 
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             fragmentTransaction.replace(R.id.container_body, fragment);
             fragmentTransaction.commit();
 
-            // set the toolbar title
+            //set the toolbar title
             getSupportActionBar().setTitle(title);
         }
     }
