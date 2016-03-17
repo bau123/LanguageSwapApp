@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -172,11 +172,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
        if(id == R.id.action_search){
-            App_act frag = new App_act();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_body, frag);
-            fragmentTransaction.commit();
             return true;
         }
 
