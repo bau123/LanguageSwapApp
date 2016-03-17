@@ -106,7 +106,7 @@ public class SharedPrefManager {
     }
 
     public boolean checkAccount(){
-        if(pref.getString(KEY_email, null) != null && pref.getString(KEY_password, null) != null){
+        if((pref.getString(KEY_email, null) != null) && (pref.getString(KEY_password, null) != null)){
             return true;
         }
         return false;

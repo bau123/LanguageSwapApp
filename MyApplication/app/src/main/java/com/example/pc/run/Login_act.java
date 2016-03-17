@@ -37,6 +37,7 @@ public class Login_act extends AppCompatActivity {
     String url = "http://t-simkus.com/run/checkPass.php";
     String mEmail;
     int counter = 0;
+    private String emailSt, passSt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,10 @@ public class Login_act extends AppCompatActivity {
 
         //If User has already logged in before it automatically logs in for them.
         if(ApplicationSingleton.getInstance().getPrefManager().checkAccount()){
-            login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0] , ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
+            System.out.println("Account already in device");
+            login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0], ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
         }else{
+            System.out.println("No Account in device");
             ApplicationSingleton.getInstance().getPrefManager().clear();
         }
     }
@@ -72,6 +75,7 @@ public class Login_act extends AppCompatActivity {
     }
 
     protected void login(String email ,String pass){
+        System.out.println("Logging in ");
         //Checks if there is an internet connection     //FIXXXXXXXXXXXXXXXXXX
         /*if (!GlobalMethds.isNetworkAvailable()) {
             Snackbar snackbar = Snackbar
@@ -82,7 +86,11 @@ public class Login_act extends AppCompatActivity {
         }*/
         //Checks if the email is in the correct format
         if (GlobalMethds.validateEmail(email)) {
+            System.out.println("Email is valid");
             inputEmail.setErrorEnabled(false);
+
+            emailSt = email;
+            passSt = pass;
 
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("email", email);
@@ -143,6 +151,7 @@ public class Login_act extends AppCompatActivity {
     }
 
     private void processResult(JSONObject input) throws InterruptedException {
+        System.out.println("In processResult");
         String result = "";
         try {
             result = input.getString("message");
@@ -151,10 +160,10 @@ public class Login_act extends AppCompatActivity {
         }
         if (result.equals("success")) {
             //Stores the authentication details of the user
-            ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
+            ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(emailSt, passSt);
 
             //Pulls the profile info of the user logging in
-            pullInformation(email.getText().toString());
+            pullInformation(emailSt);
 
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Sorry the password is incorrect", Toast.LENGTH_LONG).show();
@@ -169,7 +178,7 @@ public class Login_act extends AppCompatActivity {
             if (counter > 5) {
                 Snackbar tries = Snackbar.make(coordinatorLayout, "Too many tries! \n" + " Sorry this account has now been locked for 15 minutes", Snackbar.LENGTH_LONG);
                 tries.show();
-                lockAccount(email.getText().toString());
+                lockAccount(emailSt);
             }
         }
         //When account is locked out from too many tries
