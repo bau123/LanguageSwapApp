@@ -109,4 +109,9 @@ In recent years the Centre has expanded its activities and has implemented a num
 The Centre also offers a state-of-the-art Language Resources Centre for independent language learning; the Language Resources Centre houses a large collection of learning materials as well as magazines and newspapers, CDs, DVDs, satellite television, computer-based materials and internet links.\n\n
     </string>
 
+    <string name="option1">Verbal abuse</string>
+    <string name="option2">Bullying</string>
+    <string name="option3">Racial abuse</string>
+    <string name="option4">Hate speech</string>
+    <string name="option5">Offensive/inappropriate name</string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -121,11 +122,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        //TODO: search view implementation
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -141,21 +138,34 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return true;
         }
 
-        if (id == R.id.action_Code) {  //ADD CODE OF CONDUCT HERE!!!!!!
+        if (id == R.id.action_Code) {
+            CodeOfConduct_frag frag = new CodeOfConduct_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
-        if (id == R.id.action_About) {   //ADD ABOUT US HERE HERE!!!!!!
+        if (id == R.id.action_About) {
+            AboutUs_frag frag = new AboutUs_frag();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 
         if (id == R.id.action_signOut) {
-            ApplicationSingleton.getInstance().getPrefManager().clear();
-            Intent intent = new Intent(this, Login_act.class);
-            startActivity(intent);
+            return true;
         }
 
         if(id == R.id.action_search){
+            App_act frag = new App_act();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, frag);
+            fragmentTransaction.commit();
             return true;
         }
 

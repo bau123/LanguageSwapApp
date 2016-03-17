@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Complete your profile and get started ! "
-        android:textSize="30dp"
+        android:textSize="50dp"
         android:gravity="center"
         android:textColor="#ffffff"
         android:layout_marginTop="14dp"
@@ -25,7 +25,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="800dp"
         android:background="@drawable/backprof"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -37,8 +37,8 @@
         android:layout_marginBottom="40dp">
 
         <ImageView
-            android:layout_width="79dp"
-            android:layout_height="79dp"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
             android:id="@+id/profileImage"
             android:onClick="uploadImage"
             android:background="@drawable/pfimage"
@@ -52,7 +52,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="30dp"
             android:layout_marginLeft="12dp"
             android:textColor="#a59696"
             android:hint="Enter name:"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Languages spoken:"
-            android:textSize="14dp"
+            android:textSize="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="15dp" />
 
@@ -85,33 +85,33 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="27dp"
+            android:layout_height="40dp"
             android:text="Languages you want to learn:"
-            android:textSize="14dp"
-            android:layout_marginTop="5dp"
+            android:textSize="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="15dp" />
 
 
-            <com.example.pc.run.Adapters.MultiSelectionSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/langLearningSpinner"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"/>
+        <com.example.pc.run.Adapters.MultiSelectionSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/langLearningSpinner"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"/>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Interests:"
-            android:textSize="14dp"
+            android:textSize="30dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="15dp" />
 
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="-11dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
@@ -132,15 +132,17 @@
 
 
         <Button
-            android:layout_width="128dp"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:text="Create profile"
+            android:textSize="30dp"
             android:layout_gravity="center_horizontal"
             android:onClick="addProfileInfo"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="40dp"
             android:textColor="#ffffff"
             android:textStyle="normal"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            />
 
 
     </LinearLayout>
