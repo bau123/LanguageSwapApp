@@ -55,6 +55,12 @@
     <string name="reg_match">Password does not match!</string>
     <string name="reg_pass_error">Password does not match</string>
 
+    <!-- Forgotten password dialog item labels  -->
+    <string name="forgot_des">Please enter your email address below.</string>
+    <string name="forgot_cancel">Cancel</string>
+    <string name="forgot_send">Send</string>
+
+
     <string name="code_conduct">Code of Conduct \n\n
 
 The safety of our users is very important to us. There are steps that everyone can follow to ensure their safety while using Helpr App. Please take a few minutes to read these tips.\n\n
