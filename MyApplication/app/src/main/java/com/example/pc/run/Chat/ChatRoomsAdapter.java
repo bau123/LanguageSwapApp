@@ -35,7 +35,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
 
         public ViewHolder(View view) {
             super(view);
-            image = (ImageView) view.findViewById(R.id.chatImage);
+            image = (ImageView) view.findViewById(R.id.msgImage);
             name = (TextView) view.findViewById(R.id.name);
             message = (TextView) view.findViewById(R.id.message);
             timestamp = (TextView) view.findViewById(R.id.timestamp);
@@ -66,8 +66,9 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
             byte[] decodedByte = Base64.decode(chatRoom.getImage(), 0);
             Bitmap profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             holder.image.setImageBitmap(profilePicture);
+        }else{
+            // holder.image.setBackgroundResource(R.drawable.);  /// FIXXXXXXXXXXXXX
         }
-        holder.image.setVisibility(View.VISIBLE);
 
         holder.name.setText(chatRoom.getName());
         holder.message.setText(chatRoom.getLastMessage());

@@ -9,63 +9,92 @@
     android:paddingTop="16dp">
 
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right">
+        android:layout_gravity="right"
+        android:weightSum="10">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8">
+
+            <ImageView
+                android:id="@+id/msgImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentTop="true"
+                android:src="@android:drawable/sym_def_app_icon" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/chatImage"
-            android:src="@android:drawable/sym_def_app_icon"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentTop="true" />
+            android:orientation="vertical"
+            android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:textColor="#444444"
-            android:textStyle="bold"
-            android:text="example"
-            android:textSize="16dp"
-            android:layout_toRightOf="@+id/chatImage"
-            android:layout_marginLeft="20dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:textColor="#888888"
-            android:layout_marginTop="5dp"
-            android:text="Loading"
-            android:layout_toRightOf="@+id/chatImage"
-            android:layout_marginLeft="20dp" />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="4dp"
+                    android:text="example"
+                    android:textColor="#444444"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
-        <TextView android:id="@+id/timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12:00 AM"
-            android:textSize="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"/>
+                <TextView
+                    android:id="@+id/timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="12:00 AM"
+                    android:textSize="10dp" />
 
-        <TextView android:id="@+id/count"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"
-            android:layout_below="@id/timestamp"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentRight="true"
-            android:text="5"
-            android:background="@drawable/bg_circle"/>
+            </RelativeLayout>
 
-    </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Loading"
+                    android:textColor="#888888" />
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_circle"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="@android:color/white"
+                    android:textSize="10dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </LinearLayout>

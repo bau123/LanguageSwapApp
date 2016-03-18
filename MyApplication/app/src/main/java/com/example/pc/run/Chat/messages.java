@@ -29,17 +29,9 @@ import java.util.Map;
 
 public class messages extends Fragment {
 
-    private enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
-        LINEAR_LAYOUT_MANAGER
-    }
-
     private ArrayList<ChatRoom> chatRoomArrayList;
-    private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private ChatRoomsAdapter mAdapter;
     private RecyclerView recyclerView;
-    protected RecyclerView.LayoutManager mLayoutManager;
-    protected LayoutManagerType mCurrentLayoutManagerType;
 
 
     public messages() {
@@ -59,8 +51,6 @@ public class messages extends Fragment {
         super.onCreate(savedInstanceState);
 
         chatRoomArrayList = new ArrayList<>();
-
-
     }
 
 
@@ -88,7 +78,6 @@ public class messages extends Fragment {
                 // when chat is clicked, launch full chat thread activity
                 ChatRoom chatRoom = chatRoomArrayList.get(position);
 
-
                 MainActivity.openChat(chatRoom.getOtherUser(), chatRoom.getId());
 
                 /*
@@ -105,7 +94,6 @@ public class messages extends Fragment {
 
             }
         }));
-
         //Gets all the past chat history and displays them
         retrieveChats();
 
