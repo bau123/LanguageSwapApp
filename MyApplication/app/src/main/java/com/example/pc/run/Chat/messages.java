@@ -1,7 +1,12 @@
 package com.example.pc.run.Chat;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Gcm.Config;
+import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.MainActivity;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.ChatRoom;
@@ -32,18 +40,10 @@ public class messages extends Fragment {
     private ArrayList<ChatRoom> chatRoomArrayList;
     private ChatRoomsAdapter mAdapter;
     private RecyclerView recyclerView;
-
+    private BroadcastReceiver regReceiver;
 
     public messages() {
         // Required empty public constructor
-    }
-
-    public static messages newInstance(String param1, String param2) {
-        messages fragment = new messages();
-        Bundle args = new Bundle();
-        //  args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -51,8 +51,21 @@ public class messages extends Fragment {
         super.onCreate(savedInstanceState);
 
         chatRoomArrayList = new ArrayList<>();
-    }
 
+        regReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    System.out.println("chat room: got new message");
+                    // new push message is received
+                    int type = intent.getIntExtra("type", -1);
+                    if (type == Config.PUSH_TYPE_USER) {
+                        handlePushNotification(intent);
+                    }
+                }
+            }
+        };
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,16 +92,7 @@ public class messages extends Fragment {
                 ChatRoom chatRoom = chatRoomArrayList.get(position);
 
                 MainActivity.openChat(chatRoom.getOtherUser(), chatRoom.getId());
-
-                /*
-                Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-                intent.putExtra("email", chatRoom.getOtherUser());
-                intent.putExtra("chat_room_id", chatRoom.getId());
-                startActivity(intent);
-
-                */
             }
-
             @Override
             public void onLongClick(View view, int position) {
 
@@ -100,14 +104,28 @@ public class messages extends Fragment {
         return view;
     }
 
+
+    /**
+     * Handling new push message, will add the message to
+     * recycler view
+     */
+    private void handlePushNotification(Intent intent) {
+        Message message = (Message) intent.getSerializableExtra("message");
+        System.out.println("created user message and chat id");
+
+        if (message != null ) {
+            updateRow(message.getEmail(), message.getMessage());
+        }
+    }
+
     /**
      * Updates the chat list unread count and the last message
      */
-    private void updateRow(String chatRoomId, Message message) {
+    private void updateRow(String email, String message) {
         for (ChatRoom cr : chatRoomArrayList) {
-            if (cr.getId().equals(chatRoomId)) {
+            if (cr.getOtherUser().equals(email)) {
                 int index = chatRoomArrayList.indexOf(cr);
-                cr.setLastMessage(message.getMessage());
+                cr.setLastMessage(message);
                 cr.setUnreadCount(cr.getUnreadCount() + 1);
                 chatRoomArrayList.remove(index);
                 chatRoomArrayList.add(index, cr);
@@ -169,6 +187,26 @@ public class messages extends Fragment {
             }
         });
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(regReceiver,
+                new IntentFilter(Config.PUSH_NOTIFICATION));
+
+        // Clear notification tray
+        NotificationUtils.clearNotifications();
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(regReceiver);
+        super.onPause();
     }
 
 }

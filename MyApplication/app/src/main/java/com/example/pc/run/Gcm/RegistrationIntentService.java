@@ -34,37 +34,45 @@ public class RegistrationIntentService extends IntentService {
         super(TAG);
     }
 
-    public static final String KEY = "key";
-    public static final String TOPIC = "topic";
-    public static final String SUBSCRIBE = "subscribe";
-    public static final String UNSUBSCRIBE = "unsubscribe";
-
     @Override
     // Register with gcm and obtain gcm reg id
     protected void onHandleIntent(Intent intent) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = null;
-        try{
-            InstanceID instanceID = InstanceID.getInstance(this);
-            token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
-                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            //Send to database
-            sendRegistrationToServer(token);
-            //Boolean saved in shared pref indicating the token is generated
-            sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, true).apply();
-            //Stores toke in shared pref
-            ApplicationSingleton.getInstance().getPrefManager().storeToken(token);
-            Log.i(TAG, "GCM Registration Token: " + token);
-        }catch (Exception e){
-            Log.d(TAG, "Failed to complete token refresh", e);
-            //Boolean indicating the token failed
-            sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, false).apply();
-            e.printStackTrace();
+
+        if(intent.getStringExtra("key").equals("register")){
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String token = null;
+            try{
+                InstanceID instanceID = InstanceID.getInstance(this);
+                token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
+                        GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                //Send to database
+                sendRegistrationToServer(token);
+                //Boolean saved in shared pref indicating the token is generated
+                sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, true).apply();
+                //Stores toke in shared pref
+                ApplicationSingleton.getInstance().getPrefManager().storeToken(token);
+                Log.i(TAG, "GCM Registration Token: " + token);
+            }catch (Exception e){
+                Log.d(TAG, "Failed to complete token refresh", e);
+                //Boolean indicating the token failed
+                sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, false).apply();
+                e.printStackTrace();
+            }
+            //Notify the ui that registration is complete
+            Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
+            registrationComplete.putExtra("token", token);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
         }
-        //Notify the ui that registration is complete
-        Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
-        registrationComplete.putExtra("token", token);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
+
+        else if(intent.getStringExtra("key").equals("search")){
+            System.out.println("search intent found in regIntentService!!!!");
+            //Intent is a search request
+            String query = intent.getStringExtra("data");
+            Intent search = new Intent(Config.REQUEST_SEARCH);
+            search.putExtra("data", query);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(search);
+            System.out.println("Broadcast for search sent!!!");
+        }
     }
 
     private void sendRegistrationToServer(final String token) {

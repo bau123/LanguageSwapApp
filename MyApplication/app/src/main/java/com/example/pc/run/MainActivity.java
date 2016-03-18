@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.Chat.messages;
 import com.example.pc.run.Gcm.Config;
+import com.example.pc.run.Gcm.MyGcmPushReceiver;
 import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Navigation_Drawer.FragmentDrawer;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
     private static Context mContext;
+    private boolean inSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mContext = this;
+        inSearch = true;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -58,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         //Display search frag as default
         displayView(0);
 
-         //  handleIntent(getIntent());
+        //  handleIntent(getIntent());
 
         //Setting up broadcast receiver
         regReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) { //TAKE OUT !!!!!!!!!!!
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     String token = intent.getStringExtra("token");
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
                 } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
                     // gcm registration id is stored in our server's MySQL
-                 //   Toast.makeText(getApplicationContext(), "GCM registration token is stored in server!", Toast.LENGTH_LONG).show();
+                    //   Toast.makeText(getApplicationContext(), "GCM registration token is stored in server!", Toast.LENGTH_LONG).show();
 
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     processPushNotification(intent);
@@ -92,32 +95,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     }
 
-
-/* FIXX THIS SEACH STUFF
-    @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
-
-
-    // Sends search input into the App activity
-    private void handleIntent(Intent intent) { // FIX THIS SEARCH STUFF
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-
-            Fragment fragment =  new App_act().newInstance(query);
-
-            if (fragment != null) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_body, fragment);
-                fragmentTransaction.commit();
-
-            }
-        }
-    }*/
-
     @Override
     public void onBackPressed() {
     }
@@ -135,13 +112,25 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                App_act frag = new App_act();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_body, frag);
-                frag.externalQuery(query);
-                fragmentTransaction.commit();
-                return false;
+
+                if (inSearch) {
+                    //Register gcm
+                    Intent intent = new Intent(getApplicationContext(), RegistrationIntentService.class);
+                    intent.putExtra("key", "search");
+                    intent.putExtra("data", query);
+                    startService(intent);
+                    return false;
+                }
+                //If not then App act is loaded with query
+                else {
+                    App_act frag = new App_act();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.container_body, frag);
+                    frag.externalQuery(query);
+                    fragmentTransaction.commit();
+                    return false;
+                }
             }
 
             @Override
@@ -164,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return true;
         }
 
-        if (id == R.id.action_Code) { 
-			CodeOfConduct_frag frag = new CodeOfConduct_frag();
+        if (id == R.id.action_Code) {
+            CodeOfConduct_frag frag = new CodeOfConduct_frag();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_body, frag);
@@ -173,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return true;
         }
 
-        if (id == R.id.action_About) {  
+        if (id == R.id.action_About) {
             AboutUs_frag frag = new AboutUs_frag();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -188,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             startActivity(intent);
         }
 
-       if(id == R.id.action_search){
+        if (id == R.id.action_search) {
             return true;
         }
 
@@ -206,22 +195,29 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         switch (position) {
             case 0:
                 fragment = new App_act();
+                inSearch = true;
                 title = getString(R.string.title_home);
                 break;
             case 1:
                 fragment = new Friends();
+                inSearch = false;
                 title = getString(R.string.title_friends);
                 break;
             case 2:
                 fragment = new messages();
+                inSearch = false;
                 title = getString(R.string.title_messages);
                 break;
             case 3:
                 fragment = new MyProfile();
+                inSearch = false;
                 title = getString(R.string.title_profile);
                 break;
 
-            default:fragment = new App_act();
+            default:
+                title = getString(R.string.title_home);
+                inSearch = true;
+                fragment = new App_act();
                 break;
         }
 
@@ -236,15 +232,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
     }
 
-    public void processPushNotification(Intent intent){
+    public void processPushNotification(Intent intent) {
         int type = intent.getIntExtra("type", -1);
         // If push is friend request
-        if(type == Config.PUSH_TYPE_FRIEND){
-            Toast.makeText(getApplicationContext(), "Someone has sent you a friend request", Toast.LENGTH_LONG).show();
-            ///NEED TO CHOOSE WHAT TO DO HERE
-        }
-        //else !!!!!!!!!!!!!!!!!!!!!!!!!!!ADDDD LATERRR
-        else{
+        if (type == Config.PUSH_TYPE_FRIEND) {
+            Toast.makeText(getApplicationContext(), "Someone has sent you a friend request", Toast.LENGTH_LONG).show();  ///  !!!!!!!!!!!!!!!!!!!
+        } else if (type == Config.PUSH_TYPE_USER) {
 
         }
     }
@@ -253,8 +246,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         int queryResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (queryResult == ConnectionResult.SUCCESS) {
             return true;
-        }
-        else if (GoogleApiAvailability.getInstance().isUserResolvableError(queryResult)) {
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(queryResult)) {
             String errorString = GoogleApiAvailability.getInstance().getErrorString(queryResult);
             Log.d(TAG, "Problem with google play service : " + queryResult + " " + errorString);
             Toast.makeText(getApplicationContext(), "Device is not supported. Please install google play service.", Toast.LENGTH_LONG).show();
@@ -286,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onPause();
     }
 
-    public static void openChat(String userEmail, String roomId){
+    public static void openChat(String userEmail, String roomId) {
         Intent intent = new Intent(mContext, ChatRoomActivity.class);
         intent.putExtra("email", userEmail);
         intent.putExtra("chat_room_id", roomId);
