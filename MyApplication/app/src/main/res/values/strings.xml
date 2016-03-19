@@ -61,6 +61,15 @@
     <string name="forgot_send">Send</string>
 
 
+    <!-- Profile frag within app act item labels  -->
+    <string name="profileFrag_Name">Name: </string>
+    <string name="profileFrag_Known">Languages Known: </string>
+    <string name="profileFrag_Learning">Languages Learning: </string>
+    <string name="profileFrag_Interests">Interests: </string>
+    <string name="profileFrag_Campus">Campus: </string>
+    <string name="profileFrag_send">Send Invite</string>
+
+
     <string name="code_conduct">Code of Conduct \n\n
 
 The safety of our users is very important to us. There are steps that everyone can follow to ensure their safety while using Helpr App. Please take a few minutes to read these tips.\n\n

@@ -90,6 +90,12 @@ public class Register_act extends AppCompatActivity {
             return;
         }
 
+        if(emailString.isEmpty()){
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Please enter a email address", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return;
+        }
+
         if (passwordString.length() < 8) {
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Password must be at least 8 characters long", Snackbar.LENGTH_LONG);
             snackbar.show();

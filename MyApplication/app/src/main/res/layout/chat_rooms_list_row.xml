@@ -27,7 +27,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentRight="false"
                 android:layout_alignParentTop="true"
-                android:src="@android:drawable/sym_def_app_icon" />
+                android:src="@drawable/profile_image" />
 
         </LinearLayout>
 

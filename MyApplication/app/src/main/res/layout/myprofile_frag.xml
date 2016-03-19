@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pc.run.Profile_act"
-    android:background="@color/buttonA">
+    android:background="#EBF0E6">
 
     <ImageView
         android:layout_width="200dp"

@@ -2,6 +2,7 @@ package com.example.pc.run.Search;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -35,7 +36,7 @@ public class Profile_frag extends Fragment {
     private Profile profile;
     private String data;
     private final String url = "http://t-simkus.com/run/requestFriend.php";
-    private Button addFriend;
+    private FloatingActionButton addFriend;
     private String gcm;
     private String strCampus;
 
@@ -49,7 +50,7 @@ public class Profile_frag extends Fragment {
         data = getArguments().getString("data");
         View v = inflater.inflate(R.layout.activity_profile_frag, container, false);
 
-        addFriend = (Button) v.findViewById(R.id.addFavBtn);
+        addFriend = (FloatingActionButton) v.findViewById(R.id.addFavBtn);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

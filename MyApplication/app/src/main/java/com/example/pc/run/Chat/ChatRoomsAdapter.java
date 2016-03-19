@@ -67,7 +67,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
             Bitmap profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             holder.image.setImageBitmap(profilePicture);
         }else{
-            // holder.image.setBackgroundResource(R.drawable.);  /// FIXXXXXXXXXXXXX
+            holder.image.setBackgroundResource(R.drawable.profile_image);
         }
 
         holder.name.setText(chatRoom.getName());

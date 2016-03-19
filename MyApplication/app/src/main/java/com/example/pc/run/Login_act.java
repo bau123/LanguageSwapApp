@@ -79,7 +79,7 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void login(View view) {
-        login(email.getText().toString(), pass.getText().toString());
+        login(email.getText().toString().trim(), pass.getText().toString());
     }
 
     protected void login(String email, String pass) {
