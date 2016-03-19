@@ -69,4 +69,15 @@
         android:layout_marginLeft="300dp"
         android:layout_marginBottom="40dp"
         android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/reportUser"
+        android:text="Report"
+        android:onClick="reportUser"
+        android:background="@color/buttonA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/reviewButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

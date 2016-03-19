@@ -4,6 +4,13 @@
         <item>Teacher</item>
         <item>Learner</item>
     </string-array>
+    <string-array name="reportSpinner">
+        <item>Verbal abuse</item>
+        <item>Bullying</item>
+        <item>Racial Abuse</item>
+        <item>Hate Speech</item>
+        <item>Other reason</item>
+    </string-array>
     <string name="title_activity_make_call">MakeCall</string>
     <string name="title_activity_incoming_call_screen">IncomingCallScreenActivity</string>
     <string name="title_activity_set_up_call">setUpCallActivity</string>

@@ -28,10 +28,11 @@ import java.util.Map;
 
 public class Register_act extends AppCompatActivity {
 
-    private EditText pass, email, pass2;
+    public EditText pass, email, pass2;
     private String emailString = null;
     private String passwordString = null;
     private TextInputLayout inputLayoutEmail, inputLayoutPass;
+    public int Total;
     private CoordinatorLayout coordinatorLayout;
     String url = "http://t-simkus.com/run/checkEmail.php";
     int i;
@@ -68,7 +69,7 @@ public class Register_act extends AppCompatActivity {
                 if (pass.getText().toString().length() == 0) {
                     pass.setError("Enter your password..!");
                 } else {
-                    caculation();
+                    calculation();
                 }
             }
 
@@ -180,7 +181,7 @@ public class Register_act extends AppCompatActivity {
     }
 
     //Calculates the password strength
-    protected void caculation() {
+    protected void calculation() {
         String temp = pass.getText().toString();
         i = i + 1;
 
@@ -255,7 +256,7 @@ public class Register_act extends AppCompatActivity {
             numbersonly = 1;
         }
 
-        int Total = (length * 4) + ((length - uppercase) * 2)
+        Total = (length * 4) + ((length - uppercase) * 2)
                 + ((length - lowercase) * 2) + (digits * 4) + (symbols * 6)
                 + (bonus * 2) + (requirements * 2) - (lettersonly * length * 2)
                 - (numbersonly * length * 3) - (cuc * 2) - (clc * 2);

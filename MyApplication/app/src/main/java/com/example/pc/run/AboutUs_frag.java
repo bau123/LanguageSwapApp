@@ -22,7 +22,6 @@ public class AboutUs_frag extends Fragment {
 
         AboutUs.setText(R.string.about_us);
 
-
         return v;
     }
 }

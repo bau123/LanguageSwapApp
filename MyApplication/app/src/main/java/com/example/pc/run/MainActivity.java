@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
     private static Context mContext;
+    public Toast toast;public int queryResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,32 +93,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     }
 
-
-/* FIXX THIS SEACH STUFF
-    @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
-
-
-    // Sends search input into the App activity
-    private void handleIntent(Intent intent) { // FIX THIS SEARCH STUFF
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-
-            Fragment fragment =  new App_act().newInstance(query);
-
-            if (fragment != null) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_body, fragment);
-                fragmentTransaction.commit();
-
-            }
-        }
-    }*/
-
     @Override
     public void onBackPressed() {
     }
@@ -141,12 +116,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragmentTransaction.replace(R.id.container_body, frag);
                 frag.externalQuery(query);
                 fragmentTransaction.commit();
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                return true;
             }
         });
 
@@ -230,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_body, fragment);
             fragmentTransaction.commit();
-
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
@@ -250,14 +224,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     public boolean checkPlayService() {
-        int queryResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        queryResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (queryResult == ConnectionResult.SUCCESS) {
             return true;
         }
         else if (GoogleApiAvailability.getInstance().isUserResolvableError(queryResult)) {
             String errorString = GoogleApiAvailability.getInstance().getErrorString(queryResult);
             Log.d(TAG, "Problem with google play service : " + queryResult + " " + errorString);
-            Toast.makeText(getApplicationContext(), "Device is not supported. Please install google play service.", Toast.LENGTH_LONG).show();
+            toast = Toast.makeText(getApplicationContext(), "Device is not supported. Please install google play service.", Toast.LENGTH_LONG);
+            toast.show();
             finish();
         }
         return false;

@@ -116,11 +116,13 @@ public class Profile_act extends AppCompatActivity {
     public void seeReviews(View view){
         Intent intent = new Intent(Profile_act.this, ReviewList_act.class);
         intent.putExtra("email", email);
-//        Bundle b = new Bundle();
-//        b.putString("email", email);
-//        Review_learner rl = new Review_learner();
-//        Review_teacher rt = new Review_teacher();
-//        rl.setArguments(b);rt.setArguments(b);
+        startActivity(intent);
+    }
+
+    public void reportUser(View view){
+        Intent intent = new Intent(Profile_act.this, BlockUser.class);
+        intent.putExtra("myEmail", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+        intent.putExtra("userEmail", email);
         startActivity(intent);
     }
 

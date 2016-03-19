@@ -61,9 +61,9 @@ public class App_act extends Fragment {
 
     private static String TAG = "In AppAct";
 
-    private ArrayList<String> campuses = new ArrayList<>();
-    private ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
-    private ArrayList<UserLocation> arrayUsers = new ArrayList<>();
+    public ArrayList<String> campuses = new ArrayList<>();
+    public ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
+    public ArrayList<UserLocation> arrayUsers = new ArrayList<>();
     private ViewPager viewPager;
     SearchView searchEngine;
     String searchInput;
@@ -402,7 +402,7 @@ public class App_act extends Fragment {
     /*
     Get people from selected campuses
      */
-    ArrayList<String> selectedEmails = new ArrayList<>();
+    public ArrayList<String> selectedEmails = new ArrayList<>();
     public void getCampusPeople() {
         selectedEmails.clear();
         //Over every selected campus

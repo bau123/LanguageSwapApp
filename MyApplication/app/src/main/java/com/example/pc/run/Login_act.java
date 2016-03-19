@@ -38,6 +38,7 @@ public class Login_act extends AppCompatActivity {
     String mEmail;
     int counter = 0;
     private String emailSt, passSt;
+    public String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class Login_act extends AppCompatActivity {
         //Checks if the email is in the correct format
         if (GlobalMethds.validateEmail(email)) {
             System.out.println("Email is valid");
-            inputEmail.setErrorEnabled(false);
+//            inputEmail.setErrorEnabled(false);
 
             emailSt = email;
             passSt = pass;
@@ -106,7 +107,6 @@ public class Login_act extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -152,7 +152,7 @@ public class Login_act extends AppCompatActivity {
 
     private void processResult(JSONObject input) throws InterruptedException {
         System.out.println("In processResult");
-        String result = "";
+        result = "";
         try {
             result = input.getString("message");
         } catch (Exception e) {
