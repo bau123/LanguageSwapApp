@@ -1,8 +1,5 @@
 package com.example.pc.run;
 
-/**
- * Created by Joss on 14/03/2016.
- */
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,6 +39,7 @@ public class MyProfile extends Fragment {
     Bitmap bitmap;
     String email;
     Button seeReviews;
+    Button editProfile;
     String url = "http://t-simkus.com/run/pullProfile.php";
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +55,7 @@ public class MyProfile extends Fragment {
         languagesLearning = (TextView) v.findViewById(R.id.languagesLearningView);
         profileImage = (ImageView) v.findViewById(R.id.profileImageView);
         seeReviews = (Button)v.findViewById(R.id.reviewButton);
+        editProfile = (Button) v.findViewById(R.id.editProfile);
         seeReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +64,13 @@ public class MyProfile extends Fragment {
                 startActivity(intent);
             }
         });
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         getProfileInfo();
 
         return v;

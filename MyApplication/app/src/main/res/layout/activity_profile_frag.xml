@@ -23,9 +23,6 @@
             android:id="@+id/profileImageSwipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignEnd="@+id/textView"
-            android:layout_alignRight="@+id/textView"
-            android:layout_below="@+id/textView"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/profile" />
 
