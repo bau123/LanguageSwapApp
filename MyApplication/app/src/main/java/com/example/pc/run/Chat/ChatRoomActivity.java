@@ -91,9 +91,12 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    System.out.println("chat room: got new message");
+                    System.out.println("chat room activity: got new message");
                     // new push message is received
-                    handlePushNotification(intent);
+                    int type = intent.getIntExtra("type", -1);
+                    if(type == Config.PUSH_TYPE_USER){
+                        handlePushNotification(intent);
+                    }
                 }
             }
         };

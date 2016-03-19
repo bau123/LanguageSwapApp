@@ -6,28 +6,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,9 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.MultiSelectionSpinner;
 
-
-import com.example.pc.run.Gcm.RegistrationIntentService;
-import com.example.pc.run.Global.GlobalProfile;
+import com.example.pc.run.Gcm.Config;
+import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.LocationServices.CoordinatesToString;
 import com.example.pc.run.LocationServices.SelectedCampus;
 import com.example.pc.run.LocationServices.UserLocation;
@@ -46,11 +34,9 @@ import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Search.Profile_frag;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +51,6 @@ public class App_act extends Fragment {
     public ArrayList<SelectedCampus> selectedCampus = new ArrayList<>();
     public ArrayList<UserLocation> arrayUsers = new ArrayList<>();
     private ViewPager viewPager;
-    SearchView searchEngine;
     String searchInput;
     ProgressDialog progress;
     String url = "http://t-simkus.com/run/search-db.php";
@@ -73,6 +58,7 @@ public class App_act extends Fragment {
     Boolean makingRequest = false;
     private View masterView;
     private JSONObject niput;
+    private BroadcastReceiver regReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +74,38 @@ public class App_act extends Fragment {
             getAll();
         }
 
+        //Setting up broadcast receiver
+        regReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // checking for type intent filter
+                if (intent.getAction().equals(Config.REQUEST_SEARCH)) {
+                    System.out.println("Search intent found in app act");
+                    String query = intent.getStringExtra("data");
+                    System.out.println(query);
+                    externalQuery(query);
+
+                }
+            }
+        };
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(regReceiver,
+                new IntentFilter(Config.REQUEST_SEARCH));
+
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(regReceiver);
+        super.onPause();
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

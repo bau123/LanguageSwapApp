@@ -25,10 +25,6 @@ import java.util.Locale;
 
 public class MyGcmPushReceiver extends GcmListenerService {
 
-
-    //Gets the notification format
-    //then sends it into the noticationUtils calls to display notification
-
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
     private NotificationUtils notificationUtils;
 
@@ -94,7 +90,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     String currentDateandTime = sdf.format(new Date());
 
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);
+                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
                     System.out.println("Friend request: " + message);
                     showNotificationMessage(getApplicationContext(), title, message, currentDateandTime, resultIntent);
                 }
@@ -133,7 +129,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
                 } else {
                     // app is in background. show the message in notification try
-                    Intent resultIntent = new Intent(getApplicationContext(), App_act.class);  // FIXXXXXXXXXXX
+                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
                     showNotificationMessage(getApplicationContext(), title, message.getName() + " : " + message.getMessage(), message.getDateCreated(), resultIntent);
                 }
             } catch (JSONException e) {
@@ -146,7 +142,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
             // like inserting it in to SQLite
         }
     }
-
 
     /**
      * Showing notification with text only

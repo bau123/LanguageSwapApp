@@ -1,17 +1,22 @@
 package com.example.pc.run;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -56,10 +61,10 @@ public class Login_act extends AppCompatActivity {
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
 
         //If User has already logged in before it automatically logs in for them.
-        if(ApplicationSingleton.getInstance().getPrefManager().checkAccount()){
+        if (ApplicationSingleton.getInstance().getPrefManager().checkAccount()) {
             System.out.println("Account already in device");
             login(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0], ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
-        }else{
+        } else {
             System.out.println("No Account in device");
             ApplicationSingleton.getInstance().getPrefManager().clear();
         }
@@ -75,7 +80,7 @@ public class Login_act extends AppCompatActivity {
         login(email.getText().toString(), pass.getText().toString());
     }
 
-    protected void login(String email ,String pass){
+    protected void login(String email, String pass) {
         System.out.println("Logging in ");
         //Checks if there is an internet connection     //FIXXXXXXXXXXXXXXXXXX
         /*if (!GlobalMethds.isNetworkAvailable()) {
@@ -232,13 +237,13 @@ public class Login_act extends AppCompatActivity {
         ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile);
         ApplicationSingleton.getInstance().getPrefManager().storeProfileImage("photo");
 
-        if(current.getString("name") != null) {
+        if (current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
             //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
-        }else{
+        } else {
             System.out.println("UNSUCCESSFUL");
         }
     }
@@ -269,9 +274,73 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void forgottenPass(View view) {
-        Intent intent = new Intent();
-        startActivity(intent);
+
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.forgot_dialog);
+        dialog.setTitle("Forgotten Password");
+
+        // set the custom dialog components - text, image and button
+        final EditText forgotEmail = (EditText) findViewById(R.id.forgotEmail);
+
+        Button dialogSend = (Button) dialog.findViewById(R.id.forgotSendBtn);
+        // If send button is clicked.
+        dialogSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email =  forgotEmail.getText().toString().trim();
+
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email", email);
+                System.out.println("params made");
+
+                String pullUrl = "http://t-simkus.com/run/resetPassword.php";
+
+                Requests jsObjRequest = new Requests(Request.Method.POST, pullUrl, parameters, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println(response.toString());
+                            try{
+                                String result = response.getString("message");
+                                if (result.equals("success")){
+                                    Toast.makeText(getApplicationContext(), "New password has been sent. Please check your email", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }else{
+                                    dialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Sorry given account is not found ", Toast.LENGTH_LONG).show();
+                                }
+
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError response) {
+                        Log.d("Response: ", response.toString());
+                    }
+                });
+                ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
+            }
+        });
+
+        Button dialogCancel = (Button) dialog.findViewById(R.id.forgotCancelBtn);
+        // If cancel button is clicked
+        dialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
+
 
     private class MyTextWatcher implements TextWatcher {
 
