@@ -81,11 +81,11 @@ public class Profile_frag extends Fragment {
         }
 
         //Set textviews with the profile details
-        name.setText("Name:" + profile.getName());
-        languagesKnown.setText(profile.getLanguagesKnown());
-        languagesLearning.setText(profile.getLanguagesLearning());
-        interests.setText(profile.getInterests());
-        campus.setText(this.strCampus);
+        name.append(" " + profile.getName());
+        languagesKnown.append(" " + profile.getLanguagesKnown());
+        languagesLearning.append(" " + profile.getLanguagesLearning());
+        interests.append(" " + profile.getInterests());
+        campus.append(" " + this.strCampus);
 
         if(profile.getProfilePicture() != null){
             profileImage.setImageBitmap(profile.getProfilePicture());

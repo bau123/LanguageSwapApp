@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.example.pc.run.Search.Profile_frag">
@@ -37,7 +38,9 @@
         android:layout_weight="3"
         android:background="@drawable/rounded_corner">
 
-        <LinearLayout
+        <GridLayout
+            android:columnCount="1"
+            android:rowCount="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -98,7 +101,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
-        </LinearLayout>
+        </GridLayout>
 
 
         <RelativeLayout
@@ -115,7 +118,8 @@
                 android:onClick="addFav"
                 android:src="@drawable/plus_icon"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                app:elevation="0dp"/>
 
         </RelativeLayout>
 
