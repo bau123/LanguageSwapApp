@@ -6,9 +6,12 @@
     <color name="colorAccent">#FF80AB</color>
 
     <color name="list_divider">#dedede</color>
-    <color name="bg_bubble_self">#E1E1E1</color>
+
+    <color name="bg_bubble_self">#D3F2B3</color>
+    <color name="bg_bubble_other">#F2D8B3</color>
+
     <color name="buttonA">#FF80AB</color>
-    <color name="MAIN">#3faee0</color>
+    <color name="MAIN">#EDEDED</color>
     <color name="WHITE">#ffffff</color>
     <color name="BLACK">#000000</color>
 
