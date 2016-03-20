@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/buttonA">
+    android:background="#F5F5F5">
 
     <ImageView
         android:src="@android:drawable/sym_def_app_icon"
