@@ -85,7 +85,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         parameters.put("name", name.getText().toString());
         parameters.put("languagesKnown", languagesKnown);
         parameters.put("languagesLearning", languagesLearning);
-        parameters.put("interests", interests.getText().toString());
+        parameters.put("interests", interests.getText().toString().trim());
 
         if(GlobalBitmap.bitmap != null){
             String photo = getStringImage(GlobalBitmap.bitmap);

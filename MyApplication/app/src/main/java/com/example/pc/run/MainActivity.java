@@ -40,11 +40,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private FragmentDrawer drawerFragment;
     private BroadcastReceiver regReceiver;
     private static Context mContext;
-<<<<<<< HEAD
     public Toast toast;public int queryResult;
-=======
     private boolean inSearch;
->>>>>>> 2c7ae84a6152ee2bc039f38ca81b624be3ebd126
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,15 +113,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-<<<<<<< HEAD
-                App_act frag = new App_act();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_body, frag);
-                frag.externalQuery(query);
-                fragmentTransaction.commit();
-                return true;
-=======
 
                 if (inSearch) {
                     //Register gcm
@@ -144,12 +132,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     fragmentTransaction.commit();
                     return false;
                 }
->>>>>>> 2c7ae84a6152ee2bc039f38ca81b624be3ebd126
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return true;
+                return false;
             }
         });
 

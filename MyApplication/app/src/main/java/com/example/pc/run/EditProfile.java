@@ -93,7 +93,7 @@ public class EditProfile extends AppCompatActivity {
         Log.d("Languages Learning:", current.getString("languagesLearning"));
         Log.d("BITMAP STRING:", current.getString("photo"));
 
-        interests.setText("Interests: " + current.getString("interests"));
+        interests.setText(current.getString("interests"));
 
         //Fill in the spinners with current values
         String known = current.getString("languagesKnown");

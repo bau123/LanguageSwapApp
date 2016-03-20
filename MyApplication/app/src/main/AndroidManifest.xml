@@ -75,8 +75,8 @@
         <activity android:name=".Profile_act" />
         <activity android:name=".CreateReview_act" />
         <activity android:name=".ReviewList_act" />
-        <activity android:name=".BlockUser">
-        </activity>
+        <activity android:name=".BlockUser"></activity>
+        <activity android:name=".EditProfile"></activity>
     </application>
 
 </manifest>
