@@ -13,12 +13,13 @@
         android:background="@color/colorPrimary">
 
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@android:drawable/sym_def_app_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/profile_filled"
             android:scaleType="fitCenter"
             android:id="@+id/nav_image"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp" />
 
     </RelativeLayout>
 

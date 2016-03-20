@@ -68,6 +68,23 @@
     <string name="forgot_send">Send</string>
 
 
+    <!-- Profile frags item labels  -->
+    <string name="profileFrag_Name">Name: </string>
+    <string name="profileFrag_Known">Languages Known: </string>
+    <string name="profileFrag_Learning">Languages Learning: </string>
+    <string name="profileFrag_Interests">Interests: </string>
+    <string name="profileFrag_Campus">Campus: </string>
+    <string name="profileFrag_send">Send Invite</string>
+    <string name="profileFrag_Reviews">Reviews</string>
+    <string name="profileFrag_Edit">Edit profile</string>
+
+    <!-- Change password dialog item labels  -->
+    <string name="change_old">Cuurent Password: </string>
+    <string name="change_new1">New password: </string>
+    <string name="change_new2">Re-enter password: </string>
+    <string name="change_change">Confirm</string>
+
+
     <string name="code_conduct">Code of Conduct \n\n
 
 The safety of our users is very important to us. There are steps that everyone can follow to ensure their safety while using Helpr App. Please take a few minutes to read these tips.\n\n

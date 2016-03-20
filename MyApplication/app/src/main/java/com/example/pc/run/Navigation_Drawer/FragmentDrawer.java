@@ -95,7 +95,6 @@ public class FragmentDrawer extends Fragment {
             byte[] decodedByte = Base64.decode(image, 0);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             navImage.setImageBitmap(bitmap);
-
         }
 
         return layout;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.adilexample.profilerun.MainActivity"
-    android:background="@color/buttonA"
+    android:background="#3faee0"
     android:orientation="horizontal"
     android:weightSum='4'>
 

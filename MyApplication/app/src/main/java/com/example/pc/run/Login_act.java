@@ -1,7 +1,10 @@
 package com.example.pc.run;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -77,19 +80,19 @@ public class Login_act extends AppCompatActivity {
     }
 
     public void login(View view) {
-        login(email.getText().toString(), pass.getText().toString());
+        login(email.getText().toString().trim(), pass.getText().toString());
     }
 
     protected void login(String email, String pass) {
         System.out.println("Logging in ");
-        //Checks if there is an internet connection     //FIXXXXXXXXXXXXXXXXXX
-        /*if (!GlobalMethds.isNetworkAvailable()) {
+        if (!checkNetwork()) {
             Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
 
             snackbar.show();
             return;
-        }*/
+        }
+
         //Checks if the email is in the correct format
         if (GlobalMethds.validateEmail(email)) {
             System.out.println("Email is valid");
@@ -339,6 +342,23 @@ public class Login_act extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private boolean checkNetwork() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
 

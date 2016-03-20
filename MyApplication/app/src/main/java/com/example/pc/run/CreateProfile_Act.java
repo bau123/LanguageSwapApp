@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.MultiSelectionSpinner;
 import com.example.pc.run.Global.GlobalBitmap;
+import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -52,25 +52,11 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         profileImage = (ImageView)findViewById(R.id.profileImage);
         langKnownSpinner = (MultiSelectionSpinner)findViewById(R.id.langKnownSpinner);
         langLearningSpinner = (MultiSelectionSpinner)findViewById(R.id.langLearningSpinner);
-        langKnownSpinner.setListener(this);langLearningSpinner.setListener(this);
+        langKnownSpinner.setListener(this);
+        langLearningSpinner.setListener(this);
 
-        String[] array = {"Akan", "Assamese", "Azerbaijani", "Belarusian", "Bengali",
-                "Berbe", "Bhojpuri", "Bulgarian", "Bengali", "Burmese",
-                "Cebuano", "Chattisgarh", "Chitagonian", "Czech", "Dekhni",
-                "Dsindhi", "Dutch", "Egyptian Arabic", "English", "French",
-                "Fula", "Fulfulde", "Gan Chinese", "German", "Greek",
-                "Gugarato", "Haitan Creole", "Hakka Chinese", "Haryanvi", "Hausa",
-                "Hebrew", "Hiligaynon", "Hindi", "Hungarian", "Igbo",
-                "Ilokano", "Italian", "Japanese", "Jin Yu Chinese", "Kannada",
-                "Kazah", "Khme", "Kinyarwanda", "Korean", "Kurdish",
-                "Levantine Arabic", "Madurese", "Magadhi", "Maghrebi Arabic", "Malagasy",
-                "Marwari", "Arabic", "Panjabi", "Persian", "Polish",
-                "Portuguese", "Romanian", "Russian", "Saraiki", "Swedish",
-                "Shinhala", "Somali", "Spanish", "Sudanese", "Tamil",
-                "Thai", "Turkish", "Ukrainian", "Urdu", "Uzbek",
-                "Vietnamese", "Wu Chinese", "Xiang Chinese", "Zulu", "Yoruba",};
-
-        langKnownSpinner.setItems(array);langLearningSpinner.setItems(array);
+        langKnownSpinner.setItems(GlobalMethds.LanguageArray);
+        langLearningSpinner.setItems(GlobalMethds.LanguageArray);
 
         email = getIntent().getStringExtra("email");
         pass = getIntent().getStringExtra("pass");
