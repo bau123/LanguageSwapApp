@@ -68,7 +68,7 @@
         android:layout_height='wrap_content' >
 
         <Button
-            android:id='@+id/forgotSendBtn'
+            android:id='@+id/change_confirm'
             android:layout_width='120dp'
             android:layout_height='wrap_content'
             android:text='@string/change_change'
@@ -78,7 +78,7 @@
             android:layout_marginLeft="10dp" />
 
         <Button
-            android:id='@+id/forgotCancelBtn'
+            android:id='@+id/change_cancel'
             android:layout_width='120dp'
             android:layout_height='wrap_content'
             android:layout_alignParentTop="false"

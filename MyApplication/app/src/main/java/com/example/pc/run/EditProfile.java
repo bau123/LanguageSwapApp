@@ -170,21 +170,24 @@ public class EditProfile extends AppCompatActivity {
 
         // custom dialog
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.forgot_dialog);
-        dialog.setTitle("Forgotten Password");
+        dialog.setContentView(R.layout.change_pass_dialog);
+        dialog.setTitle("Change Password");
 
-        // set the custom dialog components - text, image and button
-        final EditText forgotEmail = (EditText) findViewById(R.id.forgotEmail);
+        final EditText currentPassEdit = (EditText) findViewById(R.id.oldpassEdit);
+        final EditText newPassEdit1 = (EditText) findViewById(R.id.newPassEdit1);
+        final EditText newPassEdit2 = (EditText) findViewById(R.id.newPassEdit2);
 
-        Button dialogSend = (Button) dialog.findViewById(R.id.forgotSendBtn);
+
+
+        Button dialogSend = (Button) dialog.findViewById(R.id.change_confirm);
         // If send button is clicked.
         dialogSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String oldPass = forgotEmail.getText().toString();
-                String newPass1 = forgotEmail.getText().toString();
-                String newPass2 = forgotEmail.getText().toString();
+                String oldPass = currentPassEdit.getText().toString();
+                String newPass1 = newPassEdit1.getText().toString();
+                String newPass2 = newPassEdit2.getText().toString();
 
 
                 if(!oldPass.equals(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1])){
@@ -241,7 +244,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        Button dialogCancel = (Button) dialog.findViewById(R.id.forgotCancelBtn);
+        Button dialogCancel = (Button) dialog.findViewById(R.id.change_cancel);
         // If cancel button is clicked
         dialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override
