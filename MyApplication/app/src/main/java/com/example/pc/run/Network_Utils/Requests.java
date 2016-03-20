@@ -1,11 +1,13 @@
 package com.example.pc.run.Network_Utils;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.json.JSONException;
@@ -29,6 +31,11 @@ public class Requests extends Request<JSONObject> {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
+    }
+
+    @Override
+    public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
+        return super.setRetryPolicy(retryPolicy);
     }
 
     @Override

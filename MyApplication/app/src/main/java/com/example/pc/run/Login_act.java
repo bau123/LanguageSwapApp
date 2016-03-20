@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -122,6 +123,9 @@ public class Login_act extends AppCompatActivity {
                     Log.d("Response: ", response.toString());
                 }
             });
+            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
         } else {
             inputEmail.setError(getString(R.string.log_email_error));
@@ -155,6 +159,9 @@ public class Login_act extends AppCompatActivity {
                 Log.d("Response: ", response.toString());
             }
         });
+        jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
@@ -220,6 +227,9 @@ public class Login_act extends AppCompatActivity {
                 Log.d("Response: ", response.toString());
             }
         });
+        jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
@@ -291,7 +301,7 @@ public class Login_act extends AppCompatActivity {
         dialogSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email =  forgotEmail.getText().toString().trim();
+                String email = forgotEmail.getText().toString().trim();
 
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("email", email);
@@ -304,17 +314,17 @@ public class Login_act extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             System.out.println(response.toString());
-                            try{
+                            try {
                                 String result = response.getString("message");
-                                if (result.equals("success")){
+                                if (result.equals("success")) {
                                     Toast.makeText(getApplicationContext(), "New password has been sent. Please check your email", Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
-                                }else{
+                                } else {
                                     dialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Sorry given account is not found ", Toast.LENGTH_LONG).show();
                                 }
 
-                            }catch (JSONException e){
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } catch (Exception e) {
@@ -328,6 +338,9 @@ public class Login_act extends AppCompatActivity {
                         Log.d("Response: ", response.toString());
                     }
                 });
+                jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
             }
         });
