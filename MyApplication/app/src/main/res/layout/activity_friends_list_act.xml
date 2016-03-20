@@ -1,42 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/buttonA"
-        android:orientation="vertical"
-        android:weightSum="3">
+    <ListView
+        android:id="@+id/friendsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorPrimary"
+        android:dividerHeight="2px"
+        android:scrollIndicators="right"
+        android:smoothScrollbar="false"
+        android:scrollbars="vertical"/>
 
+</LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Friends List"
-            android:textColor="@color/WHITE"
-            android:textSize="25dp" />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scrollIndicators="right">
-
-            <ListView
-                android:id="@+id/friendsList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@color/colorPrimary"
-                android:dividerHeight="2px" />
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-</ScrollView>

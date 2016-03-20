@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import com.example.pc.run.Adapters.FriendListTab;
 
 
-/**
- * Created by Joss on 14/03/2016.
- */
 public class Friends extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
