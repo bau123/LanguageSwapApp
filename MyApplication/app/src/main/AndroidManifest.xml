@@ -54,9 +54,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity"
-                    android:theme="@style/AppTheme.NoActionBar" />
-            android:theme ="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        android:theme ="@style/AppTheme.NoActionBar" />
         <activity android:name=".Login_act">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,11 +71,11 @@
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".UploadImage_act" />
         <activity android:name=".Profile_act" />
-        <activity android:name=".CreateReview_act"></activity>
-        <activity android:name=".ReviewList_act"></activity>
+        <activity android:name=".CreateReview_act" />
+        <activity android:name=".ReviewList_act" />
+        <activity android:name=".EditProfile"></activity>
     </application>
 
 </manifest>

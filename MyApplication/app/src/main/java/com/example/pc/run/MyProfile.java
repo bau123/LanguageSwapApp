@@ -67,7 +67,8 @@ public class MyProfile extends Fragment {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
             }
         });
 
