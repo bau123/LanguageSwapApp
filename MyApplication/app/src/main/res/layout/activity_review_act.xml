@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="#ffffff"
+        android:orientation="vertical"
         android:padding="30dp"
         android:weightSum="28">
 
@@ -23,84 +23,84 @@
             android:layout_weight="6">
 
             <TextView
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Review"
-                android:textColor="@color/BLACK"
-                android:id="@+id/textView4"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="30dp"/>
+                android:text="Review"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/BLACK"
+                android:textSize="30dp" />
 
         </RelativeLayout>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rowCount="2"
+            android:layout_weight="5"
             android:columnCount="2"
-            android:layout_weight="5">
+            android:rowCount="2">
 
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Review type:"
-                android:textColor="@color/BLACK"
-                android:id="@+id/textView5"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/textView4"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView4"
+                android:layout_marginTop="15dp"
+                android:text="Review type:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/BLACK" />
 
             <Spinner
+                android:id="@+id/typeSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/typeSpinner"
-                android:entries="@array/typeSpinner"
                 android:layout_alignBottom="@+id/textView5"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/textView5"
-                android:layout_alignTop="@+id/textView5"
                 android:layout_alignLeft="@+id/relativeLayout"
-                android:layout_alignStart="@+id/relativeLayout" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/relativeLayout"
+                android:layout_alignTop="@+id/textView5"
+                android:layout_toEndOf="@+id/textView5"
+                android:entries="@array/typeSpinner" />
 
             <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Select rating:"
-                android:textSize="20dp"
-                android:id="@+id/textView6"
-                android:textColor="@color/BLACK"
                 android:layout_alignBottom="@+id/relativeLayout"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:text="Select rating:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/BLACK"
+                android:textSize="20dp" />
 
         </GridLayout>
 
         <RatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ratingBar"
             android:numStars="4"
-            android:stepSize="1.0"
-            android:onClick="getRating" />
+            android:onClick="getRating"
+            android:stepSize="1.0" />
 
         <TextView
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Leave a comment (optional):"
-            android:id="@+id/textView7"
-            android:textColor="@color/BLACK"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/textView6"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="10dp"
+            android:text="Leave a comment (optional):"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/BLACK" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,17 +109,17 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/commentEdit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/boxforsubmit"
-                android:id="@+id/commentEdit"
-                android:textColor="@color/BLACK"
-                android:layout_below="@+id/textView7"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView7"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/boxforsubmit"
+                android:textColor="@color/BLACK" />
 
         </LinearLayout>
 
@@ -129,16 +129,16 @@
             android:layout_weight="6">
 
             <Button
+                android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Submit"
-                android:background="@drawable/imageforreview"
-                android:onClick="submitReview"
-                android:id="@+id/submitButton"
                 android:layout_below="@+id/commentEdit"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_gravity="center_horizontal" />
+                android:background="@drawable/imageforreview"
+                android:onClick="submitReview"
+                android:text="Submit" />
 
         </RelativeLayout>
 
@@ -148,17 +148,19 @@
             android:layout_weight="6">
 
             <Button
+                android:id="@+id/ReportMain"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/repbutton"
-                android:id="@+id/ReportMain"
                 android:onClick="reportButton" />
 
         </RelativeLayout>
 
+
+    </LinearLayout>
 
 
 </LinearLayout>
