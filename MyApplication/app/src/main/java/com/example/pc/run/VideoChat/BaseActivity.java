@@ -9,26 +9,26 @@ import android.os.IBinder;
 
 public abstract class BaseActivity extends Activity implements ServiceConnection {
 
-    private CallAPIServices.SinchServiceInterface mSinchServiceInterface;
+    private VideoService.SinchServiceInterface mSinchServiceInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getApplicationContext().bindService(new Intent(this, CallAPIServices.class), this,
+        getApplicationContext().bindService(new Intent(this, VideoService.class), this,
                 BIND_AUTO_CREATE);
     }
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        if (CallAPIServices.class.getName().equals(componentName.getClassName())) {
-            mSinchServiceInterface = (CallAPIServices.SinchServiceInterface) iBinder;
+        if (VideoService.class.getName().equals(componentName.getClassName())) {
+            mSinchServiceInterface = (VideoService.SinchServiceInterface) iBinder;
             onServiceConnected();
         }
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
-        if (CallAPIServices.class.getName().equals(componentName.getClassName())) {
+        if (VideoService.class.getName().equals(componentName.getClassName())) {
             mSinchServiceInterface = null;
             onServiceDisconnected();
         }
@@ -42,7 +42,7 @@ public abstract class BaseActivity extends Activity implements ServiceConnection
         // for subclasses
     }
 
-    protected CallAPIServices.SinchServiceInterface getSinchServiceInterface() {
+    protected VideoService.SinchServiceInterface getSinchServiceInterface() {
         return mSinchServiceInterface;
     }
 

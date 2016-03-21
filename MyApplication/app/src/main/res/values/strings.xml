@@ -51,5 +51,8 @@
     <string name="reg_repass">Renter Password</string>
     <string name="reg_match">Password does not match!</string>
     <string name="reg_pass_error">Password does not match</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

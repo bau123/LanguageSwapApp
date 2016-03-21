@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:text=""
-            android:textColor="#000000"
+            android:textColor="#1d87da"
             android:textSize="28sp"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Ringing"
-            android:textColor="#000000"
+            android:textColor="#1d87da"
             android:textSize="16sp"
             android:textAllCaps="true"
             />
@@ -44,7 +44,7 @@
             android:layout_marginTop="4dp"
             android:text="00:00"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000"
+            android:textColor="#1d87da"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -54,7 +54,7 @@
         android:layout_height="0dp"
         android:padding="0dip"
         android:layout_weight="3"
-        android:background="#FB4A45" android:orientation="vertical">
+        android:orientation="vertical">
 
         <LinearLayout android:id="@+id/remoteVideo" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_alignParentLeft="true"
@@ -63,14 +63,21 @@
         <RelativeLayout android:id="@+id/localVideo" android:layout_width="150dp"
             android:layout_alignParentRight="true" android:layout_height="200dp"
             android:layout_alignParentTop="true" />
-    </RelativeLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idCallName"
+            android:layout_below="@+id/remoteVideo"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottomPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#527BBD"
+        android:background="#cae1ff"
         android:layout_weight="1">
         <Button
             android:id="@+id/hangupButton"
@@ -78,8 +85,7 @@
             android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="#527BBD"/>
+            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 

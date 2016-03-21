@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.pc.run.R;
 import com.sinch.android.rtc.AudioController;
 import com.sinch.android.rtc.PushPair;
+import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallEndCause;
 import com.sinch.android.rtc.calling.CallState;
 import com.sinch.android.rtc.video.VideoCallListener;
@@ -23,50 +24,23 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CallScreenActivity extends BaseActivity {
+public class CallScreenActivity extends BaseActivity{
 
     static final String TAG = CallScreenActivity.class.getSimpleName();
     static final String CALL_START_TIME = "callStartTime";
     static final String ADDED_LISTENER = "addedListener";
 
-    private AudioPlayer mAudioPlayer;
     private Timer mTimer;
     private UpdateCallDurationTask mDurationTask;
 
     private String mCallId;
     private long mCallStart = 0;
     private boolean mAddedListener = false;
+    private boolean mVideoViewsAdded = false;
 
     private TextView mCallDuration;
     private TextView mCallState;
     private TextView mCallerName;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call_screen);
-
-
-        mAudioPlayer = new AudioPlayer(this);
-        mCallDuration = (TextView) findViewById(R.id.callDuration);
-        mCallerName = (TextView) findViewById(R.id.remoteUser);
-        mCallState = (TextView) findViewById(R.id.callState);
-        Button endCallButton = (Button) findViewById(R.id.hangupButton);
-
-
-        endCallButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                endCall();
-            }
-        });
-
-        mCallId = getIntent().getStringExtra(CallAPIServices.CALL_ID);
-        if (savedInstanceState == null) {
-            mCallStart = System.currentTimeMillis();
-        }
-    }
 
     private class UpdateCallDurationTask extends TimerTask {
 
@@ -86,14 +60,39 @@ public class CallScreenActivity extends BaseActivity {
         savedInstanceState.putLong(CALL_START_TIME, mCallStart);
         savedInstanceState.putBoolean(ADDED_LISTENER, mAddedListener);
     }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         mCallStart = savedInstanceState.getLong(CALL_START_TIME);
         mAddedListener = savedInstanceState.getBoolean(ADDED_LISTENER);
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_call_screen);
+
+        mCallDuration = (TextView) findViewById(R.id.callDuration);
+        mCallerName = (TextView) findViewById(R.id.remoteUser);
+        mCallState = (TextView) findViewById(R.id.callState);
+        Button endCallButton = (Button) findViewById(R.id.hangupButton);
+
+        endCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endCall();
+            }
+        });
+
+        mCallId = getIntent().getStringExtra(VideoService.CALL_ID);
+        if (savedInstanceState == null) {
+            mCallStart = System.currentTimeMillis();
+        }
+    }
+
     @Override
     public void onServiceConnected() {
-        com.sinch.android.rtc.calling.Call call = getSinchServiceInterface().getCall(mCallId);
+        Call call = getSinchServiceInterface().getCall(mCallId);
         if (call != null) {
             if (!mAddedListener) {
                 call.addCallListener(new SinchCallListener());
@@ -106,12 +105,13 @@ public class CallScreenActivity extends BaseActivity {
 
         updateUI();
     }
+
     private void updateUI() {
         if (getSinchServiceInterface() == null) {
             return; // early
         }
 
-        com.sinch.android.rtc.calling.Call call = getSinchServiceInterface().getCall(mCallId);
+        Call call = getSinchServiceInterface().getCall(mCallId);
         if (call != null) {
             mCallerName.setText(call.getRemoteUserId());
             mCallState.setText(call.getState().toString());
@@ -120,26 +120,7 @@ public class CallScreenActivity extends BaseActivity {
             }
         }
     }
-    private void updateCallDuration() {
-        if (mCallStart > 0) {
-            mCallDuration.setText(formatTimespan(System.currentTimeMillis() - mCallStart));
-        }
-    }
-    private String formatTimespan(long timespan) {
-        long totalSeconds = timespan / 1000;
-        long minutes = totalSeconds / 60;
-        long seconds = totalSeconds % 60;
-        return String.format(Locale.US, "%02d:%02d", minutes, seconds);
-    }
 
-    private void endCall() {
-        mAudioPlayer.stopProgressTone();
-        com.sinch.android.rtc.calling.Call call = getSinchServiceInterface().getCall(mCallId);
-        if (call != null) {
-            call.hangup();
-        }
-        finish();
-    }
     @Override
     public void onStop() {
         super.onStop();
@@ -147,6 +128,7 @@ public class CallScreenActivity extends BaseActivity {
         mTimer.cancel();
         removeVideoViews();
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -154,6 +136,54 @@ public class CallScreenActivity extends BaseActivity {
         mDurationTask = new UpdateCallDurationTask();
         mTimer.schedule(mDurationTask, 0, 500);
         updateUI();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // User should exit activity by ending call, not by going back.
+    }
+
+    private void endCall() {
+        Call call = getSinchServiceInterface().getCall(mCallId);
+        if (call != null) {
+            call.hangup();
+        }
+        finish();
+    }
+
+    private String formatTimespan(long timespan) {
+        long totalSeconds = timespan / 1000;
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
+        return String.format(Locale.US, "%02d:%02d", minutes, seconds);
+    }
+
+    private void updateCallDuration() {
+        if (mCallStart > 0) {
+            mCallDuration.setText(formatTimespan(System.currentTimeMillis() - mCallStart));
+        }
+    }
+
+    private void addVideoViews() {
+        if (mVideoViewsAdded || getSinchServiceInterface() == null) {
+            return; //early
+        }
+
+        final VideoController vc = getSinchServiceInterface().getVideoController();
+        if (vc != null) {
+            RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
+            localView.addView(vc.getLocalView());
+            localView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vc.toggleCaptureDevicePosition();
+                }
+            });
+
+            LinearLayout view = (LinearLayout) findViewById(R.id.remoteVideo);
+            view.addView(vc.getRemoteView());
+            mVideoViewsAdded = true;
+        }
     }
 
     private void removeVideoViews() {
@@ -168,17 +198,16 @@ public class CallScreenActivity extends BaseActivity {
 
             RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
             localView.removeView(vc.getLocalView());
+            mVideoViewsAdded = false;
         }
     }
-
 
     private class SinchCallListener implements VideoCallListener {
 
         @Override
-        public void onCallEnded(com.sinch.android.rtc.calling.Call call) {
+        public void onCallEnded(Call call) {
             CallEndCause cause = call.getDetails().getEndCause();
             Log.d(TAG, "Call ended. Reason: " + cause.toString());
-            mAudioPlayer.stopProgressTone();
             setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
             String endMsg = "Call ended: " + call.getDetails().toString();
             Toast.makeText(CallScreenActivity.this, endMsg, Toast.LENGTH_LONG).show();
@@ -187,9 +216,8 @@ public class CallScreenActivity extends BaseActivity {
         }
 
         @Override
-        public void onCallEstablished(com.sinch.android.rtc.calling.Call call) {
+        public void onCallEstablished(Call call) {
             Log.d(TAG, "Call established");
-            mAudioPlayer.stopProgressTone();
             mCallState.setText(call.getState().toString());
             setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
             AudioController audioController = getSinchServiceInterface().getAudioController();
@@ -199,40 +227,20 @@ public class CallScreenActivity extends BaseActivity {
         }
 
         @Override
-        public void onCallProgressing(com.sinch.android.rtc.calling.Call call) {
+        public void onCallProgressing(Call call) {
             Log.d(TAG, "Call progressing");
-            mAudioPlayer.playProgressTone();
         }
 
         @Override
-        public void onShouldSendPushNotification(com.sinch.android.rtc.calling.Call call, List<PushPair> pushPairs) {
+        public void onShouldSendPushNotification(Call call, List<PushPair> pushPairs) {
             // Send a push through your push provider here, e.g. GCM
         }
 
         @Override
-        public void onVideoTrackAdded(com.sinch.android.rtc.calling.Call call) {
+        public void onVideoTrackAdded(Call call) {
             Log.d(TAG, "Video track added");
-            VideoController vc = getSinchServiceInterface().getVideoController();
             addVideoViews();
         }
     }
 
-    /*
-    creates the views wich will display the captured video from the caller and receiver
-     */
-    private void addVideoViews() {
-        final VideoController vc = getSinchServiceInterface().getVideoController();
-        if (vc != null) {
-            RelativeLayout localView = (RelativeLayout) findViewById(R.id.localVideo);
-            localView.addView(vc.getLocalView());
-            localView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    vc.toggleCaptureDevicePosition();
-                }
-            });
-            LinearLayout view = (LinearLayout) findViewById(R.id.remoteVideo);
-            view.addView(vc.getRemoteView());
-        }
-    }
 }

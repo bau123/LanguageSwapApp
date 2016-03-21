@@ -27,6 +27,8 @@ import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
+import com.example.pc.run.VideoChat.BaseActivity;
+import com.example.pc.run.VideoChat.VideoService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,14 +39,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Login_act extends AppCompatActivity {
+public class Login_act extends BaseActivity {
 
     private EditText email, pass;
     private TextInputLayout inputEmail, inputPassword;
     private CoordinatorLayout coordinatorLayout;
     String url = "http://t-simkus.com/run/checkPass.php";
 
-    String mEmail;
     int counter = 0;
 
     @Override
@@ -97,7 +98,7 @@ public class Login_act extends AppCompatActivity {
             parameters.put("email", email);
             parameters.put("password", pass);
 
-            mEmail = email;
+
             Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -120,6 +121,7 @@ public class Login_act extends AppCompatActivity {
             inputEmail.setError(getString(R.string.log_email_error));
             requestFocus(inputEmail);
         }
+
     }
 
 
@@ -130,7 +132,6 @@ public class Login_act extends AppCompatActivity {
         parameters.put("password", "magokas1");
         System.out.println("params made");
 
-        mEmail = email.getText().toString();
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -163,6 +164,15 @@ public class Login_act extends AppCompatActivity {
             ApplicationSingleton.getInstance().getPrefManager().storeAuthentication(email.getText().toString(), pass.getText().toString());
             //Pulls the profile info of the user logging in
             pullProfile();
+
+            /*
+            VideoService videoService = new VideoService();
+            videoService.startVideo(email.getText().toString());
+
+            */
+            getSinchServiceInterface().startClient(email.getText().toString());
+
+
             //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

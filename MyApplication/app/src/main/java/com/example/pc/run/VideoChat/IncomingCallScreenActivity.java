@@ -1,8 +1,11 @@
 package com.example.pc.run.VideoChat;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,23 +20,39 @@ import java.util.List;
 
 public class IncomingCallScreenActivity extends BaseActivity {
 
-    static final String TAG = IncomingCallScreenActivity.class.getSimpleName();
     private String mCallId;
-    private AudioPlayer mAudioPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incoming_call_screen);
 
-        Button answer = (Button) findViewById(R.id.answerButton);
+        Button answer = (Button) findViewById(R.id.acceptBtn);
         answer.setOnClickListener(mClickListener);
-        Button decline = (Button) findViewById(R.id.declineButton);
+        Button decline = (Button) findViewById(R.id.declineBtn);
         decline.setOnClickListener(mClickListener);
 
-        mAudioPlayer = new AudioPlayer(this);
-        mAudioPlayer.playRingtone();
-        mCallId = getIntent().getStringExtra(CallAPIServices.CALL_ID);
+        mCallId = getIntent().getStringExtra(VideoService.CALL_ID);
+    }
+
+    private void answerClicked() {
+        Call call = getSinchServiceInterface().getCall(mCallId);
+        if (call != null) {
+            call.answer();
+            Intent intent = new Intent(this, CallScreenActivity.class);
+            intent.putExtra(VideoService.CALL_ID, mCallId);
+            startActivity(intent);
+        } else {
+            finish();
+        }
+    }
+
+    private void declineClicked() {
+        Call call = getSinchServiceInterface().getCall(mCallId);
+        if (call != null) {
+            call.hangup();
+        }
+        finish();
     }
 
     @Override
@@ -45,51 +64,41 @@ public class IncomingCallScreenActivity extends BaseActivity {
             remoteUser.setText(call.getRemoteUserId());
 
         } else {
-            Log.e(TAG, "Started with invalid callId, aborting");
+            Log.e("IncomingCallScreen", "Started with invalid callId, aborting");
             finish();
         }
     }
 
-    private void answerClicked() {
-        mAudioPlayer.stopRingtone();
-        Call call = getSinchServiceInterface().getCall(mCallId);
-        if (call != null) {
-            call.answer();
-            Intent intent = new Intent(this, CallScreenActivity.class);
-            intent.putExtra(CallAPIServices.CALL_ID, mCallId);
-            startActivity(intent);
-        } else {
-            finish();
+    private View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.acceptBtn:
+                    answerClicked();
+                    break;
+                case R.id.declineBtn:
+                    declineClicked();
+                    break;
+            }
         }
-    }
-
-    private void declineClicked() {
-        mAudioPlayer.stopRingtone();
-        Call call = getSinchServiceInterface().getCall(mCallId);
-        if (call != null) {
-            call.hangup();
-        }
-        finish();
-    }
-
+    };
     private class SinchCallListener implements VideoCallListener {
 
         @Override
         public void onCallEnded(Call call) {
             CallEndCause cause = call.getDetails().getEndCause();
-            Log.d(TAG, "Call ended, cause: " + cause.toString());
-            mAudioPlayer.stopRingtone();
+            Log.d("IncomingCallScreen", "Call ended, cause: " + cause.toString());
             finish();
         }
 
         @Override
         public void onCallEstablished(Call call) {
-            Log.d(TAG, "Call established");
+            Log.d("IncomingCallScreen", "Call established");
         }
 
         @Override
         public void onCallProgressing(Call call) {
-            Log.d(TAG, "Call progressing");
+            Log.d("IncomingCallScreen", "Call progressing");
         }
 
         @Override
@@ -102,18 +111,4 @@ public class IncomingCallScreenActivity extends BaseActivity {
             // Display some kind of icon showing it's a video call
         }
     }
-
-    private View.OnClickListener mClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.answerButton:
-                    answerClicked();
-                    break;
-                case R.id.declineButton:
-                    declineClicked();
-                    break;
-            }
-        }
-    };
 }

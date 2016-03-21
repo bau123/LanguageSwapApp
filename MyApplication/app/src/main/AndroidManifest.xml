@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pc.run">
+    package="com.example.pc.run" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -23,11 +23,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/MyMaterialTheme" >
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -37,7 +37,7 @@
 
         <service
             android:name=".Gcm.MyGcmPushReceiver"
-            android:exported="false">
+            android:exported="false" >
             android:name=".Gcm.RegistrationIntentService"
             android:exported="false">
             <intent-filter>
@@ -46,7 +46,7 @@
         </service>
         <service
             android:name=".Gcm.RegistrationIntentService"
-            android:exported="false">
+            android:exported="false" >
             android:name=".Gcm.TokenListener"
             android:exported="false">
             <intent-filter>
@@ -54,8 +54,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".Login_act">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login_act" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,16 +70,24 @@
             android:theme="@style/MyMaterialTheme.NoActionBar" />
         <activity android:name=".UploadImage_act" />
         <activity android:name=".Profile_act" />
-        <activity android:name=".CreateReview_act">
+        <activity android:name=".CreateReview_act" >
         </activity>
-        <activity android:name=".ReviewList_act">
+        <activity android:name=".ReviewList_act" >
         </activity>
         <activity android:name=".VideoChat.CallScreenActivity" />
-        <activity android:name=".VideoChat.IncomingCallScreenActivity"></activity>
+        <activity
+            android:name=".VideoChat.IncomingCallScreenActivity"
+            android:label="@string/title_activity_incoming_call_screen" />
         <activity
             android:name=".VideoChat.setUpCallActivity"
             android:label="@string/title_activity_set_up_call"
             android:theme="@style/MyMaterialTheme.NoActionBar" />
+
+        <service
+            android:name=".VideoChat.VideoService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
