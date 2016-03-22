@@ -44,7 +44,6 @@ public class VideoService extends Service{
         videoClient.setSupportCalling(true);
         videoClient.startListeningOnActiveConnection();
 
-        videoClient.getCallClient().addCallClientListener(new SinchCallClientListener());
         videoClient.addSinchClientListener(new SinchClientListener() {
             @Override
             public void onClientStarted(SinchClient sinchClient) {
@@ -71,6 +70,8 @@ public class VideoService extends Service{
 
             }
         });
+        videoClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+        Log.d("test", "client name is:  " + username);
         videoClient.start();
 
     }
@@ -90,14 +91,9 @@ public class VideoService extends Service{
             return videoClient.getCallClient().callUserVideo(userId);
         }
 
-        public String getUserName() {
-            return usernameA;
-        }
-
         public void startClient(String userName) {
             startVideo(userName);
         }
-
         public void stopClient() {
             endCall();
         }

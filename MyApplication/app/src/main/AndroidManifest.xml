@@ -76,12 +76,9 @@
         </activity>
         <activity android:name=".VideoChat.CallScreenActivity" />
         <activity
-            android:name=".VideoChat.IncomingCallScreenActivity"
-            android:label="@string/title_activity_incoming_call_screen" />
+            android:name=".VideoChat.IncomingCallScreenActivity"/>
         <activity
-            android:name=".VideoChat.setUpCallActivity"
-            android:label="@string/title_activity_set_up_call"
-            android:theme="@style/MyMaterialTheme.NoActionBar" />
+            android:name=".VideoChat.StartCall" />
 
         <service
             android:name=".VideoChat.VideoService"

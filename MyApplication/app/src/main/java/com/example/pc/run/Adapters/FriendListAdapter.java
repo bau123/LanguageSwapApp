@@ -126,10 +126,11 @@ public class FriendListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-                Log.d("CHECKING EMAIL", myEmail);
                 Intent intent = new Intent(context, StartCall.class);
-                intent.putExtra("userEmail", profiles.get(position).getEmail());
-                //context.startActivity(intent);
+                intent.putExtra("callerEmail", myEmail);
+                intent.putExtra("receiverEmail", profiles.get(position).getEmail());
+                Log.d("CHECKING Receiver Email", profiles.get(position).getEmail());
+                context.startActivity(intent);
             }
         });
 

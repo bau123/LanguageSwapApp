@@ -165,13 +165,7 @@ public class Login_act extends BaseActivity {
             //Pulls the profile info of the user logging in
             pullProfile();
 
-            /*
-            VideoService videoService = new VideoService();
-            videoService.startVideo(email.getText().toString());
-
-            */
             getSinchServiceInterface().startClient(email.getText().toString());
-
 
             //Starts the main activity
             Intent intent = new Intent(this, MainActivity.class);
