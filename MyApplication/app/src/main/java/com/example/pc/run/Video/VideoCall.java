@@ -37,8 +37,6 @@ import java.util.TimerTask;
 public class VideoCall extends BaseActivity {
 
     private Button endCallButton;
-    private TextView usersName;
-    private String otherUser;
     private String callId;
 
     static final String TAG = "In Video call";
@@ -91,7 +89,7 @@ public class VideoCall extends BaseActivity {
         mCallDuration = (TextView) findViewById(R.id.callDuration);
         mCallerName = (TextView) findViewById(R.id.remoteUser);
         mCallState = (TextView) findViewById(R.id.callState);
-        Button endCallButton = (Button) findViewById(R.id.hangupButton);
+        endCallButton = (Button) findViewById(R.id.hangupButton);
 
         endCallButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -168,6 +166,7 @@ public class VideoCall extends BaseActivity {
         if (call != null) {
             call.hangup();
         }
+
         finish();
     }
 
@@ -199,7 +198,7 @@ public class VideoCall extends BaseActivity {
                     vc.toggleCaptureDevicePosition();
                 }
             });
-
+            System.out.println("Video controller added to view!!");
             LinearLayout view = (LinearLayout) findViewById(R.id.remoteVideo);
             view.addView(vc.getRemoteView());
             mVideoViewsAdded = true;
@@ -221,6 +220,8 @@ public class VideoCall extends BaseActivity {
             mVideoViewsAdded = false;
         }
     }
+
+
 
     private class SinchCallListener implements VideoCallListener {
 
