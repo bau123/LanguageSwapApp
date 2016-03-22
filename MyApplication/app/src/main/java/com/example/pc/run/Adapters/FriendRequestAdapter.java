@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
 import com.example.pc.run.RequestModification;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import java.util.ArrayList;
 
@@ -72,7 +72,7 @@ public class FriendRequestAdapter extends BaseAdapter{
 
                 Toast.makeText(context, "Friend Request Accepted!", Toast.LENGTH_LONG).show();
                 RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
-                        GlobalProfile.profileEmail, "true");
+                        ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0], "true");
                 context.finish();
                 context.startActivity(context.getIntent());
             }
@@ -84,7 +84,7 @@ public class FriendRequestAdapter extends BaseAdapter{
 
                 Toast.makeText(context, "Friend Request Rejected!", Toast.LENGTH_LONG).show();
                 RequestModification requestMod = new RequestModification(profiles.get(position).getEmail(),
-                        GlobalProfile.profileEmail, "false");
+                        ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0], "false");
                 context.finish();
                 context.startActivity(context.getIntent());
             }

@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.example.pc.run.FriendTabs.Review_learner;
 import com.example.pc.run.FriendTabs.Review_teacher;
 import com.example.pc.run.Global.GlobalBitmap;
-import com.example.pc.run.Global.GlobalProfile;
+
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;

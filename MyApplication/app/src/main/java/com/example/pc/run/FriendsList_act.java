@@ -10,7 +10,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.FriendListAdapter;
 import com.example.pc.run.Adapters.FriendRequestAdapter;
-import com.example.pc.run.Global.GlobalProfile;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
@@ -50,8 +49,7 @@ public class FriendsList_act extends AppCompatActivity{
     public void getFriendRequests(){
         System.out.println("Making params");
         Map<String, String> parameters = new HashMap<String, String>();
-        Log.d("EMAIL:", GlobalProfile.profileEmail);
-        parameters.put("email", GlobalProfile.profileEmail);
+        parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         System.out.println("params made");
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
