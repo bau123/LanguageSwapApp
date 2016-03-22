@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pc.run.MainActivity;
 import com.example.pc.run.R;
 import com.sinch.android.rtc.AudioController;
 import com.sinch.android.rtc.PushPair;
@@ -167,7 +168,8 @@ public class VideoCall extends BaseActivity {
             call.hangup();
         }
 
-        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private String formatTimespan(long timespan) {

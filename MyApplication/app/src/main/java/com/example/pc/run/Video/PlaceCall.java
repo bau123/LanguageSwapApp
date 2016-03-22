@@ -4,6 +4,7 @@ package com.example.pc.run.Video;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.pc.run.MainActivity;
 import com.sinch.android.rtc.calling.Call;
 
 public class PlaceCall extends  BaseActivity{
@@ -21,6 +22,11 @@ public class PlaceCall extends  BaseActivity{
     @Override
     protected void onServiceConnected() {
        callUser();
+    }
+
+    public void getBack(){
+        Intent back = new Intent(this, MainActivity.class);
+        startActivity(back);
     }
 
     public void callUser() {
