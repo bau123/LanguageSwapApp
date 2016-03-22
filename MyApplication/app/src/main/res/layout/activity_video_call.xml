@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="@drawable/callbg"
+        android:background="#77cdaa"
         android:orientation="vertical"
         android:padding="0dip">
 
@@ -73,7 +73,8 @@
         android:id="@+id/bottomPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#77cdaa">
 
         <Button
             android:id="@+id/hangupButton"

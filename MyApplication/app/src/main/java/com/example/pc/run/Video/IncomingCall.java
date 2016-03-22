@@ -19,9 +19,17 @@ import com.example.pc.run.R;
 import java.util.List;
 
 public class IncomingCall extends BaseActivity {
-
-    static final String TAG = "In IncomingCall";
+    /*
+    Gets the name of the class
+     */
+    static final String TAG = IncomingCall.class.getSimpleName();
+    /*
+    Name of the caller ID
+     */
     private String mCallId;
+    /*
+    Gets the AudioPlayer Class
+     */
     private AudioPlayer mAudioPlayer;
 
 
@@ -39,7 +47,9 @@ public class IncomingCall extends BaseActivity {
         mAudioPlayer.playRingtone();
         mCallId = getIntent().getStringExtra(SinchService.CALL_ID);
     }
-
+    /*
+    Checks if the videoC client has connection and display who is calling
+     */
     @Override
     protected void onServiceConnected() {
         Call call = getSinchServiceInterface().getCall(mCallId);
@@ -53,7 +63,9 @@ public class IncomingCall extends BaseActivity {
             finish();
         }
     }
-
+    /*
+    Stops the audio for the ringtone and starts the VideoCall class
+     */
     private void answerClicked() {
         mAudioPlayer.stopRingtone();
         Call call = getSinchServiceInterface().getCall(mCallId);
@@ -66,7 +78,9 @@ public class IncomingCall extends BaseActivity {
             finish();
         }
     }
-
+    /*
+    Stops the audio for the ringtone and ends the call
+     */
     private void declineClicked() {
         mAudioPlayer.stopRingtone();
         Call call = getSinchServiceInterface().getCall(mCallId);
@@ -77,7 +91,9 @@ public class IncomingCall extends BaseActivity {
     }
 
     private class SinchCallListener implements VideoCallListener {
-
+        /*
+        Stops the ringtone and displays information of why the call ended
+         */
         @Override
         public void onCallEnded(Call call) {
             CallEndCause cause = call.getDetails().getEndCause();
@@ -85,12 +101,16 @@ public class IncomingCall extends BaseActivity {
             mAudioPlayer.stopRingtone();
             finish();
         }
-
+        /*
+        Logs a message when the call is established
+         */
         @Override
         public void onCallEstablished(Call call) {
             Log.d(TAG, "Call established");
         }
-
+        /*
+        Logs a message of ongoing calls
+         */
         @Override
         public void onCallProgressing(Call call) {
             Log.d(TAG, "Call progressing");

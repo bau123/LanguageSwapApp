@@ -20,16 +20,35 @@ import android.util.Log;
 
 public class SinchService extends Service{
 
-
+    /*
+    Video API Key
+     */
     private static final String APP_KEY = "e772e953-e32f-472d-b2bf-857fe305bd6c";
+    /*
+    Video API code
+     */
     private static final String APP_SECRET = "mFTbOmXcZUC9UFkgHhHRGw==";
+    /*
+    Video API Enviroment code
+     */
     private static final String ENVIRONMENT = "sandbox.sinch.com";
+    /*
 
+    */
     public static final String CALL_ID = "CALL_ID";
+    /*
+    Gets the name of the class
+    */
     static final String TAG = SinchService.class.getSimpleName();
 
     private SinchServiceInterface mSinchServiceInterface = new SinchServiceInterface();
+    /*
+    Video client
+    */
     private SinchClient mSinchClient;
+    /*
+    Client name
+    */
     private String mUserId;
 
     private StartFailedListener mListener;
@@ -39,6 +58,9 @@ public class SinchService extends Service{
         super.onCreate();
     }
 
+    /*
+    Destroys the videoClient
+     */
     @Override
     public void onDestroy() {
         if (mSinchClient != null && mSinchClient.isStarted()) {
@@ -46,7 +68,9 @@ public class SinchService extends Service{
         }
         super.onDestroy();
     }
-
+    /*
+    Creates a video client and enables features of the phone
+     */
     private void start(String userName) {
         if (mSinchClient == null) {
             mUserId = userName;
@@ -63,14 +87,18 @@ public class SinchService extends Service{
             mSinchClient.start();
         }
     }
-
+    /*
+    Stops the videoClient
+     */
     private void stop() {
         if (mSinchClient != null) {
             mSinchClient.terminate();
             mSinchClient = null;
         }
     }
-
+    /*
+    Checks if the video client has started
+     */
     private boolean isStarted() {
         return (mSinchClient != null && mSinchClient.isStarted());
     }
@@ -85,19 +113,27 @@ public class SinchService extends Service{
         public Call callUserVideo(String userId) {
             return mSinchClient.getCallClient().callUserVideo(userId);
         }
-
+        /*
+        Returns the users name
+         */
         public String getUserName() {
             return mUserId;
         }
-
+        /*
+        Checks if the video client has started
+         */
         public boolean isStarted() {
             return SinchService.this.isStarted();
         }
-
+        /*
+        Runs the Start method
+         */
         public void startClient(String userName) {
             start(userName);
         }
-
+        /*
+        Runs the stop method
+         */
         public void stopClient() {
             stop();
         }
@@ -105,18 +141,24 @@ public class SinchService extends Service{
         public void setStartListener(StartFailedListener listener) {
             mListener = listener;
         }
-
+        /*
+        get rid of this?
+         */
         public Call getCall(String callId) {
             return mSinchClient.getCallClient().getCall(callId);
         }
-
+        /*
+        Returns controllers for the video
+         */
         public VideoController getVideoController() {
             if (!isStarted()) {
                 return null;
             }
             return mSinchClient.getVideoController();
         }
-
+        /*
+        Returns the controllers for audio
+         */
         public AudioController getAudioController() {
             if (!isStarted()) {
                 return null;
@@ -133,7 +175,9 @@ public class SinchService extends Service{
     }
 
     private class MySinchClientListener implements SinchClientListener {
-
+        /*
+        If the client is unable to start, it will terminate the current cliet and set it to null
+         */
         @Override
         public void onClientFailed(SinchClient client, SinchError error) {
             if (mListener != null) {
@@ -142,7 +186,9 @@ public class SinchService extends Service{
             mSinchClient.terminate();
             mSinchClient = null;
         }
-
+        /*
+        States that the client is working
+         */
         @Override
         public void onClientStarted(SinchClient client) {
             Log.d(TAG, "SinchClient started");
@@ -150,7 +196,9 @@ public class SinchService extends Service{
                 mListener.onStarted();
             }
         }
-
+        /*
+        States if the video client has stopped
+         */
         @Override
         public void onClientStopped(SinchClient client) {
             Log.d(TAG, "SinchClient stopped");
@@ -182,9 +230,13 @@ public class SinchService extends Service{
                                                       ClientRegistration clientRegistration) {
         }
     }
-
+    /*
+    Implements the video API callclient listener
+     */
     private class SinchCallClientListener implements CallClientListener {
-
+        /*
+        Starts the incomecall class if taking in a call
+         */
         @Override
         public void onIncomingCall(CallClient callClient, Call call) {
             Log.d(TAG, "Incoming call");

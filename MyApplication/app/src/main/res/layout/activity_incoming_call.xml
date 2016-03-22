@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="5"
-    android:background="#ffffffff">
+    android:background="#77cdaa">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,12 +57,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accept"
+            android:background="@drawable/AcceptCall"
             />
         <Button
             android:id="@+id/declineButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Decline"
+            android:background="@drawable/DeclineCall"
             android:layout_toRightOf="@+id/answerButton"/>
 
     </RelativeLayout>

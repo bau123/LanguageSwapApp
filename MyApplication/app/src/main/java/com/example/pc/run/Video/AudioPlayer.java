@@ -52,7 +52,9 @@ public class AudioPlayer {
                 break;
         }
     }
-
+    /*
+    Stops the MediaPlayers ringtone sound
+     */
     public void stopRingtone() {
         if (mPlayer != null) {
             mPlayer.stop();
@@ -60,7 +62,9 @@ public class AudioPlayer {
             mPlayer = null;
         }
     }
-
+    /*
+    Starts the MediaPlayer sound
+     */
     public void playProgressTone() {
         stopProgressTone();
         try {
@@ -70,7 +74,9 @@ public class AudioPlayer {
             Log.e(LOG_TAG, "Could not play progress tone", e);
         }
     }
-
+    /*
+    Stops the MediaPlayers for progress sound
+     */
     public void stopProgressTone() {
         if (mProgressTone != null) {
             mProgressTone.stop();
