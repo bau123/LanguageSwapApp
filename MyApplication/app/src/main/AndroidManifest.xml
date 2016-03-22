@@ -53,6 +53,7 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+        <service android:name=".Video.SinchService" />
 
         <activity
             android:name=".MainActivity"
@@ -75,8 +76,11 @@
         <activity android:name=".Profile_act" />
         <activity android:name=".CreateReview_act" />
         <activity android:name=".ReviewList_act" />
-        <activity android:name=".BlockUser"></activity>
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".BlockUser" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".Video.VideoCall" />
+        <activity android:name=".Video.PlaceCall"/>
+        <activity android:name=".Video.IncomingCall"></activity>
     </application>
 
 </manifest>

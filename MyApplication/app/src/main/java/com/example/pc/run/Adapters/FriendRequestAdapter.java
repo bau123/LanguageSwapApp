@@ -17,9 +17,7 @@ import com.example.pc.run.RequestModification;
 
 import java.util.ArrayList;
 
-/**
- * Created by Joss on 29/02/2016.
- */
+
 public class FriendRequestAdapter extends BaseAdapter{
     private Activity context;
 

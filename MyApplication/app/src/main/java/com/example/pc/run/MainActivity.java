@@ -29,11 +29,19 @@ import com.example.pc.run.Gcm.NotificationUtils;
 import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Navigation_Drawer.FragmentDrawer;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
+import com.example.pc.run.Video.BaseActivity;
+import com.example.pc.run.Video.SinchService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.sinch.android.rtc.ClientRegistration;
+import com.sinch.android.rtc.Sinch;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.SinchClientListener;
+import com.sinch.android.rtc.SinchError;
+import com.sinch.android.rtc.calling.Call;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private static String TAG = "In MainAct";
     private Toolbar mToolbar;
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static Context mContext;
     public Toast toast;public int queryResult;
     private boolean inSearch;
+    public static SinchClient sinchClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             intent.putExtra("key", "register");
             startService(intent);
         }
-
     }
 
     @Override
@@ -285,5 +293,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         intent.putExtra("chat_room_id", roomId);
         mContext.startActivity(intent);
     }
+
 
 }

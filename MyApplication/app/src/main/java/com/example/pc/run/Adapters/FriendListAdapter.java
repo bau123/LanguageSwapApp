@@ -16,11 +16,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Chat.ChatRoomActivity;
 import com.example.pc.run.CreateReview_act;
+import com.example.pc.run.MainActivity;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.Profile_act;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
+import com.example.pc.run.Video.PlaceCall;
+import com.example.pc.run.Video.VideoCall;
 
 import org.json.JSONObject;
 
@@ -65,8 +68,8 @@ public class FriendListAdapter extends BaseAdapter {
             viewHolder.profileImg = (ImageView) convertView.findViewById(R.id.frProfileImage);
             viewHolder.name = (TextView) convertView.findViewById(R.id.frNameText);
             viewHolder.chatButton = (Button) convertView.findViewById(R.id.frMessageButton);
-            viewHolder.callButton = (Button)convertView.findViewById(R.id.frCallButton);
-            viewHolder.reviewButton = (Button)convertView.findViewById(R.id.reviewButton);
+            viewHolder.callButton = (Button) convertView.findViewById(R.id.frCallButton);
+            viewHolder.reviewButton = (Button) convertView.findViewById(R.id.reviewButton);
 
             convertView.setTag(viewHolder);
         } else {
@@ -121,17 +124,17 @@ public class FriendListAdapter extends BaseAdapter {
             }
         });
 
-//        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
-//                Log.d("CHECKING EMAIL", myEmail);
-//                Intent intent = new Intent(context, setUpCallActivity.class);
-//                intent.putExtra("myEmail", myEmail);
-//                intent.putExtra("userEmail", profiles.get(position).getEmail());
-//                context.startActivity(intent);
-//            }
-//        });
+        viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String myEmail = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
+                Log.d("CHECKING EMAIL", myEmail);
+
+                Intent intent = new Intent(context, PlaceCall.class);
+                intent.putExtra("userEmail", profiles.get(position).getEmail());
+                context.startActivity(intent);
+            }
+        });
 
         viewHolder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,15 +151,15 @@ public class FriendListAdapter extends BaseAdapter {
 
     //Start new chat activity
     private void processResult(JSONObject input, int position) throws InterruptedException {
-        String result ="";
-        try{
+        String result = "";
+        try {
             result = input.getString("message");
             Intent intent = new Intent(this.context, ChatRoomActivity.class);
             intent.putExtra("email", profiles.get(position).getEmail());
             intent.putExtra("chat_room_id", result);
             this.context.startActivity(intent);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

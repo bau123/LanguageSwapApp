@@ -1,8 +1,5 @@
 package com.example.pc.run.Adapters;
 
-/**
- * Created by Joss on 08/03/2016.
- */
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

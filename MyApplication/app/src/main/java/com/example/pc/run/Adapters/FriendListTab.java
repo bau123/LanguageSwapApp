@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.pc.run.FriendTabs.FriendReq_act;
 import com.example.pc.run.FriendTabs.FriendsList_act;
 
-/**
- * Created by Joss on 14/03/2016.
- */
+
 public class FriendListTab extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;

@@ -9,17 +9,13 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -30,6 +26,9 @@ import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
+import com.example.pc.run.Video.BaseActivity;
+import com.example.pc.run.Video.SinchService;
+import com.sinch.android.rtc.SinchError;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +37,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Login_act extends AppCompatActivity {
+public class Login_act extends BaseActivity implements SinchService.StartFailedListener {
 
     private EditText email, pass;
     private TextInputLayout inputEmail, inputPassword;
@@ -253,14 +252,42 @@ public class Login_act extends AppCompatActivity {
         if (current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
             //Starts the main activity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            if (!getSinchServiceInterface().isStarted()) {
+                getSinchServiceInterface().startClient(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
+            }else{
+                openMainAct();
+            }
+
 
         } else {
             System.out.println("UNSUCCESSFUL");
         }
     }
 
+    @Override
+    public void onStarted() {
+        openMainAct();
+    }
+
+    @Override
+    protected void onServiceConnected() {
+        getSinchServiceInterface().setStartListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStartFailed(SinchError error) {
+        Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    public void openMainAct(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     public void lockAccount(String email) {
         String lockUrl = "http://t-simkus.com/run/lockAccount.php";
