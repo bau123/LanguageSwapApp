@@ -23,8 +23,7 @@
 
     <Button
         android:textSize="15dp"
-        android:background="@drawable/new_message"
-        android:textColor="@color/WHITE"
+        android:background="@drawable/ic_action_smsxx"
         android:id="@+id/frMessageButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -36,8 +35,7 @@
 
     <Button
         android:textSize="15dp"
-        android:background="@drawable/new_call"
-        android:textColor="@color/WHITE"
+        android:background="@drawable/ic_action_phone_outgoingxx"
         android:id="@+id/frCallButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -50,8 +48,7 @@
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/thumbs_up_new"
-        android:textColor="@color/WHITE"
+        android:background="@drawable/ic_action_star_5xx"
         android:id="@+id/reviewButton"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/frMessageButton"
