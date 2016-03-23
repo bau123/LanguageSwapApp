@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,6 +36,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +50,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     private EditText email, pass;
     private TextInputLayout inputEmail, inputPassword;
     private CoordinatorLayout coordinatorLayout;
+    private CheckBox checkBox;
     String url = "http://t-simkus.com/run/checkPass.php";
     String mEmail;
     int counter = 0;
@@ -60,7 +69,9 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         inputPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         email = (EditText) findViewById(R.id.email_log);
         pass = (EditText) findViewById(R.id.pass_log);
-
+        checkBox = (CheckBox) findViewById(R.id.idRememberName);
+        checkBox.setChecked(true);
+        email.setText(cachedEmail());
         email.addTextChangedListener(new MyTextWatcher(inputEmail));
 
         //If User has already logged in before it automatically logs in for them.
@@ -80,6 +91,32 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     }
 
     public void login(View view) {
+        if (checkBox.isChecked()){
+            String FILENAME = "username";
+            String emailName;
+            FileOutputStream fos;
+            try {
+                emailName = email.getText().toString();
+                fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write(emailName.getBytes());
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (checkBox.isChecked() == false){
+            String FILENAME = "username";
+            String emailName;
+            FileOutputStream fos;
+            try {
+                emailName = " ";
+                fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write(emailName.getBytes());
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         login(email.getText().toString().trim(), pass.getText().toString());
     }
 
@@ -247,13 +284,12 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
 
         ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile);
         ApplicationSingleton.getInstance().getPrefManager().storeProfileImage("photo");
-
         if (current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
             //Starts the main activity
             if (!getSinchServiceInterface().isStarted()) {
                 getSinchServiceInterface().startClient(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-            }else{
+            } else {
                 openMainAct();
             }
 
@@ -283,7 +319,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
     }
 
-    public void openMainAct(){
+    public void openMainAct() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -427,4 +463,18 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         }
     }
 
+
+    private String cachedEmail() {
+            StringBuffer text = new StringBuffer();
+            try {
+                BufferedReader bReader = new BufferedReader(new InputStreamReader(openFileInput("username")));
+                String line;
+                while ((line = bReader.readLine()) != null) {
+                    text.append(line + "\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return text.toString();
+    }
 }
