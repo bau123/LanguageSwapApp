@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.example.pc.run.Search.Profile_frag">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
@@ -16,17 +16,18 @@
         android:layout_weight="7"
         android:baselineAligned="false"
         android:clickable="false"
-        android:contextClickable="false"
-        android:orientation="horizontal">
+        android:contextClickable="false">
 
-        <ImageView
+        <com.example.pc.run.RoundedImageView
             android:id="@+id/profileImageSwipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/profile" />
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/profile_filled"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -36,11 +37,11 @@
         android:background="@drawable/rounded_corner">
 
         <GridLayout
-            android:columnCount="1"
-            android:rowCount="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:columnCount="1"
+            android:orientation="vertical"
+            android:rowCount="5">
 
             <TextView
                 android:id="@+id/nameField"
@@ -104,19 +105,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/addFavBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:onClick="addFav"
                 android:src="@drawable/plus_icon"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                app:elevation="0dp"/>
+                app:elevation="0dp" />
 
         </RelativeLayout>
 

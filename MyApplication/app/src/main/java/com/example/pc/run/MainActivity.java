@@ -157,11 +157,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         if (id == R.id.action_Code) {
             CodeOfConduct_frag frag = new CodeOfConduct_frag();
             FragmentManager fragmentManager = getSupportFragmentManager();
