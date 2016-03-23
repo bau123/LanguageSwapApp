@@ -147,6 +147,7 @@ public class Register_act extends AppCompatActivity {
         } else if (output.equals("notFound")) {
             Intent intent = new Intent(this, CreateProfile_Act.class);
             intent.putExtra("email", emailString);
+            Log.d("password:", passwordString);
             intent.putExtra("pass", passwordString);
             startActivity(intent);
         }

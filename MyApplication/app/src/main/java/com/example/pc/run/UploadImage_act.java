@@ -20,7 +20,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
     private Button buttonReturn;
     private ImageView imageView;
     private Bitmap bitmap;
-    String email;
+    String email, pass;
 
     private int request = 1;
 
@@ -30,6 +30,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_upload_image_act);
 
         email = getIntent().getStringExtra("email");
+        pass = getIntent().getStringExtra("pass");
 
         chooseImage = (Button) findViewById(R.id.buttonChoose);
         buttonReturn = (Button) findViewById(R.id.buttonReturn);
@@ -76,6 +77,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent(UploadImage_act.this, CreateProfile_Act.class);
             GlobalBitmap.bitmap = bitmap;
             intent.putExtra("email", email);
+            intent.putExtra("pass", pass);
             startActivity(intent);
         }
     }

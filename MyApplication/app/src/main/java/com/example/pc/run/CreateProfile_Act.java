@@ -59,7 +59,6 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         langLearningSpinner.setItems(GlobalMethds.LanguageArray);
 
         email = getIntent().getStringExtra("email");
-        Log.d("CHECKING EMAIL", email);
         pass = getIntent().getStringExtra("pass");
 
         if(GlobalBitmap.bitmap != null){
@@ -81,6 +80,13 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         languagesLearning = langLearningSpinner.getSelectedItemsAsString();
         System.out.println("CHECKING FUNCTIONALITY LANGUAGES " + langKnownSpinner.getSelectedItemsAsString() + " \n" + langLearningSpinner.getSelectedItemsAsString());
 
+        Log.d("PASSWORD:", pass);
+        Log.d("email:", email);
+        Log.d("name:", name.getText().toString());
+        Log.d("languagesKnown:", languagesKnown);
+        Log.d("languagesLearning:", languagesLearning);
+        Log.d("interests:", interests.getText().toString().trim());
+
         parameters.put("password", pass);
         parameters.put("email", email);
         parameters.put("name", name.getText().toString());
@@ -88,10 +94,8 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         parameters.put("languagesLearning", languagesLearning);
         parameters.put("interests", interests.getText().toString().trim());
 
-        String photo = "";
         if(GlobalBitmap.bitmap != null){
-            photo = getStringImage(GlobalBitmap.bitmap);
-            Log.d("USING PHOTO:", photo);
+            String photo = getStringImage(GlobalBitmap.bitmap);
             parameters.put("photo", photo);
         }
 
@@ -100,7 +104,6 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
 
         profile = new Profile(name.getText().toString(), languagesKnown,
                 languagesLearning, interests.getText().toString());
-        profile.setProfilePicture(photo);
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
@@ -142,6 +145,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
     public void uploadImage(View v){
         Intent intent = new Intent(this, UploadImage_act.class);
         intent.putExtra("email", email);
+        intent.putExtra("pass", pass);
         startActivity(intent);
     }
 
