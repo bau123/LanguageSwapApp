@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     private static Context mContext;
     public Toast toast;public int queryResult;
     private boolean inSearch;
-    public static SinchClient sinchClient;
+    //public static SinchClient sinchClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,9 +179,13 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
             fragmentTransaction.commit();
             return true;
         }
-
+        /*
+        Clears the page, ends the current signed in user for the video and takes the user
+        back to the login page
+         */
         if (id == R.id.action_signOut) {
             ApplicationSingleton.getInstance().getPrefManager().clear();
+            getSinchServiceInterface().stopClient();
             Intent intent = new Intent(this, Login_act.class);
             startActivity(intent);
         }
