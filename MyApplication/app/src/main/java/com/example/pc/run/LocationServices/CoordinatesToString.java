@@ -1,6 +1,7 @@
 package com.example.pc.run.LocationServices;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.pc.run.Network_Utils.ParseJSON;
 
@@ -17,6 +18,7 @@ public class CoordinatesToString  {
     public String campus = "Not at any campus";
     public double latitude = 0,longitude = 0;
     public GPSTracker gps;
+    public static int counter = 0;
 
     public CoordinatesToString(Context context) {
         this.context = context;
@@ -69,7 +71,12 @@ public class CoordinatesToString  {
         }
 
         else {
-            gps.showSettingsAlert();
+            Log.d("counter", Integer.toString(counter));
+            if(counter == 0) {
+                gps.showSettingsAlert();
+                counter++;
+            }
+
         }
 
         /*

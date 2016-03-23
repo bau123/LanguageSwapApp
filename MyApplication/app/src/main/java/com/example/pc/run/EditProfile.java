@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.MultiSelectionSpinner;
 import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
+import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText interests;
     private String email;
     private CoordinatorLayout coordinatorLayout;
+    private List<String> langKnownList,langLearnList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,16 @@ public class EditProfile extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                 .coordinatorLayout);
 
+
         langKnown = (MultiSelectionSpinner) findViewById(R.id.langKnownSpinner);
+
+        //Init spinner
+        buildSpinnerKnown(langKnown);
         langLearn = (MultiSelectionSpinner) findViewById(R.id.langLearningSpinner);
+        //Init spinner2
+        buildSpinnerLearn(langLearn);
+
+
         interests = (EditText) findViewById(R.id.editInterests);
 
         langKnown.setItems(GlobalMethds.LanguageArray);
@@ -56,6 +67,36 @@ public class EditProfile extends AppCompatActivity {
         email = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
         getProfileInfo();
     }
+
+    public void buildSpinnerKnown(MultiSelectionSpinner spinner) {
+        spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
+            @Override
+            public void selectedIndices(List<Integer> indices) {
+                //
+            }
+
+            @Override
+            public void selectedStrings(List<String> strings) {
+                langKnownList = strings;
+            }
+        });
+    }
+
+    public void buildSpinnerLearn(MultiSelectionSpinner spinner) {
+        spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
+            @Override
+            public void selectedIndices(List<Integer> indices) {
+                //
+            }
+
+            @Override
+            public void selectedStrings(List<String> strings) {
+                langLearnList = strings;
+            }
+        });
+    }
+
+
 
     public void getProfileInfo() {
         String url = "http://t-simkus.com/run/pullProfile.php";
@@ -128,29 +169,32 @@ public class EditProfile extends AppCompatActivity {
     public void saveProfile(View view) {
         String url = "http://t-simkus.com/run/editProfile.php";
 
-        String languagesKnown = langKnown.getSelectedItemsAsString();
-        String languagesLearning = langLearn.getSelectedItemsAsString();
-
         Map<String, String> parameters = new HashMap<>();
         parameters.put("email", email);
         parameters.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
         parameters.put("interests", interests.getText().toString());
-        parameters.put("known", languagesKnown);
-        parameters.put("learning", languagesLearning);
+        parameters.put("languagesKnown", langKnownList.toString());
+        parameters.put("languagesLearning", langLearnList.toString());
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     System.out.println(response.toString());
+                    try {
+                        String result = response.getString("message");
+                        if (result.equals("success")) {
+                            Log.d("Response: ", response.toString());
+                            Toast.makeText(getApplicationContext(), "Your profile has been updated", Toast.LENGTH_LONG).show();
+                            finish();
 
-                    Snackbar snackbar = Snackbar
-                            .make(coordinatorLayout, "No internet connection", Snackbar.LENGTH_LONG);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Sorry given account is not found ", Toast.LENGTH_LONG).show();
+                        }
 
-                    snackbar.show();
-                    finish();
-                    return;
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -173,9 +217,9 @@ public class EditProfile extends AppCompatActivity {
         dialog.setContentView(R.layout.change_pass_dialog);
         dialog.setTitle("Change Password");
 
-        final EditText currentPassEdit = (EditText) findViewById(R.id.oldpassEdit);
-        final EditText newPassEdit1 = (EditText) findViewById(R.id.newPassEdit1);
-        final EditText newPassEdit2 = (EditText) findViewById(R.id.newPassEdit2);
+        final EditText currentPassEdit = (EditText) dialog.findViewById(R.id.oldpassEdit);
+        final EditText newPassEdit1 = (EditText) dialog.findViewById(R.id.newPassEdit1);
+        final EditText newPassEdit2 = (EditText) dialog.findViewById(R.id.newPassEdit2);
 
 
 
@@ -203,8 +247,8 @@ public class EditProfile extends AppCompatActivity {
                 else {
                     Map<String, String> parameters = new HashMap<String, String>();
                     parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
-                    parameters.put("password", email);
-                    parameters.put("new", email);
+                    parameters.put("password", oldPass);
+                    parameters.put("newPass", newPass2);
                     System.out.println("params made");
 
                     String pullUrl = "http://t-simkus.com/run/editAuth.php";
@@ -217,7 +261,8 @@ public class EditProfile extends AppCompatActivity {
                                 try {
                                     String result = response.getString("message");
                                     if (result.equals("success")) {
-                                        Toast.makeText(getApplicationContext(), "New password has been sent. Please check your email", Toast.LENGTH_LONG).show();
+                                        Log.d("Response: ", response.toString());
+                                        Toast.makeText(getApplicationContext(), "New password has been set.", Toast.LENGTH_LONG).show();
                                         dialog.dismiss();
                                     } else {
                                         dialog.dismiss();

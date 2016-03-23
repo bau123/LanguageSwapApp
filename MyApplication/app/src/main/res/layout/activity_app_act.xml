@@ -28,7 +28,7 @@
             android:text="Search By Campus"
             android:id="@+id/textView3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/BLACK"
             android:layout_gravity="center_horizontal" />
 
         <com.example.pc.run.Adapters.MultiSelectionSpinner

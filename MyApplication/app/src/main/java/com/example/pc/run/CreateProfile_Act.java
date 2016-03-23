@@ -59,6 +59,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         langLearningSpinner.setItems(GlobalMethds.LanguageArray);
 
         email = getIntent().getStringExtra("email");
+        Log.d("CHECKING EMAIL", email);
         pass = getIntent().getStringExtra("pass");
 
         if(GlobalBitmap.bitmap != null){
@@ -87,8 +88,10 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         parameters.put("languagesLearning", languagesLearning);
         parameters.put("interests", interests.getText().toString().trim());
 
+        String photo = "";
         if(GlobalBitmap.bitmap != null){
-            String photo = getStringImage(GlobalBitmap.bitmap);
+            photo = getStringImage(GlobalBitmap.bitmap);
+            Log.d("USING PHOTO:", photo);
             parameters.put("photo", photo);
         }
 
@@ -97,6 +100,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
 
         profile = new Profile(name.getText().toString(), languagesKnown,
                 languagesLearning, interests.getText().toString());
+        profile.setProfilePicture(photo);
 
         Requests jsObjRequest = new Requests(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override

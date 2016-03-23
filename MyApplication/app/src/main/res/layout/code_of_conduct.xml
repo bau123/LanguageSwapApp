@@ -10,6 +10,8 @@
         android:background="@color/colorPrimary">
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:textSize="15dp"
             android:textColor="@color/WHITE"
             android:layout_width="fill_parent"

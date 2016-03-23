@@ -379,6 +379,9 @@ public class App_act extends Fragment {
                 JSONObject j = (JSONObject) r.get(i);
                 String e = j.get("email").toString();
                 String c = j.get("campus").toString();
+                if(c == null) {
+                    c = "Not at any campus";
+                }
                 this.arrayUsers.add(new UserLocation(e,c));
             }
         }

@@ -13,6 +13,10 @@ import junit.framework.Assert;
 public class LoginActivityTest extends ActivityInstrumentationTestCase2<Login_act> {
     private Solo solo;
 
+    /*
+        TODO: Please delete instance of application on phone before executing test!
+     */
+
     public LoginActivityTest() {
         super(Login_act.class);
 
@@ -32,31 +36,68 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<Login_ac
     }
 
     public void testLogin() throws Exception {
-        solo.enterText((EditText) solo.getView(R.id.email_log), "test.test@kcl.ac.uk");
-        solo.enterText((EditText) solo.getView(R.id.pass_log), "test1234");
+        solo.unlockScreen();
+        //Login
+        solo.enterText((EditText) solo.getView(R.id.email_log), "tautvilas.simkus@kcl.ac.uk");
+        solo.enterText((EditText) solo.getView(R.id.pass_log), "ma1");
         solo.clickOnView(solo.getView(R.id.btnLogin));
+        solo.sleep(2000);
+        //
 
-        //Asserts db connection was successful
-        Thread.sleep(1000);
-        assertEquals(getActivity().result, "success");
 
-        //Assert if toolbar is not null, this will tell if the user succesfully logged in
-        Assert.assertNotNull(solo.getView(R.id.container_toolbar));
-
-        //Continue onto app act section
-        solo.clickOnImageButton(0);
-        solo.clickOnText("Home");
+        //Use spinner to search by campus
         solo.clickOnView(solo.getView(R.id.spinner));
         solo.clickInList(3);
         solo.clickOnButton(1);
-        Assert.assertNotNull(solo.getView(R.id.spinner));
+        solo.sleep(1000);
+        //
 
-        //Continue onto friends section
+        //Send a friend request
+        solo.clickOnView(solo.getView(R.id.addFavBtn));
+        solo.sleep(1000);
+
+        //Go to friends
         solo.clickOnImageButton(0);
         solo.clickOnText("Friends");
-        //Continue onto messages section
-        solo.clickOnImageButton(0);
-        solo.clickOnText("Messages");
+        solo.sleep(1000);
+
+
+        //Write a review
+        solo.clickOnView(solo.getView(R.id.reviewButton));
+        solo.clickOnView(solo.getView(R.id.typeSpinner));
+        solo.clickInList(1);
+        solo.enterText((EditText) solo.getView(R.id.commentEdit), "This student is a very good listener");
+        solo.goBack();
+        solo.sleep(1000);
+
+        //View Profile
+        solo.clickOnView(solo.getView(R.id.frProfileImage));
+        solo.sleep(1000);
+        solo.clickOnView(solo.getView(R.id.reviewButton));
+        solo.sleep(1000);
+        solo.goBack();
+        solo.goBack();
+
+        //Chat with him
+        solo.clickOnView(solo.getView(R.id.frMessageButton));
+        solo.enterText((EditText) solo.getView(R.id.message), "Hello there my man");
+        solo.clickOnView(solo.getView(R.id.btn_send));
+        solo.sleep(1000);
+        solo.goBack();
+
+
+        //End friends section
+
+        //Check About us
+        solo.clickOnMenuItem("About Us");
+        solo.goBack();
+
+        //Check Code of Conduct
+        solo.clickOnMenuItem("Code of conduct");
+        solo.goBack();
+
+        //Sign out
+        solo.clickOnMenuItem("Sign Out");
     }
 
 }

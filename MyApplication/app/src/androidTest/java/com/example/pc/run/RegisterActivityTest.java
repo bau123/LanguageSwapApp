@@ -33,7 +33,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
     public void testRegister() throws Exception {
         //Unlock the lock screen
         solo.unlockScreen();
-        solo.enterText((EditText) solo.getView(R.id.email), "testigerger.kampus@kcl.ac.uk");
+        solo.enterText((EditText) solo.getView(R.id.email), "random.kampus@kcl.ac.uk");
         solo.enterText((EditText) solo.getView(R.id.pass), "testing111");
         solo.enterText((EditText) solo.getView(R.id.reg_pass2), "testing111");
         solo.clickOnView(solo.getView(R.id.btnRegister));

@@ -85,6 +85,12 @@ public class Profile_frag extends Fragment {
         languagesKnown.append(" " + profile.getLanguagesKnown());
         languagesLearning.append(" " + profile.getLanguagesLearning());
         interests.append(" " + profile.getInterests());
+        Log.d("campus",this.strCampus);
+        if(this.strCampus.contains("null")) {
+            Log.d("inside",this.strCampus);
+            this.strCampus = "Not at any campus";
+
+        }
         campus.append(" " + this.strCampus);
 
         if(profile.getProfilePicture() != null){
@@ -94,6 +100,7 @@ public class Profile_frag extends Fragment {
         System.out.println("new fragment made");
         return v;
     }
+
 
     //Used to parse the data to this frag
     public static Profile_frag newInstance(JSONObject input){

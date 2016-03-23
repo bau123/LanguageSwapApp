@@ -131,4 +131,10 @@ public class MyProfile extends Fragment {
             System.out.println("UNSUCCESSFUL");
         }
     }
+
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        getProfileInfo();
+    }
 }

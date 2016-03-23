@@ -46,7 +46,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     String mEmail;
     int counter = 0;
     private String emailSt, passSt;
-    public String result;
+    public String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +166,6 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
 
     private void processResult(JSONObject input) throws InterruptedException {
         System.out.println("In processResult");
-        result = "";
         try {
             result = input.getString("message");
         } catch (Exception e) {
@@ -321,15 +320,17 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         dialog.setTitle("Forgotten Password");
 
         // set the custom dialog components - text, image and button
-        final EditText forgotEmail = (EditText) findViewById(R.id.forgotEmail);
+        final EditText forgotEmail = (EditText) dialog.findViewById(R.id.forgotEmail);
+
 
         Button dialogSend = (Button) dialog.findViewById(R.id.forgotSendBtn);
+
         // If send button is clicked.
         dialogSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = forgotEmail.getText().toString().trim();
 
+                String email = forgotEmail.getText().toString();
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("email", email);
                 System.out.println("params made");
@@ -340,12 +341,13 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println(response.toString());
+                            System.out.println("Here " + response.toString());
                             try {
                                 String result = response.getString("message");
                                 if (result.equals("success")) {
-                                    Toast.makeText(getApplicationContext(), "New password has been sent. Please check your email", Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "New password has been sent. Please check your email", Toast.LENGTH_LONG).show();
+
                                 } else {
                                     dialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Sorry given account is not found ", Toast.LENGTH_LONG).show();
