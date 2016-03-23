@@ -60,19 +60,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_act);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
-                .coordinatorLayout);
-
-        inputEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-        inputPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-        email = (EditText) findViewById(R.id.email_log);
-        pass = (EditText) findViewById(R.id.pass_log);
-        checkBox = (CheckBox) findViewById(R.id.idRememberName);
-        checkBox.setChecked(true);
-        email.setText(cachedEmail());
-        email.addTextChangedListener(new MyTextWatcher(inputEmail));
 
         //If User has already logged in before it automatically logs in for them.
         if (ApplicationSingleton.getInstance().getPrefManager().checkAccount()) {
@@ -81,7 +69,23 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         } else {
             System.out.println("No Account in device");
             ApplicationSingleton.getInstance().getPrefManager().clear();
+            setContentView(R.layout.activity_login_act);
+
+            coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                    .coordinatorLayout);
+
+            inputEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+            inputPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
+            email = (EditText) findViewById(R.id.email_log);
+            pass = (EditText) findViewById(R.id.pass_log);
+            checkBox = (CheckBox) findViewById(R.id.idRememberName);
+            checkBox.setChecked(true);
+            email.setText(cachedEmail());
+            email.addTextChangedListener(new MyTextWatcher(inputEmail));
         }
+
+
+
     }
 
     private void requestFocus(View view) {
