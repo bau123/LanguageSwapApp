@@ -31,14 +31,6 @@ public class PlaceCall extends  BaseActivity{
 
 
     /*
-    ?????
-     */
-    public void getBack(){
-        Intent back = new Intent(this, MainActivity.class);
-        startActivity(back);
-    }
-
-    /*
     Starts a call with the other user and runs the VideoCall Class
      */
     public void callUser() {

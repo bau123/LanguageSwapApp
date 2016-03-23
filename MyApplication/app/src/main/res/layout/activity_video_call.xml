@@ -81,7 +81,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/button_end"
+            android:text="End Call"
+            android:textSize="20dp"
+            android:textAllCaps="true"
+            android:background="@drawable/declinebutton"
+            android:width="300dp"
             android:paddingBottom="20dp"
             android:paddingTop="20dp" />
 
