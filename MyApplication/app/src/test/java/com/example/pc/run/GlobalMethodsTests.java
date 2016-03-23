@@ -16,5 +16,7 @@ public class GlobalMethodsTests {
     public void verifyEmail(){
         assertTrue(methds.validateEmail("test.test@kcl.ac.uk"));
         assertFalse(methds.validateEmail("123@kcl"));
+        assertFalse(methds.validateEmail("test@kcl.ac.uk"));
+        assertTrue(methds.validateEmail("random.yes@kcl.ac.uk"));
     }
 }
