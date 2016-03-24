@@ -82,12 +82,11 @@
         </GridLayout>
 
         <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="4"
-            android:onClick="getRating"
-            android:stepSize="1.0" />
+            android:id="@+id/ratingBar"
+            android:numStars="5"
+            />
 
         <TextView
             android:id="@+id/textView7"

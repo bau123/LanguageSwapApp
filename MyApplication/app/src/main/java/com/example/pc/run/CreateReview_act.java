@@ -1,5 +1,6 @@
 package com.example.pc.run;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +24,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateReview_act extends AppCompatActivity {
+public class CreateReview_act extends Activity {
 
     String email;
     String reviewerEmail;
-    Integer checker;
+    private static Integer checker;
     String description;
     String type;
     RatingBar rating;
@@ -45,7 +46,12 @@ public class CreateReview_act extends AppCompatActivity {
         Log.d("MAKING REVIEW BETWEEN:", email + " " + reviewerEmail);
 
         rating = (RatingBar)findViewById(R.id.ratingBar);
-        rating.setRating(5);
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                checker = Math.round(Float.valueOf(ratingBar.getRating()));
+            }
+        });
         comment = (EditText)findViewById(R.id.commentEdit);
         reviewType = (Spinner)findViewById(R.id.typeSpinner);
 
@@ -55,7 +61,6 @@ public class CreateReview_act extends AppCompatActivity {
     public void submitReview(View v){
         description = comment.getText().toString();
         type = reviewType.getSelectedItem().toString();
-        checker = Math.round(rating.getRating());
         Log.d("TYPE:", type + " " + checker);
 
         Map<String, String> parameters = new HashMap<>();
