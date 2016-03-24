@@ -6,7 +6,7 @@
     android:background="#F5F5F5"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.example.pc.run.Profile_act">
+    tools:context=".Profile.Profile_act">
 
 
     <LinearLayout
@@ -108,8 +108,8 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="seeReviews"
                 android:text="@string/profileFrag_Reviews"
-                android:background="@drawable/imageforreview"
-                android:layout_marginLeft="15dp"/>
+                android:background="@color/buttonA"
+                android:layout_marginLeft="20dp"/>
 
             <Button
                 android:id="@+id/editProfile"
@@ -118,11 +118,11 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="editProfile"
                 android:text="  Edit Profile  "
-                android:background="@drawable/imageforreview"
+                android:background="@color/buttonA"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="20dp"/>
 
         </RelativeLayout>
 

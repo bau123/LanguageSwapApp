@@ -1,14 +1,10 @@
 package com.example.pc.run;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 
+import com.example.pc.run.Registration.Login_act;
 import com.robotium.solo.Solo;
-
-import junit.framework.Assert;
 
 import java.util.Random;
 

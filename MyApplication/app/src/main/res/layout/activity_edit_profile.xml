@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.example.pc.run.EditProfile"
+    tools:context=".Profile.EditProfile"
     android:background="#F5F5F5">
 
     <LinearLayout

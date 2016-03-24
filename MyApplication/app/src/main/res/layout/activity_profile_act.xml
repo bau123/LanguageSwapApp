@@ -6,7 +6,7 @@
     android:background="#F5F5F5"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.example.pc.run.Profile_act">
+    tools:context=".Profile.Profile_act">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -18,7 +18,7 @@
         android:clickable="false"
         android:contextClickable="false">
 
-        <com.example.pc.run.RoundedImageView
+        <com.example.pc.run.Global.RoundedImageView
             android:id="@+id/profileImageSwipe"
             android:layout_width="120dp"
             android:layout_height="120dp"

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.R;
-import com.example.pc.run.RequestModification;
+import com.example.pc.run.Friends.RequestModification;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import java.util.ArrayList;

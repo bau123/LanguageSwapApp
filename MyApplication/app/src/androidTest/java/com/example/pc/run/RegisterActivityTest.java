@@ -6,6 +6,7 @@ package com.example.pc.run;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
+import com.example.pc.run.Registration.Register_act;
 import com.robotium.solo.Solo;
 
 public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Register_act> {
