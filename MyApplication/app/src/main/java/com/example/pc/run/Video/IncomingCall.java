@@ -56,7 +56,10 @@ public class IncomingCall extends BaseActivity {
         if (call != null) {
             call.addCallListener(new SinchCallListener());
             TextView remoteUser = (TextView) findViewById(R.id.remoteUser);
-            remoteUser.setText(call.getRemoteUserId());
+            String name = call.getRemoteUserId();
+            String splitName [] = name.toString().split("\\.");
+            String Fname = splitName[0].substring(0,1).toUpperCase() + splitName[0].substring(1);
+            remoteUser.setText(Fname);
 
         } else {
             Log.e(TAG, "Started with invalid callId, aborting");
