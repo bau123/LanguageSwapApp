@@ -1,6 +1,5 @@
 package com.example.pc.run.Chat;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,14 +16,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * RecycleView adapter class for the ChatRoomActivity
+ */
 public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String userId;
     private int SELF = 100;
     private static String today;
-
     private Context mContext;
-    Activity context;
 
     private ArrayList<Message> messageArrayList;
 
@@ -47,6 +47,12 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         today = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
+    /**
+     * Checks whether the message was from the user or friend and assigns the itemView to the correct position.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
@@ -60,11 +66,15 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             // others message
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item_other, parent, false);
         }
-
         return new ViewHolder(itemView);
     }
 
 
+    /**
+     * Used to decide whether the current message is from the users or not.
+     * @param position position of the message in the recycleView
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
         Message message = messageArrayList.get(position);

@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Recycle view adapter for the messages activity
+ * Used to process and display each individual row in the recycleView
+ */
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.ViewHolder> {
 
     private Context mContext;
@@ -57,17 +60,22 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         return new ViewHolder(itemView);
     }
 
+    /**
+     * Displays each chat room row into the recyclerView
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ChatRoom chatRoom = chatRoomArrayList.get(position);
 
-        if(!chatRoom.getImage().equals("")) {
+        if(!chatRoom.getImage().equals("") && !chatRoom.getImage().equals("photo")) {
             //Convert the image string into a bitmap
             byte[] decodedByte = Base64.decode(chatRoom.getImage(), 0);
             Bitmap profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
             holder.image.setImageBitmap(profilePicture);
         }else{
-            holder.image.setBackgroundResource(R.drawable.profile_image);
+            holder.image.setBackgroundResource(R.drawable.profile_filled);
         }
 
         holder.name.setText(chatRoom.getName());
@@ -86,6 +94,11 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         return chatRoomArrayList.size();
     }
 
+    /**
+     *  Turns the string containing the date of the message into SimpleDateFormat
+     * @param dateStr
+     * @return returns string as SimpleDateFormat type
+     */
     public static String getTimeStamp(String dateStr) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestamp = "";
@@ -111,6 +124,10 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         void onLongClick(View view, int position);
     }
 
+    /**
+     * Click listener for when user clicks on the messages
+     * Does no action for both types of clicks
+     */
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;
