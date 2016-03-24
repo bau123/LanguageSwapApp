@@ -15,15 +15,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Chat.ChatRoomActivity;
-import com.example.pc.run.CreateReview_act;
-import com.example.pc.run.MainActivity;
+import com.example.pc.run.Friends.CreateReview_act;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
-import com.example.pc.run.Profile_act;
+import com.example.pc.run.Profile.Profile_act;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 import com.example.pc.run.Video.PlaceCall;
-import com.example.pc.run.Video.VideoCall;
 
 import org.json.JSONObject;
 

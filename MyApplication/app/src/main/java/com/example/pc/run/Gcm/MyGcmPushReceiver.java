@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.pc.run.App_act;
-import com.example.pc.run.Chat.ChatRoomActivity;
-import com.example.pc.run.MainActivity;
+import com.example.pc.run.Navigation_Drawer.MainActivity;
 import com.example.pc.run.Objects.Message;
-import com.example.pc.run.Objects.Profile;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 import com.google.android.gms.gcm.GcmListenerService;
 
@@ -21,7 +17,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class MyGcmPushReceiver extends GcmListenerService {
 

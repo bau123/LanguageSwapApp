@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
-        <com.example.pc.run.RoundedImageView
+        <com.example.pc.run.Global.RoundedImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/profile_filled"

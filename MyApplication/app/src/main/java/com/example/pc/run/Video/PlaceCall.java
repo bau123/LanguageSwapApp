@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.pc.run.MainActivity;
 import com.sinch.android.rtc.calling.Call;
 
 public class PlaceCall extends  BaseActivity{

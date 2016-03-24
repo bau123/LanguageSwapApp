@@ -1,10 +1,8 @@
 package com.example.pc.run;
 
-import android.view.View;
-
-import com.example.pc.run.Adapters.MultiSelectionSpinner;
 import com.example.pc.run.LocationServices.SelectedCampus;
 import com.example.pc.run.LocationServices.UserLocation;
+import com.example.pc.run.Search.App_act;
 
 import org.junit.Test;
 

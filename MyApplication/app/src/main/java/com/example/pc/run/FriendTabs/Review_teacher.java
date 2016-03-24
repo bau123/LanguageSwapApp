@@ -16,7 +16,6 @@ import com.example.pc.run.Adapters.ReviewListAdapter;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Review;
 import com.example.pc.run.R;
-import com.example.pc.run.ReviewList_act;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import org.json.JSONArray;

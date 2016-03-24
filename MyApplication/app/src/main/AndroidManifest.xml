@@ -57,28 +57,28 @@
         <service android:name=".Video.SinchService" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Navigation_Drawer.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         android:theme ="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login_act">
+        <activity android:name=".Registration.Login_act">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register_act" />
-        <activity android:name=".CreateProfile_Act" />
+        <activity android:name=".Registration.Register_act" />
+        <activity android:name=".Registration.CreateProfile_Act" />
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UploadImage_act" />
-        <activity android:name=".Profile_act" />
-        <activity android:name=".CreateReview_act" />
-        <activity android:name=".ReviewList_act" />
-        <activity android:name=".BlockUser" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".Registration.UploadImage_act" />
+        <activity android:name=".Profile.Profile_act" />
+        <activity android:name=".Friends.CreateReview_act" />
+        <activity android:name=".Friends.ReviewList_act" />
+        <activity android:name=".Friends.BlockUser" />
+        <activity android:name=".Profile.EditProfile" />
         <activity android:name=".Video.VideoCall" />
         <activity android:name=".Video.PlaceCall"/>
         <activity android:name=".Video.IncomingCall"></activity>

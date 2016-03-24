@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <com.example.pc.run.RoundedImageView
+    <com.example.pc.run.Global.RoundedImageView
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"

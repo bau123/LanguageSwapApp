@@ -14,14 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Gcm.Config;
 import com.example.pc.run.Gcm.NotificationUtils;
-import com.example.pc.run.MainActivity;
+import com.example.pc.run.Navigation_Drawer.MainActivity;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.ChatRoom;
 import com.example.pc.run.Objects.Message;

@@ -6,7 +6,7 @@
     android:background="#F5F5F5"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".CreateReview_act">
+    tools:context=".Friends.CreateReview_act">
 
     <LinearLayout
      xmlns:android="http://schemas.android.com/apk/res/android"

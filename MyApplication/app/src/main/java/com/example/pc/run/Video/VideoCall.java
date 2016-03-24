@@ -1,16 +1,14 @@
 package com.example.pc.run.Video;
 
 import android.content.Intent;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pc.run.MainActivity;
+import com.example.pc.run.Navigation_Drawer.MainActivity;
 import com.example.pc.run.R;
 import com.sinch.android.rtc.AudioController;
 import com.sinch.android.rtc.PushPair;
@@ -21,15 +19,9 @@ import com.sinch.android.rtc.video.VideoCallListener;
 import com.sinch.android.rtc.video.VideoController;
 
 import android.media.AudioManager;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
