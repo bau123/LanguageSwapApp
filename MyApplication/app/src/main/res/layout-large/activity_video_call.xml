@@ -29,7 +29,7 @@
             android:layout_gravity="center_horizontal"
             android:text="Ringing"
             android:textAllCaps="true"
-            android:textSize="16sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/callDuration"
@@ -40,7 +40,7 @@
             android:layout_marginTop="4dp"
             android:text="00:00"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="End Call"
-            android:textSize="20dp"
+            android:textSize="25sp"
             android:textAllCaps="true"
             android:background="@drawable/declinebutton"
             android:width="300dp"

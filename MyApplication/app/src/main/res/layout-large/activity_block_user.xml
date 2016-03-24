@@ -19,7 +19,7 @@
         android:id="@+id/ReportText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="40dp"
+        android:textSize="70dp"
         android:textStyle="bold" />
 
     <TextView
@@ -29,10 +29,11 @@
         android:text="Reason:"
         android:textColor="@color/BLACK"
         android:id="@+id/ReasonText"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_below="@+id/ReportText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="32dp" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -41,10 +42,12 @@
         android:entries="@array/reportSpinner"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView6"
         android:layout_alignTop="@+id/ReasonText"
-        android:layout_alignBottom="@+id/ReasonText"
-        android:layout_toRightOf="@+id/textView6" />
+        android:layout_above="@+id/blockCheckbox"
+        android:layout_alignLeft="@+id/reportButton"
+        android:layout_alignStart="@+id/reportButton"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="-20dp" />
 
 
 
@@ -53,14 +56,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Block this user (yes/no):"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:id="@+id/textView6"
         android:textColor="@color/BLACK"
         android:layout_below="@+id/ReasonText"
-        android:layout_marginTop="30dp"
-        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_marginTop="60dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,11 +75,12 @@
         android:layout_marginTop="45dp"
         android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="30dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="300dp"
         android:background="@drawable/boxforsubmit"
         android:id="@+id/commentThis"
         android:textColor="@color/BLACK"
@@ -85,18 +89,21 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"
+        android:textIsSelectable="false"
+        android:textSize="30dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:text="Submit"
         android:background="@drawable/imageforreview"
         android:onClick="submitReport"
         android:id="@+id/reportButton"
         android:layout_below="@+id/commentThis"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="40dp"
+        android:textSize="20dp" />
 
     <CheckBox
         android:layout_width="wrap_content"

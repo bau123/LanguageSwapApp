@@ -8,6 +8,7 @@
     android:weightSum="10"
     tools:context=".Profile.Profile_act">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,11 +22,11 @@
 
         <com.example.pc.run.Global.RoundedImageView
             android:id="@+id/profileImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/profile_filled"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
@@ -43,7 +44,9 @@
             android:columnCount="1"
             android:orientation="vertical"
             android:rowCount="6"
-            android:layout_marginTop="20dp">
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <TextView
                 android:id="@+id/nameView"
@@ -53,9 +56,10 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/profileFrag_Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp" />
 
 
             <TextView
@@ -67,7 +71,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Known"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/languagesLearningView"
@@ -78,7 +84,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Learning"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/interestsView"
@@ -89,9 +97,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Interests"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp" />
 
         </GridLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -102,26 +113,30 @@
 
             <Button
                 android:id="@+id/reviewButton"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/buttonA"
                 android:onClick="seeReviews"
                 android:text="@string/profileFrag_Reviews"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:background="@color/buttonA"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
+                android:layout_marginBottom="10dp" />
 
             <Button
-                android:id="@+id/blockUserButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/editProfile"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
+                android:onClick="editProfile"
+                android:text="  Edit Profile  "
                 android:background="@color/buttonA"
-                android:onClick="reportUser"
-                android:text="Report User"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:textSize="20dp" />
 
         </RelativeLayout>
 

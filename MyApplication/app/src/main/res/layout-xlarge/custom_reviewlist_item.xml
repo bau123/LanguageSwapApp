@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/MAIN">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Review"
+        android:textSize="40dp"
+        android:textColor="@color/BLACK"
+        android:singleLine="true"
+        android:id="@+id/reviewView"
+        android:layout_toLeftOf="@+id/authorView"
+        android:layout_toStartOf="@+id/authorView"
+        android:layout_marginLeft="10dp"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Author"
+        android:textSize="30dp"
+        android:id="@+id/authorView"
+        android:textColor="@color/BLACK"
+        android:layout_gravity="right"
+        android:layout_below="@+id/reviewView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Rating"
+        android:textSize="30dp"
+        android:id="@+id/ratingView"
+        android:textColor="@color/BLACK"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp" />
+
+</RelativeLayout>
