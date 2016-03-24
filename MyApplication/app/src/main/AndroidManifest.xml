@@ -67,21 +67,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration.Register_act" />
-        <activity android:name=".Registration.CreateProfile_Act" />
+        <activity android:name=".Registration.Register_act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Registration.CreateProfile_Act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity
             android:name=".Chat.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Registration.UploadImage_act" />
-        <activity android:name=".Profile.Profile_act" />
-        <activity android:name=".Friends.CreateReview_act" />
-        <activity android:name=".Friends.ReviewList_act" />
-        <activity android:name=".Friends.BlockUser" />
-        <activity android:name=".Profile.EditProfile" />
-        <activity android:name=".Video.VideoCall" />
-        <activity android:name=".Video.PlaceCall"/>
-        <activity android:name=".Video.IncomingCall"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Registration.UploadImage_act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Profile.Profile_act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Friends.CreateReview_act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Friends.ReviewList_act"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Friends.BlockUser"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Profile.EditProfile"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Video.VideoCall"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Video.PlaceCall"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Video.IncomingCall"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
     </application>
 
 </manifest>
