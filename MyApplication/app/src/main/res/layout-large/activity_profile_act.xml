@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pc.run.Profile_act"
-    android:background="@color/buttonA">
+    android:background="#ffff">
 
     <ImageView
         android:layout_width="250dp"
@@ -24,6 +24,7 @@
         android:layout_marginTop="40dp"
         android:id="@+id/nameView"
         android:text="Name:"
+        android:textColor="#C4D9B0"
         android:textSize="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
         android:id="@+id/interestsView"
         android:text="Interests:"
         android:textSize="30dp"
+        android:textColor="#C4D9B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/nameView"
@@ -42,6 +44,7 @@
         android:id="@+id/languagesKnownView"
         android:text="Laguages Known:"
         android:textSize="30dp"
+        android:textColor="#C4D9B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/interestsView"
@@ -51,6 +54,7 @@
         android:id="@+id/languagesLearningView"
         android:text="Languages Learning:"
         android:textSize="30dp"
+        android:textColor="#C4D9B0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/languagesKnownView"
@@ -74,7 +78,7 @@
         android:id="@+id/reportUser"
         android:text="Report"
         android:onClick="reportUser"
-        android:background="@color/buttonA"
+        android:background="@drawable/imageforreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/reviewButton"

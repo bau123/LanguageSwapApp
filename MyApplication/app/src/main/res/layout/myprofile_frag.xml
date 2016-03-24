@@ -54,6 +54,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/profileFrag_Name"
+                android:textColor="#C4D9B0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
@@ -66,6 +67,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Known"
+                android:textColor="#C4D9B0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
@@ -77,6 +79,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Learning"
+                android:textColor="#C4D9B0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
@@ -88,6 +91,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Interests"
+                android:textColor="#C4D9B0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </GridLayout>
@@ -107,6 +111,7 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="seeReviews"
                 android:text="@string/profileFrag_Reviews"
+                android:background="@drawable/imageforreview"
                 android:layout_marginLeft="15dp"/>
 
             <Button
@@ -115,7 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="editProfile"
-                android:text="@string/profileFrag_Edit"
+                android:text="  Edit Profile  "
+                android:background="@drawable/imageforreview"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"

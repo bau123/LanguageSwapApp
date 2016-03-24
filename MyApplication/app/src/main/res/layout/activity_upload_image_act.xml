@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose Image"
+        android:background="@drawable/imageforreview"
         android:id="@+id/buttonChoose" />
 
 
@@ -29,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Return"
+            android:background="@drawable/imageforreview"
             android:id="@+id/buttonReturn" />
 
     </RelativeLayout>
