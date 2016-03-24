@@ -1,10 +1,8 @@
 package com.example.pc.run;
 
-/**
- * Created by Joss on 23/03/2016.
- */
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -12,9 +10,11 @@ import com.robotium.solo.Solo;
 
 import junit.framework.Assert;
 
+import java.util.Random;
+
+//New tests
 public class NavigationTest extends ActivityInstrumentationTestCase2<Login_act> {
     private Solo solo;
-
     /*
         TODO: Please delete instance of application on phone before executing test!
      */
@@ -40,15 +40,13 @@ public class NavigationTest extends ActivityInstrumentationTestCase2<Login_act> 
     public void testLogin() throws Exception {
         solo.unlockScreen();
         //Login
+        solo.clearEditText((EditText) solo.getView(R.id.email_log));
         solo.enterText((EditText) solo.getView(R.id.email_log), "tautvilas.simkus@kcl.ac.uk");
         solo.enterText((EditText) solo.getView(R.id.pass_log), "ma1");
         solo.clickOnView(solo.getView(R.id.btnLogin));
         solo.sleep(2000);
 
-        //
 
-//        solo.clickOnView(solo.getView(R.id.action_search));
-//        solo.sleep(200);
 
         //Use spinner to search by campus
         solo.clickOnView(solo.getView(R.id.spinner));
@@ -93,8 +91,34 @@ public class NavigationTest extends ActivityInstrumentationTestCase2<Login_act> 
         //Chat through messages
         solo.clickOnImageButton(0);
         solo.clickOnText("Messages");
-        solo.clickOnText("PM");
+        solo.sleep(200);
+        solo.clickOnText("pm");
+        solo.sleep(1000);
         solo.goBack();
+
+
+        //Check my profile
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Profile");
+        solo.clickOnView(solo.getView(R.id.reviewButton));
+        solo.sleep(1000);
+        solo.clickOnText("Learning Reviews");
+        solo.sleep(1000);
+        solo.goBack();
+        solo.clickOnView(solo.getView(R.id.editProfile));
+
+        solo.clickOnView(solo.getView(R.id.langKnownSpinner));
+        Random r = new Random();
+        solo.clickInList(r.nextInt(15));
+        solo.clickOnButton(1);
+
+        solo.clickOnView(solo.getView(R.id.langLearningSpinner));
+        solo.clickInList(r.nextInt(15));
+        solo.clickOnButton(1);
+        solo.clearEditText((EditText) solo.getView(R.id.editInterests));
+        solo.enterText((EditText) solo.getView(R.id.editInterests),"Running");
+        solo.clickOnView(solo.getView(R.id.saveProfileBtn));
+        solo.sleep(1000);
 
 
         //Check About us

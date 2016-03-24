@@ -167,11 +167,9 @@ public class VideoCall extends BaseActivity {
         Call call = getSinchServiceInterface().getCall(callId);
         if (call != null) {
             String name = call.getRemoteUserId();
-            String Fname [];
-            name = name.replace("@kcl.ac.uk","");
-            Fname = name.split(".");
-            Fname[0]= Fname[0].substring(0, 1).toUpperCase() + Fname[0].substring(1);
-            mCallerName.setText(Fname[0]);
+            String Fname[] = name.toString().split("\\.");
+            String FnameC = Fname[0].substring(0,1).toUpperCase() + Fname[0].substring(1);
+            mCallerName.setText(FnameC);
             mCallState.setText(call.getState().toString());
             if (call.getState() == CallState.ESTABLISHED) {
                 addVideoViews();

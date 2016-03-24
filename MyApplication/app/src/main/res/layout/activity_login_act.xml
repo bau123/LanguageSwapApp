@@ -31,7 +31,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:onClick="adminLogin"
                     android:text="Login"
                     android:textColor="#C4D9B0"
                     android:textSize="50dp"

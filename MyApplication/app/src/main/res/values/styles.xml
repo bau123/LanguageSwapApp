@@ -24,10 +24,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="reviewRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ic_action_star_0</item>
-        <item name="android:minHeight">23dip</item>
+    <style name="ReviewRatingBarCustom" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/review_rating_bar_full</item>
+        <item name="android:minHeight">30dip</item>
         <item name="android:maxHeight">30dip</item>
     </style>
+
 
 </resources>
