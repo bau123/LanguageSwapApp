@@ -38,7 +38,9 @@ import com.example.pc.run.Video.BaseActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-
+/**
+ * The main Activity which contains the navigation drawer used to navigate throughout the app
+ */
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private static String TAG = "In MainAct";
@@ -67,8 +69,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         //Display search frag as default
         displayView(0);
-
-        //  handleIntent(getIntent());
 
         //Setting up broadcast receiver
         regReceiver = new BroadcastReceiver() {
@@ -105,6 +105,13 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     public void onBackPressed() {
     }
 
+    /**
+     * Method which processes the input from the SearchView in the actionbar
+     * Sends a broadcast to the search activity if it is currently opened
+     * else opens it and sends the search input through a intent
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -148,6 +155,11 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Used to navigate through the options items
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // automatically handle clicks on the Home/Up button, so long
@@ -194,6 +206,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         displayView(position);
     }
 
+    /**
+     * Used to navigate through the navigation drawer items
+     * @param position
+     */
     private void displayView(int position) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -236,6 +252,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         }
     }
 
+    /**
+     * Processes push notifications
+     * @param intent
+     */
     public void processPushNotification(Intent intent) {
         int type = intent.getIntExtra("type", -1);
         // If push is friend request
@@ -246,6 +266,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         }
     }
 
+    /**
+     * Checks if the google play store services is supported on the app
+     * @return
+     */
     public boolean checkPlayService() {
         queryResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (queryResult == ConnectionResult.SUCCESS) {
@@ -283,6 +307,11 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         super.onPause();
     }
 
+    /**
+     * Open the chat room activity
+     * @param userEmail email of the friend in the chat room
+     * @param roomId room id of the discussion between the friend and current user
+     */
     public static void openChat(String userEmail, String roomId) {
         Intent intent = new Intent(mContext, ChatRoomActivity.class);
         intent.putExtra("email", userEmail);

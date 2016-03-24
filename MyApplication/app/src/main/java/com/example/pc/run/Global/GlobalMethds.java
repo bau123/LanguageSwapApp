@@ -72,13 +72,21 @@ public class GlobalMethds {
         String re2 = "(.)";    // Any Single Character 1
         String re3 = "((?:[a-z][a-z]+))";    // Word 2
         String re4 = "(@)";    // Any Single Character 2
-        String re5 = "(kcl\\.ac\\.uk)";    // Fully Qualified Domain Name 1
+        String re5 = "(kcl\\.ac\\.uk)";    // Fully Qualified Domain Name 14
+
+        String extra1 = "(-)";
+        String extra2 = "((?:[a-z][a-z]+))";
 
         Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
         Matcher matcher = p.matcher(email);
 
+        Pattern p2 = Pattern.compile(re1 + re2 + re3 + extra1 + extra2 + re4 + re5, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher matcher2 = p2.matcher(email);
+
+        if(matcher.matches() || matcher2.matches()){
+            return true;
+        }
         return matcher.matches();
     }
-
 
 }
