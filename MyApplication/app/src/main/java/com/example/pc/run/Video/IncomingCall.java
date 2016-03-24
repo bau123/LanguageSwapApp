@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.example.pc.run.R;
 
 import java.util.List;
-
+/*
+Incoming call activity class
+ */
 public class IncomingCall extends BaseActivity {
     /*
     Gets the name of the class
