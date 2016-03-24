@@ -50,6 +50,7 @@ public class Profile implements Serializable{
         this.profilePicture = bitmap;
     }
 
+
     public void updateName(String name){
         this.name = name;
     }

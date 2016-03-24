@@ -110,6 +110,10 @@ public class FriendsList_act extends Fragment {
                 Profile profile = new Profile(current.getString("email"),current.getString("name"), current.getString("languagesKnown"),
                         current.getString("languagesLearning"), current.getString("interests"));
 
+                if (current.getString("photo") != null) {
+                    profile.setProfilePicture(current.getString("photo"));
+                }
+
                 friendList.add(profile);
 
             }

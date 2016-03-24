@@ -75,7 +75,9 @@ public class FriendListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.name.setText(profiles.get(position).getName());
-        if (profiles.get(position).getProfilePicture() != null) {
+
+        if(profiles.get(position).getProfilePicture()!= null){
+            Log.d("ADAPTER PHOTO:", profiles.get(position).getProfilePicture().toString());
             viewHolder.profileImg.setImageBitmap(profiles.get(position).getProfilePicture());
         }
 
