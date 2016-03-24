@@ -2,6 +2,7 @@ package com.example.pc.run;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -15,7 +16,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.pc.run.Adapters.MultiSelectionSpinner;
-import com.example.pc.run.Global.GlobalBitmap;
 import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.Objects.Profile;
@@ -24,7 +24,6 @@ import com.example.pc.run.SharedPref.ApplicationSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +41,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
     String url = "http://t-simkus.com/run/insert-profile-db.php";
     Profile profile;
     ImageView profileImage;
+    private Bitmap profileBitmap = null;
 
 
     @Override
@@ -61,9 +61,12 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         email = getIntent().getStringExtra("email");
         pass = getIntent().getStringExtra("pass");
 
-        if(GlobalBitmap.bitmap != null){
-            profileImage.setImageBitmap(GlobalBitmap.bitmap);
+        String imageString = ApplicationSingleton.getInstance().getPrefManager().getImageString();
+        if(imageString != null){
+            profileBitmap = GlobalMethds.stringToBitmap(imageString);
+            profileImage.setImageBitmap(profileBitmap);
         }
+
         name = (EditText)findViewById(R.id.nameEdit);
         interests = (EditText)findViewById(R.id.interestsEdit);
     }
@@ -94,9 +97,8 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         parameters.put("languagesLearning", languagesLearning);
         parameters.put("interests", interests.getText().toString().trim());
 
-        if(GlobalBitmap.bitmap != null){
-            String photo = getStringImage(GlobalBitmap.bitmap);
-            parameters.put("photo", photo);
+        if(profileBitmap != null){
+            parameters.put("photo", ApplicationSingleton.getInstance().getPrefManager().getImageString());
         }
 
         System.out.println("params made");
@@ -147,14 +149,6 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         intent.putExtra("email", email);
         intent.putExtra("pass", pass);
         startActivity(intent);
-    }
-
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
     }
 
     @Override

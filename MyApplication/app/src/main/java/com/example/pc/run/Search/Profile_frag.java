@@ -26,8 +26,8 @@ import java.util.Map;
 
 public class Profile_frag extends Fragment {
 
-    TextView name, languagesKnown, languagesLearning, interests, campus;
-    ImageView profileImage;
+    private TextView name, languagesKnown, languagesLearning, interests, campus;
+    private ImageView profileImage;
     private Profile profile;
     private String data;
     private final String url = "http://t-simkus.com/run/requestFriend.php";
@@ -88,6 +88,8 @@ public class Profile_frag extends Fragment {
         }
         campus.append(" " + this.strCampus);
 
+
+        //Convert to bitmap
         if(profile.getProfilePicture() != null){
             profileImage.setImageBitmap(profile.getProfilePicture());
         }

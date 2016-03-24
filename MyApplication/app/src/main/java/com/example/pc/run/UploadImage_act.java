@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.pc.run.Global.GlobalBitmap;
+import com.example.pc.run.Global.GlobalMethds;
+import com.example.pc.run.SharedPref.ApplicationSingleton;
 
 import java.io.IOException;
 
@@ -75,7 +76,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
         if(v==buttonReturn){
             Intent intent = new Intent(UploadImage_act.this, CreateProfile_Act.class);
-            GlobalBitmap.bitmap = bitmap;
+            ApplicationSingleton.getInstance().getPrefManager().storeProfileImage(GlobalMethds.bitmapToString(bitmap));
             intent.putExtra("email", email);
             intent.putExtra("pass", pass);
             startActivity(intent);

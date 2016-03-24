@@ -1,6 +1,11 @@
 package com.example.pc.run.Global;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.net.InetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,20 +30,23 @@ public class GlobalMethds {
             "Vietnamese", "Wu Chinese", "Xiang Chinese", "Zulu", "Yoruba",};
 
 
-    //Used to check if there is an internet connection
-    public static boolean isNetworkAvailable() {
+    public static Bitmap stringToBitmap(String image) {
+        Bitmap bitmap = null;
         try {
-            InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
-
-            if (ipAddr.equals("")) {
-                return false;
-            } else {
-                return true;
-            }
-
+            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         } catch (Exception e) {
-            return false;
+            e.getMessage();
         }
+        return bitmap;
+    }
+
+    public static String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
 
     //Checks if email is in correct form

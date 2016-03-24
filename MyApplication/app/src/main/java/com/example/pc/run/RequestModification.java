@@ -13,9 +13,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Joss on 02/03/2016.
- */
+
 public class RequestModification {
 
     public String requestEmail;

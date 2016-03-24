@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.pc.run.Adapters.NavigationDrawerAdapter;
+import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.R;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
@@ -87,13 +88,11 @@ public class FragmentDrawer extends Fragment {
             }
         }));
 
-        String image = ApplicationSingleton.getInstance().getPrefManager().getString();
-        if(!image.equals("photo")){
+        String image = ApplicationSingleton.getInstance().getPrefManager().getImageString();
+        if(!image.equals("photo") || !image.equals(null)){
             System.out.println(image);
             //Sets the navigation main image as the users profile image
-            navImage = (ImageView) layout.findViewById(R.id.imageView);
-            byte[] decodedByte = Base64.decode(image, 0);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+            Bitmap bitmap = GlobalMethds.stringToBitmap(image);
             navImage.setImageBitmap(bitmap);
         }
 

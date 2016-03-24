@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.example.pc.run.Global.GlobalMethds;
+
 import java.io.Serializable;
 
 public class Profile implements Serializable{
@@ -67,8 +69,7 @@ public class Profile implements Serializable{
     }
 
     public void setProfilePicture(String bitmapString){
-        byte[] decodedByte = Base64.decode(bitmapString, 0);
-        profilePicture = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+        profilePicture = GlobalMethds.stringToBitmap(bitmapString);
     }
 
     public String getName() {
