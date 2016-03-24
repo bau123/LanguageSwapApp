@@ -22,7 +22,7 @@ public class SharedPrefManager {
     private static final String KEY_PROFILE_languagesKnown = "profile_languagesKnown";
     private static final String KEY_PROFILE_languagesLearning = "profile_languagesLearning";
     private static final String KEY_PROFILE_interests = "profile_interests";
-    private static final String KEY_PROFILE_image = "profile_image";
+    private static final String KEY_PROFILE_image = null;
     private static final String KEY_token = "token";
     private static final String KEY_email = "email";
     private static final String KEY_password = "password";
@@ -84,7 +84,7 @@ public class SharedPrefManager {
         editor.commit();
     }
 
-    public String getString(){
+    public String getImageString(){
         return pref.getString(KEY_PROFILE_image, null);
     }
 

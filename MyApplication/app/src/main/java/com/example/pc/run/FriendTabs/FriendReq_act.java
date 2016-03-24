@@ -26,9 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Joss on 14/03/2016.
- */
+
 public class FriendReq_act extends Fragment {
 
     public ListView friendsReqList;

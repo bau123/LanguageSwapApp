@@ -32,7 +32,6 @@ import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
 
-    private Button saveBtn;
     private MultiSelectionSpinner langKnown, langLearn;
     private EditText interests;
     private String email;
@@ -62,7 +61,6 @@ public class EditProfile extends AppCompatActivity {
         langKnown.setItems(GlobalMethds.LanguageArray);
         langLearn.setItems(GlobalMethds.LanguageArray);
 
-        saveBtn = (Button) findViewById(R.id.saveProfileBtn);
 
         email = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
         getProfileInfo();
