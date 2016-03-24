@@ -136,6 +136,7 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         if (result.equals("success")) {
             ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile); //STORE PROFILE WITH THIS
             Intent intent = new Intent(this, Login_act.class);
+            intent.putExtra("key", "true");
             startActivity(intent);
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Adding Profile info failed", Toast.LENGTH_LONG).show();

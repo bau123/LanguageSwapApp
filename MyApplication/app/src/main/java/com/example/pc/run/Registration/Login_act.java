@@ -2,6 +2,7 @@ package com.example.pc.run.Registration;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -70,6 +72,20 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
             ApplicationSingleton.getInstance().getPrefManager().clear();
             setContentView(R.layout.activity_login_act);
 
+            //Display
+            try {
+                Intent intent = getIntent();
+
+                // Get the extras (if there are any)
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    if (extras.containsKey("key")) {
+                        displayEmailDialog();
+                    }
+                }
+            } catch (Exception e) {
+            }
+
             coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                     .coordinatorLayout);
 
@@ -85,6 +101,30 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
 
     }
 
+    public void displayEmailDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this.getApplicationContext());
+
+        // set title
+        alertDialogBuilder.setTitle("Email Activation");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("An email has sent with instructions to activate your newly created account")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Login_act.this.finish();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -92,7 +132,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     }
 
     public void login(View view) {
-        if (checkBox.isChecked()){
+        if (checkBox.isChecked()) {
             String FILENAME = "username";
             String emailName;
             FileOutputStream fos;
@@ -105,7 +145,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
                 e.printStackTrace();
             }
         }
-        if (checkBox.isChecked() == false){
+        if (checkBox.isChecked() == false) {
             String FILENAME = "username";
             String emailName;
             FileOutputStream fos;
@@ -319,12 +359,12 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
 
     public void forgottenPass(View view) {
 
-        // custom dialog
+// custom dialog
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.forgot_dialog);
         dialog.setTitle("Forgotten Password");
 
-        // set the custom dialog components - text, image and button
+// set the custom dialog components - text, image and button
         final EditText forgotEmail = (EditText) dialog.findViewById(R.id.forgotEmail);
 
 
@@ -430,20 +470,21 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
                     break;
             }
         }
+
     }
 
 
     private String cachedEmail() {
-            StringBuffer text = new StringBuffer();
-            try {
-                BufferedReader bReader = new BufferedReader(new InputStreamReader(openFileInput("username")));
-                String line;
-                while ((line = bReader.readLine()) != null) {
-                    text.append(line + "\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        StringBuffer text = new StringBuffer();
+        try {
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(openFileInput("username")));
+            String line;
+            while ((line = bReader.readLine()) != null) {
+                text.append(line + "\n");
             }
-            return text.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text.toString();
     }
 }
