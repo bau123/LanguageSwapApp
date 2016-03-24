@@ -89,7 +89,8 @@ public class FragmentDrawer extends Fragment {
         }));
 
         String image = ApplicationSingleton.getInstance().getPrefManager().getImageString();
-        if(!image.equals("photo") && !image.equals(null)){
+        if(!image.equals("photo") && !image.equals("")){
+            System.out.println("Image is"+ image);
             System.out.println(image);
             //Sets the navigation main image as the users profile image
             Bitmap bitmap = GlobalMethds.stringToBitmap(image);

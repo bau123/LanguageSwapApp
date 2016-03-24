@@ -96,9 +96,7 @@ public class Profile_act extends AppCompatActivity {
         languagesKnown.setText("Languages known:" + current.getString("languagesKnown"));
         languagesLearning.setText("Languages learning: " + current.getString("languagesLearning"));
 
-        System.out.println("PHOTO IS +++" + current.getString("photo") );
-
-        if(current.getString("photo") != null && current.getString("photo") != "photo") {
+        if(!current.getString("photo").equals("") && !current.getString("photo").equals("photo")) {
             System.out.println("photo changed");
             bitmap = GlobalMethds.stringToBitmap(current.getString("photo"));
             profileImage.setImageBitmap(bitmap);

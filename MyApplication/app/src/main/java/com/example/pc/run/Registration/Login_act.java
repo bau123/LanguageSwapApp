@@ -83,8 +83,6 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
             email.addTextChangedListener(new MyTextWatcher(inputEmail));
         }
 
-
-
     }
 
     private void requestFocus(View view) {
@@ -254,7 +252,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
                 current.getString("languagesLearning"), current.getString("interests"));
 
         ApplicationSingleton.getInstance().getPrefManager().storeProfile(profile);
-        ApplicationSingleton.getInstance().getPrefManager().storeProfileImage("photo");
+        ApplicationSingleton.getInstance().getPrefManager().storeProfileImage(current.getString("photo"));
         if (current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
             //Starts the main activity
