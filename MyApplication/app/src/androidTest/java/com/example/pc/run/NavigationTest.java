@@ -4,20 +4,22 @@ package com.example.pc.run;
  * Created by Joss on 23/03/2016.
  */
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.robotium.solo.Solo;
 
 import junit.framework.Assert;
 
-public class LoginActivityTest extends ActivityInstrumentationTestCase2<Login_act> {
+public class NavigationTest extends ActivityInstrumentationTestCase2<Login_act> {
     private Solo solo;
 
     /*
         TODO: Please delete instance of application on phone before executing test!
      */
 
-    public LoginActivityTest() {
+    public NavigationTest() {
         super(Login_act.class);
 
     }
@@ -42,8 +44,11 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<Login_ac
         solo.enterText((EditText) solo.getView(R.id.pass_log), "ma1");
         solo.clickOnView(solo.getView(R.id.btnLogin));
         solo.sleep(2000);
+
         //
 
+//        solo.clickOnView(solo.getView(R.id.action_search));
+//        solo.sleep(200);
 
         //Use spinner to search by campus
         solo.clickOnView(solo.getView(R.id.spinner));
@@ -85,8 +90,12 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<Login_ac
         solo.sleep(1000);
         solo.goBack();
 
+        //Chat through messages
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Messages");
+        solo.clickOnText("PM");
+        solo.goBack();
 
-        //End friends section
 
         //Check About us
         solo.clickOnMenuItem("About Us");
