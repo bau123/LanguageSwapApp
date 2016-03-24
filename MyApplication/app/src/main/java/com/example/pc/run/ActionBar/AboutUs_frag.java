@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.example.pc.run.R;
 
-
+/**
+ * Activity used to display information about the app
+ */
 public class AboutUs_frag extends Fragment {
     TextView AboutUs;
 

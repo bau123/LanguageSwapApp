@@ -57,7 +57,6 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
 
-        // view type is to identify where to render the chat message
         // left or right
         if (viewType == SELF) {
             // self message
@@ -104,6 +103,11 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return messageArrayList.size();
     }
 
+    /**
+     *  Turns the string containing the date of the message into SimpleDateFormat
+     * @param dateStr
+     * @return
+     */
     public static String getTimeStamp(String dateStr) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestamp = "";

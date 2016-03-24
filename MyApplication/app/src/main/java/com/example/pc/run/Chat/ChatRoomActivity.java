@@ -37,6 +37,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity where the messages are displayed and sent
+ * Uses a recycleView to display the messages in self contained layouts
+ */
 public class ChatRoomActivity extends AppCompatActivity {
 
     private String chatRoomId;
@@ -49,7 +53,12 @@ public class ChatRoomActivity extends AppCompatActivity {
     private String emailOfOther;
     private String gcmOfOther;
 
-
+    /**
+     * Retrieves the google cloud messaging id of the other user
+     * Uses a BroadcastReceiver to receive all messages that is sent to the user in real time
+     * onclick listener to user sending messages
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,8 +165,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     /**
      * Posting a new message in chat room
-     * will make an http call to our server. Our server again sends the message
-     * to all the devices as push notification
+     * Will make an http call to our server and insert it into the database.
+     * Our server again sends the message back where it is then displayed
      */
     private void sendMessage() {
         final String message = this.inputMessage.getText().toString().trim();
@@ -181,23 +190,14 @@ public class ChatRoomActivity extends AppCompatActivity {
         params.put("gcmTo", gcmOfOther);
         params.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
 
-        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
-        for (String key : params.keySet()) {
-            System.out.println(key + " " + params.get(key));
-        }
-        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            String key = entry.getKey().toString();
-            String value = entry.getValue();
-            System.out.println("key, " + key + " value " + value);
-        }
-        //TESTING !!!!!!!!!!!! REMOVE!!!!!!!!!!!!!!
-        System.out.println("made params for message, sending to method now");
         //Send message to database and then notify the user
         sendToDataBase(params);
     }
 
-    //Gets the GCM registration of the other user
+
+    /**
+     * Gets the google cloud messaging id of the other user in the chatroom
+     */
     public void getOtherGcm() {
         String getGcm = "http://t-simkus.com/run/getGcm.php";
         Map<String, String> parameters = new HashMap<String, String>();
@@ -231,6 +231,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    /**
+     * Processes the message
+     * Saves the message to the database then sends it the gcm servers to send notication tot he other user
+     * Retrieves back the same message from the database
+     * Adds it to the message ArrayList and RecycleView
+     * @param params The parameters of the message
+     */
     public void sendToDataBase(Map<String, String> params) {
         String sendGcm = "http://t-simkus.com/run/processMessage.php";
 
@@ -282,6 +289,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     /**
      * Fetching all the messages of a single chat room
+     * Uses parameters containing user authentication details
+     * Reads through response containing messages
+     * Adds each message to recycleView
      */
     private void fetchChatThread(String id) {
         String fetchUrl = "http://t-simkus.com/run/fetchMessages.php";
@@ -290,7 +300,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         parameters.put("roomId", id);
         parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
         parameters.put("password", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1]);
-
 
         System.out.println("FETCHING MESSAGES!!!");
 

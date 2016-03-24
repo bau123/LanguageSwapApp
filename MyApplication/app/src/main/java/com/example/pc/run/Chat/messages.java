@@ -34,6 +34,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Fragment used to show all discussions the user has had with his friends
+ * Display individual rows with the friends details and last message sent
+ */
 public class messages extends Fragment {
 
     private ArrayList<ChatRoom> chatRoomArrayList;
@@ -45,6 +49,12 @@ public class messages extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Uses BroadcastReceiver to listen to any nominations sent to the user
+     * Uses this to update the unread counter
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +102,7 @@ public class messages extends Fragment {
 
                 MainActivity.openChat(chatRoom.getOtherUser(), chatRoom.getId());
             }
+
             @Override
             public void onLongClick(View view, int position) {
 
@@ -112,7 +123,7 @@ public class messages extends Fragment {
         Message message = (Message) intent.getSerializableExtra("message");
         System.out.println("created user message and chat id");
 
-        if (message != null ) {
+        if (message != null) {
             updateRow(message.getEmail(), message.getMessage());
         }
     }
@@ -134,8 +145,10 @@ public class messages extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    //Retrieve all chat rooms that the user has been in
-    //Add each room to recycleView
+    /**
+     * Retrieve all chat rooms that the user has been in
+     * Add each room to recycleView
+     */
     private void retrieveChats() {
         String url = "http://t-simkus.com/run/GetRooms.php";
 
