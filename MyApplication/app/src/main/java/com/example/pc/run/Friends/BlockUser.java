@@ -23,17 +23,20 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Used to Block the users
+ */
 public class BlockUser extends AppCompatActivity {
 
-    String email;
-    String reportEmail;
-    String description;
-    String type;
-    EditText comment;
-    Spinner reportType;
-    CheckBox block;
-    Boolean blocked;
-    String url = "http://t-simkus.com/run/reportUser.php";
+    private String email;
+    private String reportEmail;
+    private String description;
+    private String type;
+    private EditText comment;
+    private Spinner reportType;
+    private CheckBox block;
+    private Boolean blocked;
+    private String url = "http://t-simkus.com/run/reportUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

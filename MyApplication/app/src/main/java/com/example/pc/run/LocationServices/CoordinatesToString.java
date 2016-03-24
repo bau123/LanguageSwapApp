@@ -26,9 +26,6 @@ public class CoordinatesToString  {
         setCampus();
     }
 
-
-
-
     private void setCampus() {
         for(String s : address) {
             s = s.toString();

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.pc.run.R;
 
 /**
- *
+ * Activity used to display code of conduct
  */
 public class CodeOfConduct_frag extends Fragment {
 

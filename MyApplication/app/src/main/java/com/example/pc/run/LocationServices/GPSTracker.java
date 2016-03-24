@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 
+/**
+ * Contains the necessary methods to retreive the location details of the user
+ */
 public class GPSTracker extends Service implements LocationListener{
 
     private final Context context;
@@ -35,6 +38,10 @@ public class GPSTracker extends Service implements LocationListener{
         getLocation();
     }
 
+    /**
+     * Gets the current location of the user
+     * @return
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
@@ -49,40 +56,47 @@ public class GPSTracker extends Service implements LocationListener{
                 this.canGetLocation = true;
 
                 if (isNetworkEnabled) {
-
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
-                    if (locationManager != null) {
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                        if (location != null) {
-
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                        }
-                    }
-
-                }
-
-                if(isGPSEnabled) {
-                    if(location == null) {
+                    try{
                         locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
+                                LocationManager.NETWORK_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
-                        if(locationManager != null) {
-                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (locationManager != null) {
+                            location = locationManager
+                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-                            if(location != null) {
+                            if (location != null) {
+
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
                             }
                         }
+                    }catch (SecurityException e){
+                        e.printStackTrace();
+                    }
+                }
+
+                if(isGPSEnabled) {
+                    if(location == null) {
+                        try{
+                            locationManager.requestLocationUpdates(
+                                    LocationManager.GPS_PROVIDER,
+                                    MIN_TIME_BW_UPDATES,
+                                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+                            if(locationManager != null) {
+                                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                                if(location != null) {
+                                    latitude = location.getLatitude();
+                                    longitude = location.getLongitude();
+                                }
+                            }
+                        }catch (SecurityException e){
+                            e.printStackTrace();
+                        }
+
                     }
                 }
             }
@@ -95,12 +109,22 @@ public class GPSTracker extends Service implements LocationListener{
     }
 
 
+    /**
+     * used to stop using the gps services
+     */
     public void stopUsingGPS() {
         if(locationManager != null) {
-            locationManager.removeUpdates(GPSTracker.this);
+            try{
+                locationManager.removeUpdates(GPSTracker.this);
+            }catch (SecurityException e){
+                e.printStackTrace();
+            }
         }
     }
 
+    /**
+     * returns the Latitude position
+     */
     public double getLatitude() {
         if(location != null) {
             latitude = location.getLatitude();
@@ -108,6 +132,10 @@ public class GPSTracker extends Service implements LocationListener{
         return latitude;
     }
 
+    /**
+     * Returns the longitude position
+     * @return
+     */
     public double getLongitude() {
         if(location != null) {
             longitude = location.getLongitude();
@@ -120,6 +148,9 @@ public class GPSTracker extends Service implements LocationListener{
         return this.canGetLocation;
     }
 
+    /**
+     * Dialog used to ask the user to enable gps services on their phone
+     */
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 

@@ -10,6 +10,9 @@ import java.net.InetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Contains methods which are used throughout the app
+ */
 public class GlobalMethds {
 
 
@@ -30,6 +33,11 @@ public class GlobalMethds {
             "Vietnamese", "Wu Chinese", "Xiang Chinese", "Zulu", "Yoruba",};
 
 
+    /**
+     * Converts string into bitmap
+     * @param image
+     * @return
+     */
     public static Bitmap stringToBitmap(String image) {
         Bitmap bitmap = null;
         try {
@@ -41,6 +49,11 @@ public class GlobalMethds {
         return bitmap;
     }
 
+    /**
+     * Converts bitmap images into strings
+     * @param bitmap
+     * @return
+     */
     public static String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
@@ -49,7 +62,11 @@ public class GlobalMethds {
         return encodedImage;
     }
 
-    //Checks if email is in correct form
+    /**
+     * Checks whether a email address is in the correct format
+     * @param email
+     * @return
+     */
     public static boolean validateEmail(String email) {
         String re1 = "((?:[a-z][a-z]+))";    // Word 1
         String re2 = "(.)";    // Any Single Character 1
