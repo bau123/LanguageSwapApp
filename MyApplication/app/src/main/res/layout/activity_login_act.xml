@@ -142,14 +142,21 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Remember Me"
+                                android:id="@+id/idRememberName" />
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="20dp"
                                 android:gravity="right"
                                 android:onClick="forgottenPass"
                                 android:text="@string/log_forgotten"
-                                android:textAppearance="?android:attr/textAppearanceSmall" />
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                     </LinearLayout>

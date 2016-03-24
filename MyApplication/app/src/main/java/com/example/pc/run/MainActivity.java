@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,15 +29,8 @@ import com.example.pc.run.Gcm.RegistrationIntentService;
 import com.example.pc.run.Navigation_Drawer.FragmentDrawer;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 import com.example.pc.run.Video.BaseActivity;
-import com.example.pc.run.Video.SinchService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.sinch.android.rtc.ClientRegistration;
-import com.sinch.android.rtc.Sinch;
-import com.sinch.android.rtc.SinchClient;
-import com.sinch.android.rtc.SinchClientListener;
-import com.sinch.android.rtc.SinchError;
-import com.sinch.android.rtc.calling.Call;
 
 
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -50,7 +42,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     private static Context mContext;
     public Toast toast;public int queryResult;
     private boolean inSearch;
-    //public static SinchClient sinchClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +73,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     String token = intent.getStringExtra("token");
-                    Toast.makeText(getApplicationContext(), "GCM registration token: " + token, Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext(), "GCM registration token: " + token, Toast.LENGTH_LONG).show();
 
                 } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
                     // gcm registration id is stored in our server's MySQL
@@ -156,11 +147,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (id == R.id.action_Code) {
             CodeOfConduct_frag frag = new CodeOfConduct_frag();

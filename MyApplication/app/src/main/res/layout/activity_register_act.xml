@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:components="http://schemas.android.com/tools"
     android:id="@+id/cordReg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3faee0"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="10">
 
@@ -28,8 +27,9 @@
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:text="Register"
-                android:textColor="#ffffff"
-                android:textSize="50dp" />
+                android:textColor="#C4D9B0"
+                android:textSize="50dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,7 +46,7 @@
                 android:gravity="center_horizontal"
                 android:text="Welcome to Helpr!
                      Learn new languages today by becoming a Helpr!"
-                android:textColor="#ffffff"
+                android:textColor="#a59696"
                 android:textSize="25dp" />
 
         </LinearLayout>
@@ -72,9 +72,9 @@
                     android:gravity="center_horizontal"
                     android:hint="@string/reg_email"
                     android:paddingTop="25dp"
+                    android:textColorHint=" #a59696"
                     android:singleLine="true"
-                    android:textSize="25dp"
-                    android:textStyle="italic" />
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -88,8 +88,6 @@
                 android:paddingTop="20dp"
                 android:singleLine="false"
                 android:textColor="#ffffff"
-                android:textSize="25dp"
-                android:textStyle="italic"
                 android:inputType="textPassword" />
 
 
@@ -127,23 +125,22 @@
                     android:paddingTop="20dp"
                     android:singleLine="false"
                     android:textColor="#ffffff"
-                    android:textSize="25dp"
-                    android:textStyle="italic"
                     android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:background="@null"
+                android:layout_marginTop="30dp"
+                android:background="@color/buttonA"
                 android:onClick="register"
                 android:text="Register"
 
                 android:textColor="#ffffff"
-                android:id="@+id/btnRegister" />
+                android:id="@+id/btnRegister"
+                android:textSize="14dp" />
         </LinearLayout>
 
 
