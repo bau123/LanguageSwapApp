@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.R;
 import com.example.pc.run.Friends.ReviewList_act;
@@ -120,10 +121,9 @@ public class MyProfile extends Fragment {
         languagesKnown.setText("Languages Known: " +current.getString("languagesKnown"));
         languagesLearning.setText("Languages learning: " +current.getString("languagesLearning"));
 
-        if(current.getString("photo") != null) {
+        if(current.getString("photo") != null && current.getString("photo") != "photo") {
             Log.d("PROFILE BITMAP:", current.getString("photo"));
-            byte[] decodedByte = Base64.decode(current.getString("photo"), 0);
-            bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+            bitmap =  GlobalMethds.stringToBitmap(current.getString("photo"));
             profileImage.setImageBitmap(bitmap);
         }
 
