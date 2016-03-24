@@ -94,10 +94,10 @@ public class CreateReview_act extends Activity {
             e.printStackTrace();
         }
         if (result.equals("success")) {
-            Intent intent = new Intent(CreateReview_act.this, FriendsList_act.class);
-            startActivity(intent);
+            finish();
         } else if (result.equals("failure")) {
             Toast.makeText(getApplicationContext(), "Only one review is aloud per person...", Toast.LENGTH_LONG).show();
+            finish();
         }
 
     }
