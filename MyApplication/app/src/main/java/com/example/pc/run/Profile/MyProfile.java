@@ -121,8 +121,9 @@ public class MyProfile extends Fragment {
         languagesKnown.setText("Languages Known: " +current.getString("languagesKnown"));
         languagesLearning.setText("Languages learning: " +current.getString("languagesLearning"));
 
-        if(current.getString("photo") != null && current.getString("photo") != "photo") {
-            Log.d("PROFILE BITMAP:", current.getString("photo"));
+        if(!current.getString("photo").equals(null) && current.getString("photo").equals("photo")) {
+
+            System.out.println("In myProfile changing picure "+ current.getString("photo") );
             bitmap =  GlobalMethds.stringToBitmap(current.getString("photo"));
             profileImage.setImageBitmap(bitmap);
         }
