@@ -46,6 +46,7 @@ public class Profile_act extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         Log.d("PROFILE EMAIL:", email);
 
+        //Initialising vaiables
         name = (TextView) findViewById(R.id.nameView);
         interests = (TextView) findViewById(R.id.interestsView);
         languagesKnown = (TextView) findViewById(R.id.languagesKnownView);
@@ -55,6 +56,9 @@ public class Profile_act extends AppCompatActivity {
         getProfileInfo();
     }
 
+    /*
+        Pull profile info with email as primary key
+     */
     public void getProfileInfo(){
 
         Map<String, String> parameters = new HashMap<>();
@@ -80,6 +84,9 @@ public class Profile_act extends AppCompatActivity {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    /*
+        Processes database result and displays profile info
+     */
     private void processResult(JSONObject input) throws JSONException {
 
         JSONArray userInfo = input.getJSONArray("result");
@@ -109,12 +116,18 @@ public class Profile_act extends AppCompatActivity {
         }
     }
 
+    /*
+        Intent to ReviewList
+     */
     public void seeReviews(View view){
         Intent intent = new Intent(Profile_act.this, ReviewList_act.class);
         intent.putExtra("email", email);
         startActivity(intent);
     }
 
+    /*
+        Intent to BlockUser
+     */
     public void reportUser(View view){
         Intent intent = new Intent(Profile_act.this, BlockUser.class);
         intent.putExtra("myEmail", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);

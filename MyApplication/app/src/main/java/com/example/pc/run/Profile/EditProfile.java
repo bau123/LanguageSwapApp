@@ -233,6 +233,9 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
+    /*
+        Creates a view popup for user to update password
+     */
     public void changeAuth(View view) {
 
         // custom dialog
@@ -243,7 +246,6 @@ public class EditProfile extends AppCompatActivity {
         final EditText currentPassEdit = (EditText) dialog.findViewById(R.id.oldpassEdit);
         final EditText newPassEdit1 = (EditText) dialog.findViewById(R.id.newPassEdit1);
         final EditText newPassEdit2 = (EditText) dialog.findViewById(R.id.newPassEdit2);
-
 
 
         Button dialogSend = (Button) dialog.findViewById(R.id.change_confirm);
@@ -257,6 +259,9 @@ public class EditProfile extends AppCompatActivity {
                 String newPass2 = newPassEdit2.getText().toString();
 
 
+                /*
+                    Checks current details against shared preference
+                 */
                 if(!oldPass.equals(ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[1])){
                     Snackbar snackbar = Snackbar
                             .make(coordinatorLayout, "Current password is incorrect", Snackbar.LENGTH_LONG);
@@ -268,6 +273,9 @@ public class EditProfile extends AppCompatActivity {
                     snackbar.show();
                 }
                 else {
+                    /*
+                        On success - calls database update
+                     */
                     Map<String, String> parameters = new HashMap<String, String>();
                     parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
                     parameters.put("password", oldPass);

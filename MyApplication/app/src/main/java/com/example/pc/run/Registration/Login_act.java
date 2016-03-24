@@ -246,6 +246,9 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         }
     }
 
+    /*
+        pulls user profile data from database
+     */
     public void pullInformation(String email) {
         System.out.println("Making params");
         Map<String, String> parameters = new HashMap<String, String>();
@@ -276,6 +279,9 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
+    /*
+        Stores pull data nd stores in shared pref
+     */
 
     private void processProfileInfo(JSONObject input) throws JSONException {
 
@@ -328,11 +334,17 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
     }
 
+    /*
+        Opens home directly
+     */
     public void openMainAct() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /*
+        Locks account after too many incorrect guesses
+     */
     public void lockAccount(String email) {
         String lockUrl = "http://t-simkus.com/run/lockAccount.php";
 
@@ -352,6 +364,9 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    /*
+        Intent to register
+     */
     public void toRegister(View view) {
         Intent intent = new Intent(this, Register_act.class);
         startActivity(intent);
@@ -431,6 +446,7 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
         dialog.show();
     }
 
+    //check if network is available
     private boolean checkNetwork() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
@@ -474,6 +490,9 @@ public class Login_act extends BaseActivity implements SinchService.StartFailedL
     }
 
 
+    /*
+        Cached email store
+     */
     private String cachedEmail() {
         StringBuffer text = new StringBuffer();
         try {

@@ -52,6 +52,9 @@ public class MyProfile extends Fragment {
         email = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
         Log.d("PROFILE EMAIL:", email);
 
+        /*
+            Initialising variables
+         */
         name = (TextView) v.findViewById(R.id.nameView);
         interests = (TextView) v.findViewById(R.id.interestsView);
         languagesKnown = (TextView) v.findViewById(R.id.languagesKnownView);
@@ -59,6 +62,8 @@ public class MyProfile extends Fragment {
         profileImage = (ImageView) v.findViewById(R.id.profileImageView);
         seeReviews = (Button)v.findViewById(R.id.reviewButton);
         editProfile = (Button) v.findViewById(R.id.editProfile);
+
+        //changes intent to reviewList
         seeReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +72,7 @@ public class MyProfile extends Fragment {
                 startActivity(intent);
             }
         });
+        //changes intent to editprofile class
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,11 +81,15 @@ public class MyProfile extends Fragment {
             }
         });
 
+        //calls db query to get current users profile information
         getProfileInfo();
 
         return v;
     }
 
+    /*
+        Database query to pull user data
+     */
     public void getProfileInfo(){
 
         Map<String, String> parameters = new HashMap<>();
@@ -105,6 +115,9 @@ public class MyProfile extends Fragment {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    /*
+        Pulls data and displays user profile info
+     */
     private void processResult(JSONObject input) throws JSONException {
 
         JSONArray userInfo = input.getJSONArray("result");

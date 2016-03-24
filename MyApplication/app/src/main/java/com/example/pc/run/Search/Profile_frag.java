@@ -42,6 +42,9 @@ public class Profile_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /*
+            Initialising variables
+         */
         data = getArguments().getString("data");
         View v = inflater.inflate(R.layout.activity_profile_frag, container, false);
 

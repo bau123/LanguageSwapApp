@@ -31,6 +31,7 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_image_act);
 
+        //Initialising variables
         email = getIntent().getStringExtra("email");
         pass = getIntent().getStringExtra("pass");
 
@@ -39,11 +40,15 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
+        //sets onclicklisteners
         chooseImage.setOnClickListener(this);
         buttonReturn.setOnClickListener(this);
     }
 
 
+    /*
+        Opens gallery on phone
+     */
     private void showFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -51,6 +56,9 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), request);
     }
 
+    /*
+        Gets gallry image bitmap and displays
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -75,6 +83,9 @@ public class UploadImage_act extends AppCompatActivity implements View.OnClickLi
             showFileChooser();
         }
 
+        /*
+            Returns back to create_profile
+         */
         if(v==buttonReturn){
             Intent intent = new Intent(UploadImage_act.this, CreateProfile_Act.class);
             ApplicationSingleton.getInstance().getPrefManager().storeProfileImage(GlobalMethds.bitmapToString(bitmap));

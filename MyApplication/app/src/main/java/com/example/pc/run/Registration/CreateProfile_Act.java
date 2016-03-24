@@ -48,6 +48,9 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile_);
 
+        /*
+            Initialising variables
+         */
         profileImage = (ImageView)findViewById(R.id.profileImage);
         langKnownSpinner = (MultiSelectionSpinner)findViewById(R.id.langKnownSpinner);
         langLearningSpinner = (MultiSelectionSpinner)findViewById(R.id.langLearningSpinner);
@@ -70,6 +73,9 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
         interests = (EditText)findViewById(R.id.interestsEdit);
     }
 
+    /*
+        Takes Profile information stored in views and adds data to database
+     */
     public void addProfileInfo(View view) {
         System.out.println("making params");
         Map<String, String> parameters = new HashMap<>();
@@ -144,6 +150,9 @@ public class CreateProfile_Act extends AppCompatActivity implements MultiSelecti
 
     }
 
+    /*
+        Intent to uploadimage_act
+     */
     public void uploadImage(View v){
         Intent intent = new Intent(this, UploadImage_act.class);
         intent.putExtra("email", email);

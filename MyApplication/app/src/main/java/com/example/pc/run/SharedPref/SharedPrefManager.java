@@ -49,6 +49,9 @@ public class SharedPrefManager {
         editor.commit();
     }
 
+    /*
+        Returns notifications
+     */
     public String getNotifications() {
         return pref.getString(KEY_NOTIFICATIONS, null);
     }
@@ -79,11 +82,17 @@ public class SharedPrefManager {
         return temp;
     }
 
+    /*
+        Stores profile image into shared pref
+     */
     public void storeProfileImage(String image){
         editor.putString(KEY_PROFILE_image, image);
         editor.commit();
     }
 
+    /*
+        Returns profile image from shared pref
+     */
     public String getImageString(){
         return pref.getString(KEY_PROFILE_image, null);
     }
@@ -105,6 +114,9 @@ public class SharedPrefManager {
         editor.commit();
     }
 
+    /*
+        Checks account details from shared pref
+     */
     public boolean checkAccount(){
         if((pref.getString(KEY_email, null) != null) && (pref.getString(KEY_password, null) != null)){
             return true;

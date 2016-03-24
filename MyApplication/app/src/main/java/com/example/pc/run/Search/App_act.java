@@ -168,6 +168,9 @@ public class App_act extends Fragment {
 
     }
 
+    /*
+        Search query method from toolbar search function
+     */
     public void externalQuery(String query){
         makingRequest = true;
         Map<String, String> parameters = new HashMap<>();
@@ -176,6 +179,9 @@ public class App_act extends Fragment {
         processParameters(parameters);
     }
 
+    /*
+        Method to getAll profiles
+     */
     public void getAll(){
         Map<String, String> parameters = new HashMap<>();
         parameters.put("email", ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0]);
@@ -287,6 +293,9 @@ public class App_act extends Fragment {
     }
 
 
+   /*
+        Swipe feature adapter implementation
+    */
     class PagerAdapter extends FragmentPagerAdapter {
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -305,6 +314,9 @@ public class App_act extends Fragment {
         }
     }
 
+    /*
+        Updates user location in real time
+     */
     public void setLocation() {
         String locationUrl = "http://t-simkus.com/run/updateLocation.php";
 
@@ -345,6 +357,9 @@ public class App_act extends Fragment {
         }
     }
 
+    /*
+    Sets location parameters
+     */
     public void setParams() {
         String url2 = "http://t-simkus.com/run/getLocations.php";
         Map<String, String> parameters = new HashMap<String, String>();

@@ -15,6 +15,9 @@ public class ApplicationSingleton extends Application {
     private RequestQueue mRequestQueue;
     private SharedPrefManager pref;
 
+    /*
+        Sets instance state
+     */
     public void onCreate() {
         super.onCreate();
         mInstance = this;
@@ -32,6 +35,9 @@ public class ApplicationSingleton extends Application {
         return pref;
     }
 
+    /*
+        Returns requestqueue for manip
+     */
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
@@ -41,17 +47,27 @@ public class ApplicationSingleton extends Application {
         return mRequestQueue;
     }
 
+    /*
+      Adds request to request queue with tag
+   */
+
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
     }
 
+    /*
+      Adds request to request queure
+   */
     public <T> void addToRequestQueue(Request<T> req) {
         req.setTag(TAG);
         getRequestQueue().add(req);
     }
 
+    /*
+        Cancels a pending request
+     */
     public void cancelPendingRequests(Object tag) {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
