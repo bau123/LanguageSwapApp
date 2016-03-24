@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import com.example.pc.run.Global.GlobalMethds;
 import com.example.pc.run.Network_Utils.Requests;
 import com.example.pc.run.SharedPref.ApplicationSingleton;
 
@@ -27,14 +28,14 @@ import java.util.Map;
 
 public class Profile_act extends AppCompatActivity {
 
-    TextView name;
-    TextView interests;
-    TextView languagesKnown;
-    TextView languagesLearning;
-    ImageView profileImage;
-    Bitmap bitmap;
-    String email;
-    String url = "http://t-simkus.com/run/pullProfile.php";
+    private TextView name;
+    private TextView interests;
+    private TextView languagesKnown;
+    private TextView languagesLearning;
+    private ImageView profileImage;
+    private Bitmap bitmap;
+    private String email;
+    private String url = "http://t-simkus.com/run/pullProfile.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class Profile_act extends AppCompatActivity {
 
         getProfileInfo();
     }
-
 
     public void getProfileInfo(){
 
@@ -95,10 +95,10 @@ public class Profile_act extends AppCompatActivity {
         languagesKnown.setText("Languages known:" + current.getString("languagesKnown"));
         languagesLearning.setText("Languages learning: " + current.getString("languagesLearning"));
 
-        if(current.getString("photo") != null) {
-            Log.d("PROFILE BITMAP:", current.getString("photo"));
-            byte[] decodedByte = Base64.decode(current.getString("photo"), 0);
-            bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+        System.out.println("PHOTO IS +++" + current.getString("photo") );
+        if(current.getString("photo") != null && current.getString("photo") != "photo") {
+            System.out.println("photo changed");
+            bitmap = GlobalMethds.stringToBitmap(current.getString("photo"));
             profileImage.setImageBitmap(bitmap);
         }
 
