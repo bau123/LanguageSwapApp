@@ -43,6 +43,9 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        /*
+            Initialising key variables
+         */
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                 .coordinatorLayout);
 
@@ -58,14 +61,19 @@ public class EditProfile extends AppCompatActivity {
 
         interests = (EditText) findViewById(R.id.editInterests);
 
+        //Set Language Array as variables for language list
         langKnown.setItems(GlobalMethds.LanguageArray);
         langLearn.setItems(GlobalMethds.LanguageArray);
 
 
+        //Get email from shared preference and calls db to pull info
         email = ApplicationSingleton.getInstance().getPrefManager().getAuthentication()[0];
         getProfileInfo();
     }
 
+    /*
+        Setting listeners for both spinner
+     */
     public void buildSpinnerKnown(MultiSelectionSpinner spinner) {
         spinner.setListener(new MultiSelectionSpinner.OnMultipleItemsSelectedListener() {
             @Override
@@ -96,6 +104,9 @@ public class EditProfile extends AppCompatActivity {
 
 
 
+    /*
+        Calls database to pull user profile with value email as primary key
+     */
     public void getProfileInfo() {
         String url = "http://t-simkus.com/run/pullProfile.php";
         Map<String, String> parameters = new HashMap<>();
@@ -121,8 +132,12 @@ public class EditProfile extends AppCompatActivity {
         ApplicationSingleton.getInstance().addToRequestQueue(jsObjRequest);
     }
 
+    /*
+        Processes JSON result from database query
+     */
     private void processResult(JSONObject input) throws JSONException {
 
+        ///Get's array of profile from db and takes value at 0
         JSONArray userInfo = input.getJSONArray("result");
         JSONObject current = userInfo.getJSONObject(0);
 
@@ -141,6 +156,9 @@ public class EditProfile extends AppCompatActivity {
         String learning = current.getString("languagesLearning");
         ArrayList<String> languagesLearning = new ArrayList<String>(Arrays.asList(learning.split(",")));
 
+        /*
+            Sets language selections form global langarray
+         */
         for (int i = 0; i < languagesKnown.size(); i++) {
             for (int j = 0; j < GlobalMethds.LanguageArray.length; i++) {
                 if (languagesKnown.get(i).equals(GlobalMethds.LanguageArray[j])) {
@@ -157,6 +175,7 @@ public class EditProfile extends AppCompatActivity {
             }
         }
 
+        //Returns successful if database query worked
         if (current.getString("name") != null) {
             System.out.println("SUCCESSFUL");
         } else {
@@ -164,6 +183,9 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
+    /*
+         Database call to update user information
+     */
     public void saveProfile(View view) {
         String url = "http://t-simkus.com/run/editProfile.php";
 
@@ -180,6 +202,9 @@ public class EditProfile extends AppCompatActivity {
                 try {
                     System.out.println(response.toString());
                     try {
+                        /*
+                            Actions depending on result
+                         */
                         String result = response.getString("message");
                         if (result.equals("success")) {
                             Log.d("Response: ", response.toString());
