@@ -5,14 +5,14 @@
 
     <ImageView
         android:src="@drawable/profile_filled"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/fqProfileImage" />
 
     <TextView
         android:id="@+id/fqNameView"
         android:text="Name"
-        android:textSize="14dp"
+        android:textSize="30dp"
         android:textColor="@color/BLACK"
         android:layout_alignTop="@+id/fqProfileImage"
         android:layout_width="140dp"
@@ -27,8 +27,8 @@
     <Button
         android:id="@+id/acceptButton"
         android:background="@drawable/tick123"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_alignParentTop="true"
         android:onClick="acceptFriendRequest"
         android:layout_toStartOf="@+id/rejectButton"
@@ -38,8 +38,8 @@
     <Button
         android:id="@+id/rejectButton"
         android:background="@drawable/cross12"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:onClick="rejectFriendRequest"
         android:layout_alignBottom="@+id/acceptButton"
         android:layout_alignParentRight="true"

@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".Profile.Profile_act">
+    tools:context="com.example.pc.run.Search.Profile_frag">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="6"
+        android:layout_weight="7"
         android:baselineAligned="false"
         android:clickable="false"
-        android:contextClickable="false"
-        android:orientation="horizontal">
+        android:contextClickable="false">
 
         <com.example.pc.run.Global.RoundedImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/profileImageSwipe"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/profile_filled"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
@@ -34,32 +33,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:background="#ffffff">
+        android:layout_weight="3"
+        android:background="@drawable/rounded_corner">
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnCount="1"
             android:orientation="vertical"
-            android:rowCount="6"
-            android:layout_marginTop="20dp">
+            android:rowCount="5">
 
             <TextView
-                android:id="@+id/nameView"
+                android:id="@+id/nameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/profileFrag_Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp" />
 
             <TextView
-                android:id="@+id/languagesKnownView"
+                android:id="@+id/langKnownField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nameField"
@@ -67,10 +65,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Known"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="18dp" />
 
             <TextView
-                android:id="@+id/languagesLearningView"
+                android:id="@+id/langLearningField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/langKnownField"
@@ -78,10 +78,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Learning"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="18dp" />
 
             <TextView
-                android:id="@+id/interestsView"
+                android:id="@+id/interestsField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/langLearningField"
@@ -89,30 +91,47 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/profileFrag_Interests"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="18dp" />
+
+            <TextView
+                android:id="@+id/lblCampus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/profileFrag_Campus"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="30dp"
+                android:layout_marginTop="18dp" />
+
 
         </GridLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="15dp">
+            android:layout_gravity="bottom">
 
-            <Button
-                android:id="@+id/reviewButton"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/buttonA"
-                android:onClick="seeReviews"
-                android:text="@string/profileFrag_Reviews"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addFavBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:onClick="addFav"
+                android:src="@drawable/plus_icon"
+                app:elevation="0dp"
+                android:layout_marginBottom="40dp" />
 
         </RelativeLayout>
 
     </RelativeLayout>
+
 
 </LinearLayout>
